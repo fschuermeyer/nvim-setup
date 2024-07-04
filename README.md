@@ -1,4 +1,9 @@
 # 💤 Nvim Setup Felix
 
-A starter template for [LazyVim](https://github.com/LazyVim/LazyVim).
-Refer to the [documentation](https://lazyvim.github.io/installation) to get started.
+## Start Commands
+
+Setup Neovim (LazyVim) on a new System
+
+```shell
+git clone git@github.com:fschuermeyer/nvim-setup.git ~ /.config/nvim
+```
