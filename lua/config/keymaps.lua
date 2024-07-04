@@ -5,6 +5,7 @@
 local map = vim.keymap.set
 
 -- Move Lines
+-- Alternative Commands for MacOS "option/alt" Key not working
 map("n", "<C-m>", "<cmd>m .-2<cr>==", { desc = "Move Up" })
 map("n", "<C-n>", "<cmd>m .+1<cr>==", { desc = "Move Down" })
 map("i", "<C-n>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
