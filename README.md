@@ -5,5 +5,5 @@
 Setup Neovim (LazyVim) on a new System
 
 ```shell
-git clone git@github.com:fschuermeyer/nvim-setup.git ~ /.config/nvim
+git clone git@github.com:fschuermeyer/nvim-setup.git ~/.config/nvim
 ```
