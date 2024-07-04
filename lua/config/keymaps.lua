@@ -12,3 +12,7 @@ map("i", "<C-n>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
 map("i", "<C-m>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
 map("v", "<C-n>", ":m '>+1<cr>gv=gv", { desc = "Move Down" })
 map("v", "<C-m>", ":m '<-2<cr>gv=gv", { desc = "Move Up" })
+
+-- Go (vim-go)
+map("n", "<leader>öt", ":GoTestFunc<cr>", { desc = "GO Test a Function", silent = true, noremap = true })
+map("n", "<leader>öd", ":GoDef<cr>", { desc = "GO Jump to Definition", silent = true, noremap = true })
