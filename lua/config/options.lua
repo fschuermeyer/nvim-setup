@@ -7,7 +7,7 @@ return {
     "nvim-telescope/telescope.nvim",
     opts = {
       defaults = {
-        file_ignore_patterns = { "node_modules" },
+        file_ignore_patterns = { "node_modules", "swaggerui-src", ".git" },
       },
     },
   },
@@ -18,6 +18,10 @@ return {
         ["neotest-golang"] = {
           go_test_args = { "-v", "-race", "-count=1" },
           dep_go_enabled = true,
+        },
+        ["neotest-jest"] = {
+          jestCommand = "yarn run unit-tests",
+          jestConfigFile = "jest.config.js",
         },
       },
     },
