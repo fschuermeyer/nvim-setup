@@ -16,3 +16,7 @@ map("v", "<C-m>", ":m '<-2<cr>gv=gv", { desc = "Move Up" })
 -- Go (vim-go)
 map("n", "<leader>öt", ":GoTestFunc<cr>", { desc = "GO Test a Function", silent = true, noremap = true })
 map("n", "<leader>öd", ":GoDef<cr>", { desc = "GO Jump to Definition", silent = true, noremap = true })
+
+-- Enable Copilot
+map("n", "<leader>ce", ":Copilot enable<cr>", { desc = "Enable Copilot" })
+map("n", "<leader>cx", ":Copilot disable<cr>", { desc = "Disable Copilot" })
