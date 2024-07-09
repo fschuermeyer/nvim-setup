@@ -1,6 +1,7 @@
 {
   "bash-language-server": "5.4.0",
   "css-lsp": "4.8.0",
+  "css-variables-language-server": "2.7.0",
   "debugpy": "1.8.2",
   "delve": "v1.22.1",
   "docker-compose-language-service": "0.2.0",
@@ -23,7 +24,6 @@
   "marksman": "2023-12-09",
   "php-cs-fixer": "v3.59.3",
   "php-debug-adapter": "v1.34.0",
-  "phpactor": "2024.03.09.0",
   "phpcs": "3.10.1",
   "prettier": "3.3.2",
   "pyright": "1.1.370",
