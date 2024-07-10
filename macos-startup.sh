@@ -1,10 +1,21 @@
 #!/bin/bash
+
+install_tool() {
+  local tool=$1
+  if ! brew list --formula | grep -q "^${tool}\$"; then
+    echo "Installing $tool..."
+    brew install "$tool"
+  else
+    echo "$tool is already installed."
+  fi
+}
+
 # check brew is installed otherwise install it
 if ! command -v brew &>/dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 fi
 
-# Array von Tools
+# Allgemeine Tools
 tools=(
   "git"
   "wget"
@@ -14,13 +25,9 @@ tools=(
   "htop"
   "gh"
   "tree"
-  "displayplacer"
-  "speedtest"
-  "jordanbaird-ice"
   "rust"
 )
 
-# Array von CLI Helfern
 cli_helpers=(
   "zoxide"
   "bat"
@@ -28,7 +35,6 @@ cli_helpers=(
   "jq"
 )
 
-# Array von Packages
 packages=(
   "neovim"
   "lazygit"
@@ -41,16 +47,11 @@ packages=(
   "hadolint"
 )
 
-# Funktion zur Installation eines Tools
-install_tool() {
-  local tool=$1
-  if ! brew list --formula | grep -q "^${tool}\$"; then
-    echo "Installing $tool..."
-    brew install "$tool"
-  else
-    echo "$tool is already installed."
-  fi
-}
+optionale=(
+  "displayplacer"
+  "speedtest"
+  "jordanbaird-ice"
+)
 
 # Installiere Tools
 echo "Installing tools..."
@@ -69,6 +70,14 @@ echo "Installing packages..."
 for tool in "${packages[@]}"; do
   install_tool "$tool"
 done
+
+# Installiere Optionale Tools
+if [[ $1 == "-o" ]]; then
+  echo "Installing optional tools..."
+  for tool in "${optionale[@]}"; do
+    install_tool "$tool"
+  done
+fi
 
 if npm list -g neovim &>/dev/null || yarn global list | grep -q "neovim"; then
   echo "Neovim npm package is already installed."
