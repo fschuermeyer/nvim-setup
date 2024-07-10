@@ -14,6 +14,8 @@
   "golangci-lint-langserver": "v0.0.9",
   "gopls": "v0.16.1",
   "hadolint": "v2.12.0",
+  "haskell-debug-adapter": "0.0.39.0",
+  "haskell-language-server": "2.7.0.0",
   "html-lsp": "4.8.0",
   "intelephense": "1.10.2",
   "js-debug-adapter": "v1.91.0",
