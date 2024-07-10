@@ -1,9 +1,14 @@
 -- define the colorscheme for nvim
 return {
   {
-    "LazyVim/LazyVim",
+    "folke/tokyonight.nvim",
     opts = {
-      colorscheme = "tokyonight-night",
+      transparent = true,
+      style = "night",
+      styles = {
+        sidebars = "transparent",
+        floats = "transparent",
+      },
     },
   },
 }
