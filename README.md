@@ -10,9 +10,11 @@ Setup Neovim ([LazyVim](https://www.lazyvim.org/)) on a new System
 git clone git@github.com:fschuermeyer/nvim-setup.git ~/.config/nvim
 ```
 
+On the first Startup use `:MasonLockRestore` to restore the LSP Configuration.
+
 ### MacOS Setup
 
-If you are on MacOS, i provide a `macos-startup.sh` file this include only my nessesary tools for development. You can run this script with the following command:
+If you are on MacOS, i provide a `macos-startup.sh` file this include only my necessary tools for development. You can run this script with the following command:
 
 ```shell
 sh ~/.config/nvim/macos-startup.sh
