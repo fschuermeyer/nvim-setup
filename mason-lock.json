@@ -1,6 +1,7 @@
 {
   "bash-language-server": "5.4.0",
   "css-lsp": "4.8.0",
+  "css-variables-language-server": "2.7.0",
   "debugpy": "1.8.2",
   "delve": "v1.22.1",
   "docker-compose-language-service": "0.2.0",
@@ -13,8 +14,6 @@
   "golangci-lint-langserver": "v0.0.9",
   "gopls": "v0.16.1",
   "hadolint": "v2.12.0",
-  "haskell-debug-adapter": "0.0.39.0",
-  "haskell-language-server": "2.7.0.0",
   "html-lsp": "4.8.0",
   "intelephense": "1.10.2",
   "js-debug-adapter": "v1.91.0",
