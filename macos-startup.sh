@@ -7,12 +7,17 @@ fi
 # Array von Tools
 tools=(
   "git"
+  "wget"
+  "php"
+  "composer"
+  "curl"
   "htop"
   "gh"
   "tree"
   "displayplacer"
   "speedtest"
   "jordanbaird-ice"
+  "rust"
 )
 
 # Array von CLI Helfern
@@ -88,6 +93,14 @@ if ! pyenv versions | grep -q "3.11.0"; then
   echo "Installing python 3.11.0..."
   pyenv install 3.11.0
   pyenv global 3.11.0
+fi
+
+# setup pip
+if ! command -v pip &>/dev/null; then
+  echo "Installing pip..."
+  curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+  python3 get-pip.py
+  rm get-pip.py
 fi
 
 # install pynvim for python provider on python 3.11.0
