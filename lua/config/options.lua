@@ -9,6 +9,7 @@ return {
         ["neotest-golang"] = {
           go_test_args = { "-v", "-race", "-count=1" },
           dep_go_enabled = true,
+          testify_enabled = true,
         },
         ["neotest-jest"] = {
           jestCommand = "yarn run unit-tests",

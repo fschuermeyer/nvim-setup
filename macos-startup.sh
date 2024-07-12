@@ -19,12 +19,17 @@ fi
 tools=(
   "git"
   "wget"
-  "php"
-  "composer"
   "curl"
   "htop"
   "gh"
   "tree"
+)
+
+# Programmiersprachen & Packag Managers for the languages
+languages=(
+  "php"
+  "composer"
+  "kotlin"
   "rust"
 )
 
@@ -52,6 +57,12 @@ optionale=(
   "speedtest"
   "jordanbaird-ice"
 )
+
+# Installiere Programmiersprachen
+echo "Installing languages..."
+for tool in "${languages[@]}"; do
+  install_tool "$tool"
+done
 
 # Installiere Tools
 echo "Installing tools..."
