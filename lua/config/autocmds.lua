@@ -8,3 +8,18 @@ vim.cmd([[
   autocmd BufNewFile,BufRead *.gohtmltmpl set filetype=gohtmltmpl
   autocmd BufNewFile,BufRead *.gotexttmpl  set filetype=gotexttmpl
 ]])
+
+-- Disable Autoformat for Specific Filetypes
+local set_autoformat = function(pattern, bool_val)
+  vim.api.nvim_create_autocmd({ "FileType" }, {
+    pattern = pattern,
+    callback = function()
+      vim.b.autoformat = bool_val
+    end,
+  })
+end
+
+-- disable Autoformatting for Stylesheets
+set_autoformat({ "css", "scss", "sass" }, false)
+
+set_autoformat({ "kotlin" }, false)
