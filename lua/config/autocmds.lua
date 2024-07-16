@@ -10,18 +10,18 @@ vim.cmd([[
 ]])
 
 -- Disable Autoformat for Specific Filetypes
-local set_autoformat = function(pattern, bool_val)
+local disable_autoformat = function(pattern)
   vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = pattern,
     callback = function()
-      vim.b.autoformat = bool_val
+      vim.b.autoformat = false
     end,
   })
 end
 
 -- disable Autoformatting for Stylesheets
-set_autoformat({ "css", "scss", "sass" }, false)
+disable_autoformat({ "css", "scss", "sass" })
 
-set_autoformat({ "kotlin" }, false)
+disable_autoformat({ "kotlin" })
 
-set_autoformat({ "gohtml", "gohtmltmpl", "tmpl" }, false)
+disable_autoformat({ "gohtml", "gohtmltmpl", "tmpl" })
