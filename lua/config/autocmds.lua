@@ -23,3 +23,5 @@ end
 set_autoformat({ "css", "scss", "sass" }, false)
 
 set_autoformat({ "kotlin" }, false)
+
+set_autoformat({ "gohtml", "gohtmltmpl", "tmpl" }, false)
