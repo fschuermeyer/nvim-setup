@@ -21,7 +21,10 @@ return {
         runner = "pytest",
       })
 
-      local jestAdapter = require("neotest-jest")({})
+      local jestAdapter = require("neotest-jest")({
+        jestConfigFile = "jest.config.js",
+        jestCommand = "yarn jest",
+      })
 
       ---@diagnostic disable-next-line: missing-fields
       require("neotest").setup({
