@@ -20,3 +20,9 @@ map("n", "<leader>öd", ":GoDef<cr>", { desc = "GO Jump to Definition", silent =
 -- Enable Copilot
 map("n", "<leader>ce", ":Copilot enable<cr>", { desc = "Enable Copilot" })
 map("n", "<leader>cx", ":Copilot disable<cr>", { desc = "Disable Copilot" })
+
+-- Tmux Navigator
+map("n", "<C-h>", ":<C-U>TmuxNavigateLeft<cr>", { desc = "Tmux Navigate Left", silent = true, noremap = true })
+map("n", "<C-j>", ":<C-U>TmuxNavigateDown<cr>", { desc = "Tmux Navigate Down", silent = true, noremap = true })
+map("n", "<C-k>", ":<C-U>TmuxNavigateUp<cr>", { desc = "Tmux Navigate Up", silent = true, noremap = true })
+map("n", "<C-l>", ":<C-U>TmuxNavigateRight<cr>", { desc = "Tmux Navigate Right", silent = true, noremap = true })
