@@ -31,6 +31,7 @@
   "phpcs": "3.10.1",
   "prettier": "3.3.2",
   "pyright": "1.1.370",
+  "ruff": "0.5.4",
   "ruff-lsp": "0.0.54",
   "shellcheck": "v0.10.0",
   "shfmt": "v3.8.0",

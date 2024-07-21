@@ -1,30 +1,29 @@
 {
-  "extras": [
-    "lazyvim.plugins.extras.coding.copilot",
-    "lazyvim.plugins.extras.coding.copilot-chat",
-    "lazyvim.plugins.extras.coding.luasnip",
-    "lazyvim.plugins.extras.editor.mini-diff",
-    "lazyvim.plugins.extras.lang.docker",
-    "lazyvim.plugins.extras.lang.git",
-    "lazyvim.plugins.extras.lang.go",
-    "lazyvim.plugins.extras.lang.haskell",
-    "lazyvim.plugins.extras.lang.json",
-    "lazyvim.plugins.extras.lang.markdown",
-    "lazyvim.plugins.extras.lang.php",
-    "lazyvim.plugins.extras.lang.python",
-    "lazyvim.plugins.extras.lang.sql",
-    "lazyvim.plugins.extras.lang.tailwind",
-    "lazyvim.plugins.extras.lang.toml",
-    "lazyvim.plugins.extras.lang.typescript",
-    "lazyvim.plugins.extras.lang.vue",
-    "lazyvim.plugins.extras.lang.yaml",
-    "lazyvim.plugins.extras.linting.eslint",
-    "lazyvim.plugins.extras.test.core",
-    "lazyvim.plugins.extras.ui.mini-animate",
-    "lazyvim.plugins.extras.ui.treesitter-context"
-  ],
-  "news": {
-    "NEWS.md": "6077"
-  },
-  "version": 6
+    "extras": [
+        "lazyvim.plugins.extras.coding.copilot",
+        "lazyvim.plugins.extras.coding.copilot-chat",
+        "lazyvim.plugins.extras.coding.luasnip",
+        "lazyvim.plugins.extras.editor.mini-diff",
+        "lazyvim.plugins.extras.lang.docker",
+        "lazyvim.plugins.extras.lang.git",
+        "lazyvim.plugins.extras.lang.go",
+        "lazyvim.plugins.extras.lang.json",
+        "lazyvim.plugins.extras.lang.markdown",
+        "lazyvim.plugins.extras.lang.php",
+        "lazyvim.plugins.extras.lang.python",
+        "lazyvim.plugins.extras.lang.sql",
+        "lazyvim.plugins.extras.lang.tailwind",
+        "lazyvim.plugins.extras.lang.toml",
+        "lazyvim.plugins.extras.lang.typescript",
+        "lazyvim.plugins.extras.lang.vue",
+        "lazyvim.plugins.extras.lang.yaml",
+        "lazyvim.plugins.extras.linting.eslint",
+        "lazyvim.plugins.extras.test.core",
+        "lazyvim.plugins.extras.ui.mini-animate",
+        "lazyvim.plugins.extras.ui.treesitter-context"
+    ],
+    "news": {
+        "NEWS.md": "6296"
+    },
+    "version": 6
 }
