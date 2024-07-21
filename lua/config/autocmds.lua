@@ -7,6 +7,7 @@ vim.cmd([[
   autocmd BufNewFile,BufRead *.gohtml set filetype=gohtmltmpl
   autocmd BufNewFile,BufRead *.gohtmltmpl set filetype=gohtmltmpl
   autocmd BufNewFile,BufRead *.gotexttmpl  set filetype=gotexttmpl
+  autocmd BufNewFile,BufRead *.twig set filetype=html
 ]])
 
 -- Disable Autoformat for Specific Filetypes
