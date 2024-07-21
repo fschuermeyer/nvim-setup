@@ -1,6 +1,11 @@
 -- define the colorscheme for nvim
 return {
   {
+    "norcalli/nvim-colorizer.lua",
+    event = "BufEnter",
+    opts = { "*" },
+  },
+  {
     "folke/tokyonight.nvim",
     opts = {
       transparent = true,
