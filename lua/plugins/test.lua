@@ -1,5 +1,6 @@
 return {
   { "fredrikaverpil/neotest-golang", enabled = false },
+  { "mrcjkb/neotest-haskell", enabled = false },
   {
     "nvim-neotest/neotest",
     dependencies = {
