@@ -20,6 +20,9 @@ map("n", "<leader>tg", ":GoTestFunc<cr>", { desc = "Testing Golang Function 🐰
 map("n", "<leader>ce", ":Copilot enable<cr>", { desc = "Enable Copilot" })
 map("n", "<leader>cx", ":Copilot disable<cr>", { desc = "Disable Copilot" })
 
+-- Tmux Fix move CTRL+A to CTRL+Q
+map("n", "<C-q>", "<C-a>", { desc = "Increment Numbers", silent = true, noremap = true })
+
 -- Tmux Navigator
 map("n", "<C-h>", ":<C-U>TmuxNavigateLeft<cr>", { desc = "Tmux Navigate Left", silent = true, noremap = true })
 map("n", "<C-j>", ":<C-U>TmuxNavigateDown<cr>", { desc = "Tmux Navigate Down", silent = true, noremap = true })
