@@ -1,6 +1,6 @@
 # 💤 Personal Nvim Setup
 
-This is my personal Neovim Setup based on ([LazyVim](https://www.lazyvim.org/)). I use it for my daily work and I'm happy to share it with you. Feel free to use it as a base for your own setup!
+This is my personal Neovim Setup based on ([LazyVim](https://www.lazyvim.org/)). I use it for my daily work and I'm happy to share it with you. Feel free to use it as a base for your own setup.
 
 ## Setup
 
