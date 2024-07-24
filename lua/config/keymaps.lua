@@ -5,6 +5,13 @@
 local enableKey = vim.keymap.set
 local disableKey = vim.keymap.del
 
+-- Disable LazyGit Keymaps
+disableKey("n", "<leader>gg")
+disableKey("n", "<leader>gG")
+disableKey("n", "<leader>gf")
+disableKey("n", "<leader>gl")
+disableKey("n", "<leader>gL")
+
 -- Move Lines
 -- Alternative Commands for MacOS "option/alt" Key not working
 enableKey("n", "<C-m>", "<cmd>m .-2<cr>==", { desc = "Move Up" })
@@ -35,9 +42,9 @@ enableKey("n", "<C-j>", ":<C-U>TmuxNavigateDown<cr>", { desc = "Tmux Navigate Do
 enableKey("n", "<C-k>", ":<C-U>TmuxNavigateUp<cr>", { desc = "Tmux Navigate Up", silent = true, noremap = true })
 enableKey("n", "<C-l>", ":<C-U>TmuxNavigateRight<cr>", { desc = "Tmux Navigate Right", silent = true, noremap = true })
 
--- Disable LazyGit Keymaps
-disableKey("n", "<leader>gg")
-disableKey("n", "<leader>gG")
-disableKey("n", "<leader>gf")
-disableKey("n", "<leader>gl")
-disableKey("n", "<leader>gL")
+-- Diffview Keymaps
+
+enableKey("n", "<leader>gf", "<cmd>DiffviewFileHistory %<cr>", { desc = "Diffview Current File" })
+enableKey("n", "<leader>gt", "<cmd>DiffviewClose<cr>", { desc = "Diffview Close" })
+enableKey("n", "<leader>gd", "<cmd>DiffviewOpen<cr>", { desc = "Diffview Open" })
+enableKey("n", "<leader>gp", "<cmd>DiffviewOpen origin/HEAD...HEAD --imply-local<cr>", { desc = "Diffview Branch" })
