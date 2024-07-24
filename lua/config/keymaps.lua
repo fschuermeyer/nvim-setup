@@ -45,6 +45,7 @@ enableKey("n", "<C-l>", ":<C-U>TmuxNavigateRight<cr>", { desc = "Tmux Navigate R
 -- Diffview Keymaps
 
 enableKey("n", "<leader>gf", "<cmd>DiffviewFileHistory %<cr>", { desc = "Diffview Current File" })
+enableKey("n", "<leader>gh", "<cmd>DiffviewFileHistory<cr>", { desc = "Diffview History" })
 enableKey("n", "<leader>gt", "<cmd>DiffviewClose<cr>", { desc = "Diffview Close" })
 enableKey("n", "<leader>gd", "<cmd>DiffviewOpen<cr>", { desc = "Diffview Open" })
 enableKey("n", "<leader>gp", "<cmd>DiffviewOpen origin/HEAD...HEAD --imply-local<cr>", { desc = "Diffview Branch" })
