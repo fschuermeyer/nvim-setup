@@ -49,3 +49,11 @@ enableKey("n", "<leader>gh", "<cmd>DiffviewFileHistory<cr>", { desc = "Diffview 
 enableKey("n", "<leader>gt", "<cmd>DiffviewClose<cr>", { desc = "Diffview Close" })
 enableKey("n", "<leader>gd", "<cmd>DiffviewOpen<cr>", { desc = "Diffview Open" })
 enableKey("n", "<leader>gp", "<cmd>DiffviewOpen origin/HEAD...HEAD --imply-local<cr>", { desc = "Diffview Branch" })
+
+-- Alternate Toggler
+enableKey(
+  "n",
+  "<leader>i",
+  "<cmd>lua require('alternate-toggler').toggleAlternate()<cr>",
+  { desc = "Toggle Alternate" }
+)
