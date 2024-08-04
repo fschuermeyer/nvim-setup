@@ -1,4 +1,5 @@
 {
+  "autoflake": "2.3.1",
   "delve": "v1.23.0",
   "docker-compose-language-service": "0.2.0",
   "dockerfile-language-server": "0.13.0",
@@ -9,20 +10,24 @@
   "hadolint": "v2.12.0",
   "haskell-debug-adapter": "0.0.39.0",
   "haskell-language-server": "2.8.0.0",
+  "isort": "5.13.2",
+  "jedi-language-server": "0.41.4",
   "js-debug-adapter": "v1.92.0",
   "json-lsp": "4.10.0",
+  "lua-language-server": "3.10.1",
   "markdown-toc": "1.2.0",
   "markdownlint-cli2": "0.13.0",
+  "marksman": "2023-12-09",
   "php-cs-fixer": "v3.61.1",
   "phpactor": "2024.06.30.0",
   "phpcs": "3.10.2",
-  "pyright": "1.1.374",
+  "ruff": "0.5.6",
   "shfmt": "v3.8.0",
   "sqlfluff": "3.1.0",
   "stylua": "v0.20.0",
   "tailwindcss-language-server": "0.0.21",
   "taplo": "0.9.3",
   "vtsls": "0.2.5",
-  "yaml-language-server": "1.15.0",
-
+  "vue-language-server": "2.0.29",
+  "yaml-language-server": "1.15.0"
 }
