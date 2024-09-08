@@ -3,6 +3,7 @@
   "bash-language-server": "5.4.0",
   "css-lsp": "4.10.0",
   "css-variables-language-server": "2.7.0",
+  "debugpy": "1.8.5",
   "delve": "v1.23.0",
   "docker-compose-language-service": "0.2.0",
   "dockerfile-language-server": "0.13.0",
@@ -13,6 +14,7 @@
   "goimports": "v0.24.0",
   "golangci-lint-langserver": "v0.0.9",
   "gopls": "v0.16.2",
+  "groovy-language-server": "0c40ec136525b592f1d798bb52ced9d8d2d7945c",
   "hadolint": "v2.12.0",
   "haskell-debug-adapter": "0.0.39.0",
   "haskell-language-server": "2.8.0.0",
@@ -45,6 +47,5 @@
   "typescript-language-server": "4.3.3",
   "vtsls": "0.2.5",
   "vue-language-server": "2.1.6",
-  "yaml-language-server": "1.15.0",
-
+  "yaml-language-server": "1.15.0"
 }
