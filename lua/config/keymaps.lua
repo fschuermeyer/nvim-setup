@@ -3,14 +3,6 @@
 -- Add any additional keymaps here
 
 local enableKey = vim.keymap.set
-local disableKey = vim.keymap.del
-
--- Disable LazyGit Keymaps
-disableKey("n", "<leader>gg")
-disableKey("n", "<leader>gG")
-disableKey("n", "<leader>gf")
-disableKey("n", "<leader>gl")
-disableKey("n", "<leader>gL")
 
 -- Move Lines
 -- Alternative Commands for MacOS "option/alt" Key not working
