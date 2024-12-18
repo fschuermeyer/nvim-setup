@@ -5,5 +5,6 @@
   "lualine.nvim": { "branch": "master", "commit": "2a5bae925481f999263d6f5ed8361baef8df4f83" },
   "nvim-web-devicons": { "branch": "master", "commit": "0eb18da56e2ba6ba24de7130a12bcc4e31ad11cb" },
   "tokyonight.nvim": { "branch": "main", "commit": "45d22cf0e1b93476d3b6d362d720412b3d34465c" },
+  "vim-tmux-navigator": { "branch": "master", "commit": "424b5caa154bff34dc258ee53cec5a8e36cf7ea8" },
   "which-key.nvim": { "branch": "main", "commit": "8ab96b38a2530eacba5be717f52e04601eb59326" }
 }
