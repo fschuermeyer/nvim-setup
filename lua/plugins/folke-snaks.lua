@@ -38,7 +38,9 @@ return {
 		},
 	},
 	config = function(_, opts)
-		require("snacks").setup(opts)
+        require("snacks").setup(opts)
+
+		vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = "#FFA500" }) -- Orange Farbe
 
 		Snacks.toggle.option("wrap", { name = "Line Wrap" }):map("<leader>uw")
 		Snacks.toggle.option("number", { name = "Line Numbers" }):map("<leader>un")

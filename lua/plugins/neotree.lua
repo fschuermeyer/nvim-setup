@@ -15,9 +15,9 @@ return {
 					visible = true,
 				},
 			},
-            source_selector = {
-                winbar = true,
-            }
+			source_selector = {
+				winbar = true,
+			},
 		})
 
 		local setKey = vim.keymap.set
@@ -26,7 +26,7 @@ return {
 			"n",
 			"<leader>e",
 			"<cmd>Neotree right toggle<cr>",
-			{ noremap = true, silent = true, desc="Explorer"}
+			{ noremap = true, silent = true, desc = "Explorer NeoTree" }
 		)
 	end,
 }
