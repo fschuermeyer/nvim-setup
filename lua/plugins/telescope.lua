@@ -6,12 +6,12 @@ return {
 		"nvim-tree/nvim-web-devicons",
 		"folke/todo-comments.nvim",
 		"BurntSushi/ripgrep",
+		"andrew-george/telescope-themes",
 	},
 	config = function()
 		local telescope = require("telescope")
 		local actions = require("telescope.actions")
 		local layout = require("telescope.actions.layout")
-		local todo = require("todo-comments")
 
 		telescope.setup({
 			defaults = {
@@ -27,6 +27,7 @@ return {
 		})
 
 		telescope.load_extension("fzf")
+		telescope.load_extension("themes")
 
 		-- set keymaps
 		local keymap = vim.keymap -- for conciseness
@@ -52,5 +53,8 @@ return {
 		keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<cr>", { desc = "Git Status" })
 		keymap.set("n", "<leader>gc", "<cmd>Telescope git_commits<cr>", { desc = "Git Commits" })
 		keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", { desc = "Git Branches" })
+
+		-- ui
+		keymap.set("n", "<leader>ut", "<cmd>Telescope themes<cr>", { desc = "UI Themes" })
 	end,
 }

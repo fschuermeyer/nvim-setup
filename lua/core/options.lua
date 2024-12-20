@@ -14,3 +14,4 @@ opt.relativenumber = true
 opt.cursorline = true
 opt.wrap = false
 
+opt.termguicolors = true

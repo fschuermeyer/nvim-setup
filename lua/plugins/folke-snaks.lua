@@ -15,6 +15,7 @@ github.com/fschuermeyer/nvim-setup
 
 return {
 	"folke/snacks.nvim",
+	lazy = false,
 	opts = {
 		dashboard = {
 			preset = {
@@ -36,4 +37,12 @@ return {
 			},
 		},
 	},
+	config = function(_, opts)
+		require("snacks").setup(opts)
+
+		Snacks.toggle.option("wrap", { name = "Line Wrap" }):map("<leader>uw")
+		Snacks.toggle.option("number", { name = "Line Numbers" }):map("<leader>un")
+		Snacks.toggle.option("relativenumber", { name = "Relative Line Numbers" }):map("<leader>ur")
+		Snacks.toggle.option("cursorline", { name = "Cursorline" }):map("<leader>uc")
+	end,
 }
