@@ -18,3 +18,9 @@ setKey("n", "<leader>gh", "<cmd>DiffviewFileHistory<cr>", { desc = "Diffview His
 setKey("n", "<leader>gt", "<cmd>DiffviewClose<cr>", { desc = "Diffview Close" })
 setKey("n", "<leader>gd", "<cmd>DiffviewOpen<cr>", { desc = "Diffview Open" })
 setKey("n", "<leader>gp", "<cmd>DiffviewOpen origin/HEAD...HEAD --imply-local<cr>", { desc = "Diffview Branch" })
+
+-- Window Mappings
+setKey("n", "<leader>#", "<cmd>vsplit<cr>", { desc = "Split Window Vertically" })
+setKey("n", "<leader>-", "<cmd>split<cr>", { desc = "Split Window Horizontally" })
+
+

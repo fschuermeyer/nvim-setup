@@ -15,3 +15,4 @@ opt.cursorline = true
 opt.wrap = false
 
 opt.termguicolors = true
+opt.mouse = ""
