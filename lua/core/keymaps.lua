@@ -23,4 +23,8 @@ setKey("n", "<leader>gp", "<cmd>DiffviewOpen origin/HEAD...HEAD --imply-local<cr
 setKey("n", "<leader>#", "<cmd>vsplit<cr>", { desc = "Split Window Vertically" })
 setKey("n", "<leader>-", "<cmd>split<cr>", { desc = "Split Window Horizontally" })
 
+-- AlternateToggler
+setKey("n", "<leader>i", "<cmd>ToggleAlternate<CR>", { desc = "Toggle State" })
 
+-- VimGo
+setKey("n", "<leader>tg", "<cmd>GoTestFunc<CR>", { desc = "Test Golang" })
