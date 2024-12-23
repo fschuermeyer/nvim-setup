@@ -10,6 +10,13 @@ return {
 		local neo_tree = require("neo-tree")
 
 		neo_tree.setup({
+			window = {
+				mappings = {
+					-- fix: german layout
+					["<"] = "next_source",
+					[">"] = "prev_source",
+				},
+			},
 			filesystem = {
 				filtered_items = {
 					visible = true,
