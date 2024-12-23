@@ -16,3 +16,4 @@ opt.wrap = false
 
 opt.termguicolors = true
 opt.mouse = ""
+opt.clipboard = "unnamedplus" -- System Clipboard
