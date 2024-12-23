@@ -2,7 +2,7 @@ return {
 	"folke/which-key.nvim",
 	event = "VeryLazy",
 	opts = {
-        preset = "helix",
+        preset = "modern",
         sort = {"alphanum"},
 		spec = {
 			mode = { "n", "v" },
