@@ -36,9 +36,20 @@ return {
 				{ section = "startup" },
 			},
 		},
+		indent = {
+			enabled = true,
+			animate = {
+				duration = {
+					step = 5,
+					total = 250,
+				},
+			},
+		},
+		scope = { enabled = true },
+		scroll = { enabled = true },
 	},
 	config = function(_, opts)
-        require("snacks").setup(opts)
+		require("snacks").setup(opts)
 
 		vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = "#FFA500" }) -- Orange Farbe
 
