@@ -5,12 +5,19 @@ local setKey = vim.keymap.set
 setKey("n", "<leader>q", ":q<CR>", { desc = "Exit Nvim" })
 
 -- Move Lines
--- setKey("n", "<C-m>", "<cmd>m .-2<cr>==", { desc = "Move Up" })
--- setKey("n", "<C-n>", "<cmd>m .+1<cr>==", { desc = "Move Down" })
--- setKey("i", "<C-n>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move Down" })
--- setKey("i", "<C-m>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move Up" })
--- setKey("v", "<C-n>", ":m '>+1<cr>gv=gv", { desc = "Move Down" })
--- setKey("v", "<C-m>", ":m '<-2<cr>gv=gv", { desc = "Move Up" })
+local moveUp = { noremap = true, silent = true, desc = "Move the Line Up" }
+local moveDown = { noremap = true, silent = true, desc = "Move the Line Down" }
+local keyMapUp = "<C-n>"
+local keyMapDown = "<C-b>"
+
+setKey("n", keyMapUp, "<cmd>m .-2<cr>==", moveUp)
+setKey("n", keyMapDown, "<cmd>m .+1<cr>==", moveDown)
+
+setKey("i", keyMapUp, "<esc><cmd>m .-2<cr>==gi", moveUp)
+setKey("i", keyMapDown, "<esc><cmd>m .+1<cr>==gi", moveDown)
+
+setKey("v", keyMapUp, ":m '<-2<cr>gv=gv", moveUp)
+setKey("v", keyMapDown, ":m '>+1<cr>gv=gv", moveDown)
 
 -- Diffview
 setKey("n", "<leader>gf", "<cmd>DiffviewFileHistory %<cr>", { desc = "Diffview Current File" })
