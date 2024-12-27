@@ -1,6 +1,6 @@
 return {
 	{
-		"gatih/vim-go",
+		"fatih/vim-go",
         build = ":GoInstallBinaries",
 		run = ":GoUpdateBinaries",
 		config = function()
