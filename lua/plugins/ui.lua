@@ -53,5 +53,10 @@ return {
         },
       },
     },
+    config = function(_, opts)
+      require("snacks").setup(opts)
+
+      vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = "#FFA500" }) -- Orange Farbe
+    end,
   },
 }

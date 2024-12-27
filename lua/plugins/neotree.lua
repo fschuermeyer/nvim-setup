@@ -9,6 +9,9 @@ return {
           visible = true,
         },
       },
+      source_selector = {
+        winbar = true,
+      },
     })
   end,
 }
