@@ -92,6 +92,7 @@ return {
             end
         end
 
+
         mason_lspconfig.setup_handlers({
             -- default handler for installed servers
             function(server_name)
@@ -135,8 +136,8 @@ return {
                     },
                 })
             end,
-            ["stylelint-lsp"] = function()
-                lspconfig["stylelint-lsp"].setup({
+            ["stylelint_lsp"] = function()
+                lspconfig["stylelint_lsp"].setup({
                     capabilities = capabilities,
                     on_attach = on_attach,
                     settings = {
