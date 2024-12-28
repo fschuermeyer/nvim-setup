@@ -135,6 +135,18 @@ return {
                     },
                 })
             end,
+            ["stylelint-lsp"] = function()
+                lspconfig["stylelint-lsp"].setup({
+                    capabilities = capabilities,
+                    on_attach = on_attach,
+                    settings = {
+                        stylelintplus = {
+                            autoFixOnFormat = true
+                        }
+                    },
+                    filetypes = { "css", "less", "scss", "sugarss", "vue", "wxss", "sass" }
+                })
+            end,
         })
     end,
 }

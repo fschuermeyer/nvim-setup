@@ -50,6 +50,7 @@ return {
                 "vtsls",                           -- Vue and TypeScript support
                 "volar",                           -- Vue.js language support
                 "stimulus_ls",                     -- Stimulus language support
+                "stylelint_lsp"                    -- Stylint LSP
             },
         })
 
