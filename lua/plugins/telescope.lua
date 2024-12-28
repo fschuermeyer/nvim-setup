@@ -8,6 +8,7 @@ return {
         "BurntSushi/ripgrep",
         "andrew-george/telescope-themes",
         "ThePrimeagen/refactoring.nvim",
+        "debugloop/telescope-undo.nvim",
     },
     config = function()
         local telescope = require("telescope")
@@ -25,11 +26,16 @@ return {
                     },
                 },
             },
+            extensions = {
+                undo = {
+                    use_delta = true,
+                },
+            },
         })
 
-        telescope.load_extension("fzf")
-        telescope.load_extension("themes")
-        telescope.load_extension("refactoring")
+        for _, ext in ipairs({ "fzf", "themes", "refactoring", "undo" }) do
+            telescope.load_extension(ext)
+        end
 
         -- set keymaps
         local keymap = vim.keymap -- for conciseness
@@ -63,5 +69,8 @@ return {
 
         -- ui
         keymap.set("n", "<leader>ut", "<cmd>Telescope themes<cr>", { desc = "UI Themes" })
+
+        -- undo
+        keymap.set("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = "Find Undo" })
     end,
 }

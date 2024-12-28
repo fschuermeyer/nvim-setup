@@ -27,7 +27,7 @@ return {
         config = function()
             require("copilot").setup({
                 suggestion = {
-                    enabled = true,
+                    enabled = false,
                     auto_trigger = true,
                     keymap = {
                         accept = false,
@@ -43,14 +43,14 @@ return {
         "zbirenbaum/copilot-cmp",
         config = function()
             require("copilot_cmp").setup()
-        end
+        end,
     },
     -- Copilot Chat
     {
         "CopilotC-Nvim/CopilotChat.nvim",
         -- version = "v3.3.0", -- Use a specific version to prevent breaking changes
         dependencies = {
-            { "zbirenbaum/copilot.vim" },        -- or zbirenbaum/copilot.lua
+            { "zbirenbaum/copilot.vim" }, -- or zbirenbaum/copilot.lua
             { "nvim-telescope/telescope.nvim" }, -- Use telescope for help actions
             { "nvim-lua/plenary.nvim" },
         },
@@ -83,7 +83,7 @@ return {
             window = {
                 layout = "vertical",
                 width = 0.4,
-            }
+            },
         },
         config = function(_, opts)
             local chat = require("CopilotChat")
@@ -133,7 +133,12 @@ return {
         end,
         event = "VeryLazy",
         keys = {
-            { "<leader>a",  "",                                  desc = "+ai",                         mode = { "n", "v" } },
+            {
+                "<leader>a",
+                "",
+                desc = "+ai",
+                mode = { "n", "v" },
+            },
             -- Show prompts actions with telescope
             {
                 "<leader>ap",
