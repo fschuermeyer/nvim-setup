@@ -39,5 +39,3 @@ setKey("n", "<leader>tg", "<cmd>GoTestFunc<CR>", { desc = "Test Golang" })
 -- Center after Scroll
 setKey("n", "<C-d>", "<C-d>zz", { desc = "Center after Scroll" })
 setKey("n", "<C-u>", "<C-u>zz", { desc = "Center after Scroll" })
-setKey("n", "<C-b>", "<C-b>zz", { desc = "Center after Scroll" })
-setKey("n", "<C-f>", "<C-f>zz", { desc = "Center after Scroll" })
