@@ -6,6 +6,7 @@ return {
         sort = { "alphanum" },
         spec = {
             mode = { "n", "v" },
+            { "<leader>m", group = "message", icon = { icon = " ", color = "blue" } },
             { "<leader>e", icon = { icon = " ", color = "yellow" } },
             { "<leader>t", icon = { icon = "󰙨 ", color = "green" }, group = "test" },
             { "<leader>b", group = "buffer", icon = { icon = " ", color = "yellow" } },
