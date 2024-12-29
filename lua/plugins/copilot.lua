@@ -50,7 +50,7 @@ return {
         "CopilotC-Nvim/CopilotChat.nvim",
         -- version = "v3.3.0", -- Use a specific version to prevent breaking changes
         dependencies = {
-            { "zbirenbaum/copilot.vim" }, -- or zbirenbaum/copilot.lua
+            { "zbirenbaum/copilot.vim" },        -- or zbirenbaum/copilot.lua
             { "nvim-telescope/telescope.nvim" }, -- Use telescope for help actions
             { "nvim-lua/plenary.nvim" },
         },
@@ -124,9 +124,6 @@ return {
                     local ft = vim.bo.filetype
                     if ft == "copilot-chat" then
                         vim.bo.filetype = "markdown"
-
-                        -- verschieben des Fensters nach Rechts
-                        vim.cmd("wincmd r")
                     end
                 end,
             })
