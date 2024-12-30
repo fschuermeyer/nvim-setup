@@ -54,6 +54,13 @@ return {
         vim.api.nvim_set_hl(0, "SnacksDashboardHeader", { fg = "#FFA500" }) -- Orange Farbe
         vim.keymap.set("n", "<leader>cR", Snacks.rename.rename_file, { desc = "Rename File" })
 
+        vim.keymap.set("n", "<leader>bd", function()
+            Snacks.bufdelete()
+        end, { desc = "Delete Buffer" })
+        vim.keymap.set("n", "<leader>bo", function()
+            Snacks.bufdelete.other()
+        end, { desc = "Delete Other Buffers" })
+
         Snacks.toggle.option("wrap", { name = "Line Wrap" }):map("<leader>uw")
         Snacks.toggle.option("number", { name = "Line Numbers" }):map("<leader>un")
         Snacks.toggle.option("relativenumber", { name = "Relative Line Numbers" }):map("<leader>ur")

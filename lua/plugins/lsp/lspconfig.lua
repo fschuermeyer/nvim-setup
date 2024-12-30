@@ -86,10 +86,18 @@ return {
                     group = vim.api.nvim_create_augroup("LspFormatting", { clear = true }),
                     buffer = bufnr,
                     callback = function()
-                        vim.lsp.buf.format({ async = false })
+                        vim.lsp.buf.format({
+                            async = false,
+                            timeout_ms = 3000,
+                        })
                     end,
                 })
             end
+        end
+
+        local on_attach_disable_formatting = function(client, _)
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
         end
 
         mason_lspconfig.setup_handlers({
@@ -135,12 +143,24 @@ return {
                     },
                 })
             end,
+            ["cssls"] = function()
+                lspconfig["cssls"].setup({
+                    capabilities = capabilities,
+                    on_attach = on_attach_disable_formatting,
+                    settings = {
+                        init_options = {
+                            provideFormatter = false,
+                        },
+                    },
+                })
+            end,
             ["stylelint_lsp"] = function()
                 lspconfig["stylelint_lsp"].setup({
                     capabilities = capabilities,
                     on_attach = on_attach,
                     settings = {
                         stylelintplus = {
+                            autoFixOnSave = true,
                             autoFixOnFormat = true
                         }
                     },
