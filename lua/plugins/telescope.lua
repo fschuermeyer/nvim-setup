@@ -33,6 +33,20 @@ return {
             },
         })
 
+        -- Enable Preview for gohtml files in Telescope
+        vim.api.nvim_create_autocmd("User", {
+            pattern = "TelescopePreviewerLoaded",
+            callback = function(args)
+                print("TelescopePreviewerLoaded", args.data.bufname)
+                local gotmpl = { "%.gohtmltmpl$", "%.gohtml$", "%.gotmpl$", "%.tmpl$" }
+                for _, ext in ipairs(gotmpl) do
+                    if args.data.bufname:match(ext) then
+                        vim.cmd("setlocal filetype=gohtmltmpl")
+                    end
+                end
+            end,
+        })
+
         for _, ext in ipairs({ "fzf", "themes", "refactoring", "undo" }) do
             telescope.load_extension(ext)
         end
