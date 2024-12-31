@@ -2,8 +2,6 @@ vim.g.mapleader = " "
 
 local setKey = vim.keymap.set
 
-setKey("n", "<leader>q", ":q<CR>", { desc = "Exit Nvim" })
-
 -- Move Lines
 local moveUp = { noremap = true, silent = true, desc = "Move the Line Up" }
 local moveDown = { noremap = true, silent = true, desc = "Move the Line Down" }

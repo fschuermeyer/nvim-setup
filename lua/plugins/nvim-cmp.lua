@@ -11,9 +11,10 @@ return {
             -- install jsregexp (optional!).
             build = "make install_jsregexp",
         },
-        "saadparwaiz1/cmp_luasnip",     -- for autocompletion
-        "rafamadriz/friendly-snippets", -- useful snippets
-        "onsails/lspkind.nvim",         -- vs-code like pictograms
+        "saadparwaiz1/cmp_luasnip",             -- for autocompletion
+        "rafamadriz/friendly-snippets",         -- useful snippets
+        "onsails/lspkind.nvim",                 -- vs-code like pictograms
+        "kristijanhusak/vim-dadbod-completion", -- completion for vim-dadbod-ui
         {
             "zbirenbaum/copilot-cmp",
             opts = {},
@@ -67,10 +68,11 @@ return {
             -- sources for autocompletion
             sources = cmp.config.sources({
                 { name = "copilot" },
+                { name = "vim-dadbod-completion" }, -- completion for vim-dadbod-ui
                 { name = "nvim_lsp" },
-                { name = "luasnip" }, -- snippets
-                { name = "path" },    -- file system paths
-                { name = "buffer" },  -- text within current buffer
+                { name = "luasnip" },               -- snippets
+                { name = "path" },                  -- file system paths
+                { name = "buffer" },                -- text within current buffer
             }),
             formatting = {
                 fields = { "kind", "abbr", "menu" },
