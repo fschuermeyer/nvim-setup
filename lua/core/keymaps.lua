@@ -17,6 +17,8 @@ setKey("i", keyMapDown, "<esc><cmd>m .+1<cr>==gi", moveDown)
 setKey("v", keyMapUp, ":m '<-2<cr>gv=gv", moveUp)
 setKey("v", keyMapDown, ":m '>+1<cr>gv=gv", moveDown)
 
+setKey("n", "<leader>w", "<cmd>w<cr>", { desc = "Write File" })
+
 -- Diffview
 setKey("n", "<leader>gf", "<cmd>DiffviewFileHistory %<cr>", { desc = "Diffview Current File" })
 setKey("n", "<leader>gh", "<cmd>DiffviewFileHistory<cr>", { desc = "Diffview History" })
