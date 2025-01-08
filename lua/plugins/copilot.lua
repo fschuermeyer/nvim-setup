@@ -48,7 +48,8 @@ return {
     -- Copilot Chat
     {
         "CopilotC-Nvim/CopilotChat.nvim",
-        -- version = "v3.3.0", -- Use a specific version to prevent breaking changes
+        build = "make tiktoken",
+        version = "v3.3.3",                      -- Use a specific version to prevent breaking changes
         dependencies = {
             { "zbirenbaum/copilot.vim" },        -- or zbirenbaum/copilot.lua
             { "nvim-telescope/telescope.nvim" }, -- Use telescope for help actions
