@@ -1,0 +1,39 @@
+vim.g.mapleader = " "
+
+local setKey = vim.keymap.set
+
+-- Move Lines
+local moveUp = { noremap = true, silent = true, desc = "Move the Line Up" }
+local moveDown = { noremap = true, silent = true, desc = "Move the Line Down" }
+local keyMapUp = "<C-n>"
+local keyMapDown = "<C-b>"
+
+setKey("n", keyMapUp, "<cmd>m .-2<cr>==", moveUp)
+setKey("n", keyMapDown, "<cmd>m .+1<cr>==", moveDown)
+
+setKey("i", keyMapUp, "<esc><cmd>m .-2<cr>==gi", moveUp)
+setKey("i", keyMapDown, "<esc><cmd>m .+1<cr>==gi", moveDown)
+
+setKey("v", keyMapUp, ":m '<-2<cr>gv=gv", moveUp)
+setKey("v", keyMapDown, ":m '>+1<cr>gv=gv", moveDown)
+
+-- Diffview
+setKey("n", "<leader>gf", "<cmd>DiffviewFileHistory %<cr>", { desc = "Diffview Current File" })
+setKey("n", "<leader>gh", "<cmd>DiffviewFileHistory<cr>", { desc = "Diffview History" })
+setKey("n", "<leader>gt", "<cmd>DiffviewClose<cr>", { desc = "Diffview Close" })
+setKey("n", "<leader>gd", "<cmd>DiffviewOpen<cr>", { desc = "Diffview Open" })
+setKey("n", "<leader>gp", "<cmd>DiffviewOpen origin/HEAD...HEAD --imply-local<cr>", { desc = "Diffview Branch" })
+
+-- Window Mappings
+setKey("n", "<leader>#", "<cmd>vsplit<cr>", { desc = "Split Window Vertically" })
+setKey("n", "<leader>-", "<cmd>split<cr>", { desc = "Split Window Horizontally" })
+
+-- AlternateToggler
+setKey("n", "<leader>i", "<cmd>ToggleAlternate<CR>", { desc = "Toggle State" })
+
+-- VimGo
+setKey("n", "<leader>tg", "<cmd>GoTestFunc<CR>", { desc = "Test Golang" })
+
+-- Center after Scroll
+setKey("n", "<C-d>", "<C-d>zz", { desc = "Center after Scroll" })
+setKey("n", "<C-u>", "<C-u>zz", { desc = "Center after Scroll" })
