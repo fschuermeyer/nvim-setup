@@ -5,9 +5,7 @@ return {
     opts = {
         automatic_installation = true,
         handlers = {},
-        ensure_installed = {
-            -- Update this to ensure that you have the debuggers for the langs you want
-        },
+        ensure_installed = {},
     },
     config = function() end,
 }
