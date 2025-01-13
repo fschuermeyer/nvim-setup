@@ -16,6 +16,8 @@ local prompts = {
     Spelling = "Please correct any grammar and spelling errors in the following text.",
     Wording = "Please improve the grammar and wording of the following text.",
     Concise = "Please rewrite the following text to make it more concise.",
+    Commit =
+    "> #git:staged \n\n Write commit message for the change with commitizen convention. Make sure the title has maximum 50 characters and message is wrapped at 72 characters. Wrap the whole message in code block with language gitcommit. if the branch name inclues KR-[anynumber]_ put KR-[anynumber]: before the Commit Message."
 }
 
 return {
