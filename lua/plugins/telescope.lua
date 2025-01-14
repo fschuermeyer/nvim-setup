@@ -58,6 +58,10 @@ return {
             "<cmd>Telescope find_files sort_mru=true<cr>",
             { desc = "Find Files (Root Dir)" }
         )
+
+        -- find hidden files
+        keymap.set("n", "<leader>fh", "<cmd>Telescope find_files hidden=true<cr>", { desc = "Find Hidden Files" })
+
         keymap.set("n", "<leader>:", "<cmd>Telescope command_history<cr>", { desc = "Command History" })
         keymap.set(
             "n",
