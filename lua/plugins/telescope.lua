@@ -37,10 +37,9 @@ return {
         vim.api.nvim_create_autocmd("User", {
             pattern = "TelescopePreviewerLoaded",
             callback = function(args)
-                print("TelescopePreviewerLoaded", args.data.bufname)
                 local gotmpl = { "%.gohtmltmpl$", "%.gohtml$", "%.gotmpl$", "%.tmpl$" }
                 for _, ext in ipairs(gotmpl) do
-                    if args.data.bufname:match(ext) then
+                    if args.data and args.data.bufname and args.data.bufname:match(ext) then
                         vim.cmd("setlocal filetype=gohtmltmpl")
                     end
                 end
