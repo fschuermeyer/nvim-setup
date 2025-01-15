@@ -73,6 +73,7 @@ return {
         keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Find Grep" })
         keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Find Recent" })
         keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find TODOs" })
+        keymap.set("n", "<leader>fd", "<cmd>Telescope diagnostics<cr>", { desc = "Find Diagnostics" })
 
         -- git
         keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<cr>", { desc = "Git Status" })
