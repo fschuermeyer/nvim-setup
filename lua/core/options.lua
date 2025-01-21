@@ -28,3 +28,9 @@ opt.splitright = true
 opt.splitbelow = true
 
 opt.confirm = true
+
+-- Fold Settings
+opt.foldlevel = 99
+opt.foldmethod = "expr"
+opt.foldexpr = "v:lua.require'core.foldexpr'.foldexpr()"
+opt.foldtext = ""
