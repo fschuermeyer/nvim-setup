@@ -57,6 +57,7 @@ return {
                 "tmux",
                 "vue",
                 "xml",
+                "regex",
             },
             incremental_selection = {
                 enable = true,
