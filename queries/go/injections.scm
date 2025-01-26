@@ -10,27 +10,20 @@
 
 ;; Injection: Regular Expression
 (call_expression
-    function: (selector_expression
-        operand: (identifier) @operand (#eq? @operand "regexp")
-        field: (field_identifier) @field (#match? @field "Compile|MustCompile|Match|MatchString|MatchReader")
-    )
-    arguments: (argument_list
-        (raw_string_literal
-          (raw_string_literal_content) @injection.content
-            (#set! injection.language "regex")
-          )+
-    )
-)
-
-(call_expression
-    function: (selector_expression
-        operand: (identifier) @operand (#eq? @operand "regexp")
-        field: (field_identifier) @field (#match? @field "Compile|MustCompile|Match|MatchString|MatchReader")
-    )
-    arguments: (argument_list
-        (interpreted_string_literal
-          (interpreted_string_literal_content) @injection.content
-            (#set! injection.language "regex")
-          )+
-    )
+  function: (selector_expression
+    operand: (identifier) @operand (#eq? @operand "regexp")
+    field: (field_identifier) @field (#match? @field "Compile|MustCompile|Match|MatchString|MatchReader")
+  )
+  arguments: (argument_list
+    [
+      (raw_string_literal
+        (raw_string_literal_content) @injection.content
+        (#set! injection.language "regex")
+      )
+      (interpreted_string_literal
+        (interpreted_string_literal_content) @injection.content
+        (#set! injection.language "regex")
+      )
+    ]+
+  )
 )
