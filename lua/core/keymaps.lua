@@ -35,5 +35,11 @@ setKey("n", "<leader>i", "<cmd>ToggleAlternate<CR>", { desc = "Toggle State" })
 setKey("n", "<leader>tg", "<cmd>GoTestFunc<CR>", { desc = "Test Golang" })
 
 -- Center after Scroll
-setKey("n", "<C-d>", "<C-d>zz", { desc = "Center after Scroll" })
-setKey("n", "<C-u>", "<C-u>zz", { desc = "Center after Scroll" })
+setKey("n", "<C-d>", "<C-d>zz<CR>", { desc = "Center after Scroll" })
+setKey("n", "<C-u>", "<C-u>zz<CR>", { desc = "Center after Scroll" })
+
+setKey("n", "<leader>us", "<cmd>nohlsearch<CR>", { desc = "Clear Search Highlights" })
+
+-- Disable Copilot
+setKey("n", "<leader>ay", "<cmd>Copilot disable<CR>", { desc = "Copilot Disable" })
+setKey("n", "<leader>aY", "<cmd>Copilot enable<CR>", { desc = "Copilot Enable" })
