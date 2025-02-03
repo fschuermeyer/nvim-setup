@@ -48,6 +48,10 @@ return {
         scope = { enabled = true },
         scroll = { enabled = true },
         notifier = { enabled = true },
+        explorer = { enabled = false },
+        picker = { enabled = false },
+        bigfile = { enabled = false },
+        scratch = { enabled = false },
     },
     config = function(_, opts)
         require("snacks").setup(opts)
