@@ -17,4 +17,5 @@ vim.cmd([[
   autocmd BufNewFile,BufRead *.gohtmltmpl set filetype=gohtmltmpl
   autocmd BufNewFile,BufRead *.gotexttmpl  set filetype=gotexttmpl
   autocmd BufNewFile,BufRead *.twig set filetype=html
+  autocmd BufNewFile,BufRead *.zsh set filetype=bash
 ]])
