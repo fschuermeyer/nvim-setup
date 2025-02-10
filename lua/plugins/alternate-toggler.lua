@@ -1,3 +1,11 @@
 return {
-	"rmagatti/alternate-toggler",
+    "rmagatti/alternate-toggler",
+    event = { "BufReadPost" },
+    config = function()
+        require("alternate-toggler").setup({
+            alternates = {
+                ["const"] = "var"
+            }
+        })
+    end
 }
