@@ -16,7 +16,6 @@ return {
         -- import cmp-nvim-lsp plugin
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
-
         local keymap = vim.keymap -- for conciseness
 
         vim.api.nvim_create_autocmd("LspAttach", {
@@ -87,6 +86,10 @@ return {
                     end,
                 })
             end
+
+            if vim.api.nvim_buf_is_valid(bufnr) and vim.bo[bufnr].buftype == "" then
+                vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+            end
         end
 
         local on_attach_disable_formatting = function(client, _)
@@ -100,6 +103,48 @@ return {
                 lspconfig[server_name].setup({
                     capabilities = capabilities,
                     on_attach = on_attach,
+                })
+            end,
+            ["gopls"] = function()
+                lspconfig["gopls"].setup({
+                    capabilities = capabilities,
+                    on_attach = on_attach,
+                    settings = {
+                        gopls = {
+                            hints = {
+                                assignVariableTypes = false,
+                                compositeLiteralFields = true,
+                                compositeLiteralTypes = true,
+                                constantValues = true,
+                                functionTypeParameters = true,
+                                parameterNames = true,
+                                rangeVariableTypes = true,
+                            },
+                        },
+                    },
+                })
+            end,
+            ["vtsls"] = function()
+                lspconfig["vtsls"].setup({
+                    capabilities = capabilities,
+                    on_attach = on_attach,
+                    settings = {
+                        vtsls = {
+                            experimental = {
+                                maxInlayHintLength = 30,
+                            },
+                        },
+                        typescript = {
+                            inlayHints = {
+                                enumMemberValues = { enabled = true },
+                                functionLikeReturnTypes = { enabled = true },
+                                parameterNames = { enabled = "all" },
+                                parameterTypes = { enabled = true },
+                                propertyDeclarationTypes = { enabled = true },
+                                variableTypes = { enabled = true },
+                            }
+                        },
+                    }
                 })
             end,
             ["emmet_ls"] = function()
