@@ -47,6 +47,12 @@ return {
                 opts.desc = "Rename"
                 keymap.set("n", "<leader>cr", vim.lsp.buf.rename, opts) -- smart rename
 
+                opts.desc = "Run Codelens action"
+                keymap.set("n", "<leader>ci", vim.lsp.codelens.run, opts) -- run codelens action
+
+                opts.desc = "Refresh Codelens"
+                keymap.set("n", "<leader>cu", vim.lsp.codelens.refresh, opts) -- refresh codelens
+
                 opts.desc = "Go to previous diagnostic"
                 keymap.set("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
 
@@ -89,6 +95,11 @@ return {
 
             if vim.api.nvim_buf_is_valid(bufnr) and vim.bo[bufnr].buftype == "" then
                 vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+
+                vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+                    buffer = bufnr,
+                    callback = vim.lsp.codelens.refresh,
+                })
             end
         end
 
@@ -142,7 +153,9 @@ return {
                                 parameterTypes = { enabled = true },
                                 propertyDeclarationTypes = { enabled = true },
                                 variableTypes = { enabled = true },
-                            }
+                            },
+                            implementationCodeLens = { enabled = true },
+                            referencesCodeLens = { enabled = true },
                         },
                     }
                 })
