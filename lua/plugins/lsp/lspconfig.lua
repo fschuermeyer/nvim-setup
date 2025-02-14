@@ -222,6 +222,9 @@ return {
                     filetypes = { "css", "less", "scss", "sugarss", "vue", "wxss", "sass" }
                 })
             end,
+            ["hls"] = function()
+                -- disable hls initalization over lspconfig
+            end
         })
     end,
 }

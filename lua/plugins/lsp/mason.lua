@@ -36,7 +36,6 @@ return {
                 "eslint",                          -- ESLint language support
                 "gopls",                           -- Go language server
                 "groovyls",                        -- Groovy language support
-                "hls",                             -- Haskell language server
                 "html",                            -- HTML language support
                 "intelephense",                    -- PHP language support
                 "jedi_language_server",            -- Python language server
