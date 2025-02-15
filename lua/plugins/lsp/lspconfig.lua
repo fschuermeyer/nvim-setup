@@ -222,6 +222,13 @@ return {
                     filetypes = { "css", "less", "scss", "sugarss", "vue", "wxss", "sass" }
                 })
             end,
+            ["bashls"] = function()
+                lspconfig["bashls"].setup({
+                    capabilities = capabilities,
+                    on_attach = on_attach,
+                    filetypes = { "bash", "sh", "zsh" },
+                })
+            end,
             ["hls"] = function()
                 -- disable hls initalization over lspconfig
             end
