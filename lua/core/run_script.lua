@@ -5,6 +5,18 @@ local formatters = {
         shortcut = "<leader>rr",
         desc = "Run Script (raw)",
     },
+    html = {
+        pipeline = "",
+        filetype = "html",
+        shortcut = "<leader>rh",
+        desc = "Run Script (html)",
+    },
+    xml = {
+        pipeline = "",
+        filetype = "xml",
+        shortcut = "<leader>rx",
+        desc = "Run Script (xml)",
+    },
     json = {
         pipeline = " | jq",
         filetype = "json",
