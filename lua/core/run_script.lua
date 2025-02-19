@@ -31,7 +31,8 @@ local function run_script(formatter)
     local cmd = "bash " .. vim.fn.shellescape(file) .. formatter.pipeline
     local output = vim.fn.systemlist(cmd)
     if vim.v.shell_error ~= 0 then
-        vim.notify("run script failed", vim.log.levels.ERROR)
+        local err_msg = table.concat(output, "\n")
+        vim.notify("Run script failed:\n" .. err_msg, vim.log.levels.ERROR)
         return
     end
 
