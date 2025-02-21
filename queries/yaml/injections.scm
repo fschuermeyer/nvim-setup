@@ -19,3 +19,25 @@
           )
         ]
 ) 
+
+;; Support for Taskfile
+(block_mapping_pair
+  key: (flow_node
+            (plain_scalar
+                (string_scalar) @identifier (#match? @identifier "cmds")
+            )
+       )
+value: (block_node
+        (block_sequence
+            (block_sequence_item
+              (flow_node
+                    (plain_scalar
+                             (string_scalar) @injection.content
+                             (#set! injection.language "bash")
+                    )
+                )
+            )
+        )
+      )
+) 
+
