@@ -3,31 +3,35 @@ local formatters = {
         pipeline = "",
         filetype = "",
         shortcut = "<leader>rr",
+        arg_shortcut = "<leader>rar",
         desc = "Run Script (raw)",
     },
     html = {
         pipeline = "",
         filetype = "html",
         shortcut = "<leader>rh",
+        arg_shortcut = "<leader>rah",
         desc = "Run Script (html)",
     },
     xml = {
         pipeline = "",
         filetype = "xml",
         shortcut = "<leader>rx",
+        arg_shortcut = "<leader>rax",
         desc = "Run Script (xml)",
     },
     json = {
         pipeline = " | jq",
         filetype = "json",
         shortcut = "<leader>rj",
+        arg_shortcut = "<leader>raj",
         desc = "Run Script (json)",
     },
 }
 
 local output_buf = nil
 
-local function run_script(formatter)
+local function run_script(formatter, with_args)
     local file = vim.fn.expand("%")
     if file == "" then
         vim.notify("no file found", vim.log.levels.ERROR)
@@ -40,7 +44,24 @@ local function run_script(formatter)
         return
     end
 
-    local cmd = "bash " .. vim.fn.shellescape(file) .. formatter.pipeline
+    local args_str = ""
+    if with_args then
+        local args = vim.fn.input(formatter.desc .. " with Args:")
+        if args ~= "" then
+            local args_list = vim.split(args, " ", { trimempty = true })
+            for i, arg in ipairs(args_list) do
+                args_list[i] = vim.fn.shellescape(arg)
+            end
+            args_str = table.concat(args_list, " ")
+        end
+    end
+
+    local cmd = "bash " .. vim.fn.shellescape(file)
+    if args_str ~= "" then
+        cmd = cmd .. " " .. args_str
+    end
+    cmd = cmd .. formatter.pipeline
+
     local output = vim.fn.systemlist(cmd)
     if vim.v.shell_error ~= 0 then
         local err_msg = table.concat(output, "\n")
@@ -89,6 +110,11 @@ vim.api.nvim_create_autocmd("BufEnter", {
             for _, formatter in pairs(formatters) do
                 vim.keymap.set("n", formatter.shortcut, function() run_script(formatter) end,
                     { buffer = true, desc = formatter.desc })
+
+                if formatter.arg_shortcut then
+                    vim.keymap.set("n", formatter.arg_shortcut, function() run_script(formatter, true) end,
+                        { buffer = true, desc = formatter.desc .. " with Args" })
+                end
             end
         end
     end,

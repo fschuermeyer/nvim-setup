@@ -11,6 +11,7 @@ return {
             { "<leader>t", icon = { icon = "󰙨 ", color = "green" }, group = "test" },
             { "<leader>b", group = "buffer", icon = { icon = " ", color = "yellow" } },
             { "<leader>r", group = "run", icon = { icon = " ", color = "red" } },
+            { "<leader>ra", group = "with args", icon = { icon = " ", color = "yellow" } },
             { "<leader>c", group = "code" },
             { "<leader>d", group = "debug" },
             { "<leader>f", group = "file/find" },
