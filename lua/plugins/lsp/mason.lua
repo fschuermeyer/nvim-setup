@@ -44,9 +44,8 @@ return {
                 "lua_ls",                          -- Lua language server
                 "pyright",                         -- Python language server
                 "tailwindcss",                     -- Tailwind CSS language support
-                "ts_ls",                           -- TypeScript language support
                 "yamlls",                          -- YAML language support
-                "vtsls",                           -- Vue and TypeScript support
+                "vtsls",                           -- TypeScript support
                 "volar",                           -- Vue.js language support
                 "stimulus_ls",                     -- Stimulus language support
                 "stylelint_lsp"                    -- Stylint LSP
