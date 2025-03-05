@@ -157,6 +157,16 @@ return {
                             implementationCodeLens = { enabled = true },
                             referencesCodeLens = { enabled = true },
                         },
+                        javascript = {
+                            inlayHints = {
+                                parameterNames = { enabled = "all" },
+                                parameterTypes = { enabled = true },
+                                variableTypes = { enabled = true },
+                                propertyDeclarationTypes = { enabled = true },
+                                functionLikeReturnTypes = { enabled = true },
+                            },
+                            referencesCodeLens = { enabled = true },
+                        }
                     }
                 })
             end,
