@@ -51,8 +51,9 @@ return {
         end
 
         -- set keymaps
-        local keymap = vim.keymap -- for conciseness
-        keymap.set(
+        local setKey = vim.keymap.set -- for conciseness
+
+        setKey(
             "n",
             "<leader><space>",
             "<cmd>Telescope find_files sort_mru=true<cr>",
@@ -60,38 +61,38 @@ return {
         )
 
         -- find hidden files
-        keymap.set("n", "<leader>fh", "<cmd>Telescope find_files hidden=true<cr>", { desc = "Find Hidden Files" })
+        setKey("n", "<leader>fh", "<cmd>Telescope find_files hidden=true<cr>", { desc = "Find Hidden Files" })
 
-        keymap.set("n", "<leader>:", "<cmd>Telescope command_history<cr>", { desc = "Command History" })
-        keymap.set(
+        setKey("n", "<leader>:", "<cmd>Telescope command_history<cr>", { desc = "Command History" })
+        setKey(
             "n",
             "<leader>fb",
             "<cmd>Telescope buffers sort_mru=true sort_lastused=true ignore_current_buffer=true<cr>",
             { desc = "Buffers" }
         )
 
-        keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Find Grep" })
-        keymap.set("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Find Recent" })
-        keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find TODOs" })
-        keymap.set("n", "<leader>fd", "<cmd>Telescope diagnostics<cr>", { desc = "Find Diagnostics" })
-        keymap.set("n", "<leader>fm", "<cmd>Telescope marks<cr>", { desc = "Find Marks" })
-        keymap.set("n", "<leader>fj", "<cmd>Telescope jumplist<cr>", { desc = "Find Jumplist" })
-        keymap.set("n", "<leader>fp", "<cmd>Telescope man_pages<cr>", { desc = "Find Man Pages" })
+        setKey("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Find Grep" })
+        setKey("n", "<leader>fr", "<cmd>Telescope oldfiles<cr>", { desc = "Find Recent" })
+        setKey("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find TODOs" })
+        setKey("n", "<leader>fd", "<cmd>Telescope diagnostics<cr>", { desc = "Find Diagnostics" })
+        setKey("n", "<leader>fm", "<cmd>Telescope marks<cr>", { desc = "Find Marks" })
+        setKey("n", "<leader>fj", "<cmd>Telescope jumplist<cr>", { desc = "Find Jumplist" })
+        setKey("n", "<leader>fp", "<cmd>Telescope man_pages<cr>", { desc = "Find Man Pages" })
 
         -- git
-        keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<cr>", { desc = "Git Status" })
-        keymap.set("n", "<leader>gc", "<cmd>Telescope git_commits<cr>", { desc = "Git Commits" })
-        keymap.set("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", { desc = "Git Branches" })
+        setKey("n", "<leader>gs", "<cmd>Telescope git_status<cr>", { desc = "Git Status" })
+        setKey("n", "<leader>gc", "<cmd>Telescope git_commits<cr>", { desc = "Git Commits" })
+        setKey("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", { desc = "Git Branches" })
 
         -- code action
-        keymap.set({ "n", "x" }, "<leader>cf", function()
+        setKey({ "n", "x" }, "<leader>cf", function()
             require('telescope').extensions.refactoring.refactors()
         end, { desc = "Refactoring Actions" })
 
         -- ui
-        keymap.set("n", "<leader>ut", "<cmd>Telescope themes<cr>", { desc = "UI Themes" })
+        setKey("n", "<leader>ut", "<cmd>Telescope themes<cr>", { desc = "UI Themes" })
 
         -- undo
-        keymap.set("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = "Find Undo" })
+        setKey("n", "<leader>fu", "<cmd>Telescope undo<cr>", { desc = "Find Undo" })
     end,
 }

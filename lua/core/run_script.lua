@@ -1,3 +1,4 @@
+local setKey = vim.keymap.set
 local formatters = {
     raw = {
         pipeline = "",
@@ -108,11 +109,11 @@ vim.api.nvim_create_autocmd("BufEnter", {
     callback = function()
         if vim.bo.filetype == "sh" or vim.bo.filetype == "bash" then
             for _, formatter in pairs(formatters) do
-                vim.keymap.set("n", formatter.shortcut, function() run_script(formatter) end,
+                setKey("n", formatter.shortcut, function() run_script(formatter) end,
                     { buffer = true, desc = formatter.desc })
 
                 if formatter.arg_shortcut then
-                    vim.keymap.set("n", formatter.arg_shortcut, function() run_script(formatter, true) end,
+                    setKey("n", formatter.arg_shortcut, function() run_script(formatter, true) end,
                         { buffer = true, desc = formatter.desc .. " with Args" })
                 end
             end
@@ -120,7 +121,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end,
 })
 
-vim.keymap.set("n", "<leader>rc", function()
+setKey("n", "<leader>rc", function()
     if output_buf and vim.api.nvim_buf_is_valid(output_buf) then
         vim.api.nvim_buf_delete(output_buf, { force = true })
     end

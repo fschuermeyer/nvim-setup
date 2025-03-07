@@ -23,18 +23,15 @@ return {
         },
         on_attach = function(buffer)
             local gs = package.loaded.gitsigns
+            local setKey = vim.keymap.set -- for conciseness
 
-            local function setMap(mode, key, action, desc)
-                vim.keymap.set(mode, key, action, { buffer = buffer, desc = desc })
-            end
-
-            -- git
-            setMap("n", "<leader>gb", function()
+            setKey("n", "<leader>gb", function()
                 gs.blame_line({ full = true })
-            end, "Git Blame")
+            end, { buffer = buffer, desc = "Git Blame" })
 
             -- ui
-            setMap("n", "<leader>ub", "<cmd>:Gitsigns toggle_current_line_blame<CR>", "Toggle Current Line Git Blame")
+            setKey("n", "<leader>ub", "<cmd>:Gitsigns toggle_current_line_blame<CR>",
+                { buffer = buffer, desc = "Toggle Current Line Git Blame" })
 
             Snacks.toggle({
                 name = "Git Signs",

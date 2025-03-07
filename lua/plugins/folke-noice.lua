@@ -39,10 +39,10 @@ return {
             },
         })
 
-        local set = vim.keymap.set
+        local setKey = vim.keymap.set
 
-        set("n", "<leader>mx", "<cmd>Noice dismiss<CR>", { noremap = true, silent = true, desc = "Dismiss Messages" })
-        set("n", "<leader>ml", "<cmd>Noice last<CR>", { noremap = true, silent = true, desc = "Last Message" })
-        set("n", "<leader>mh", "<cmd>Noice telescope<CR>", { noremap = true, silent = true, desc = "History" })
+        setKey("n", "<leader>mx", "<cmd>Noice dismiss<CR>", { noremap = true, silent = true, desc = "Dismiss Messages" })
+        setKey("n", "<leader>ml", "<cmd>Noice last<CR>", { noremap = true, silent = true, desc = "Last Message" })
+        setKey("n", "<leader>mh", "<cmd>Noice telescope<CR>", { noremap = true, silent = true, desc = "History" })
     end,
 }
