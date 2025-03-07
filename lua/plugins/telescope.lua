@@ -76,6 +76,7 @@ return {
         keymap.set("n", "<leader>fd", "<cmd>Telescope diagnostics<cr>", { desc = "Find Diagnostics" })
         keymap.set("n", "<leader>fm", "<cmd>Telescope marks<cr>", { desc = "Find Marks" })
         keymap.set("n", "<leader>fj", "<cmd>Telescope jumplist<cr>", { desc = "Find Jumplist" })
+        keymap.set("n", "<leader>fp", "<cmd>Telescope man_pages<cr>", { desc = "Find Man Pages" })
 
         -- git
         keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<cr>", { desc = "Git Status" })
