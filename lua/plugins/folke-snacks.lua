@@ -45,6 +45,9 @@ return {
                 },
             },
         },
+        input = {
+            icon = "",
+        },
         scope = { enabled = true },
         scroll = { enabled = true },
         notifier = { enabled = true },
