@@ -52,7 +52,7 @@ return {
         scroll = { enabled = true },
         notifier = { enabled = true },
         explorer = { enabled = false },
-        picker = { enabled = false },
+        picker = { enabled = true },
         bigfile = { enabled = false },
         scratch = { enabled = false },
     },
