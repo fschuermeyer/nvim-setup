@@ -34,3 +34,7 @@ opt.foldlevel = 99
 opt.foldmethod = "expr"
 opt.foldexpr = "v:lua.require'core.foldexpr'.foldexpr()"
 opt.foldtext = ""
+
+if vim.fn.executable("rg") then
+    opt.grepprg = "rg --vimgrep --no-heading --smart-case --glob '!**/*.min.*' --glob '!**/node_modules/**' --glob '!**/.git/**' --glob '!**/*.lock'"
+end
