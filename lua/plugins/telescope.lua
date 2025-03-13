@@ -7,7 +7,6 @@ return {
         "folke/todo-comments.nvim",
         "BurntSushi/ripgrep",
         "andrew-george/telescope-themes",
-        "ThePrimeagen/refactoring.nvim",
         "debugloop/telescope-undo.nvim",
     },
     config = function()
@@ -46,7 +45,7 @@ return {
             end,
         })
 
-        for _, ext in ipairs({ "fzf", "themes", "refactoring", "undo" }) do
+        for _, ext in ipairs({ "fzf", "themes", "undo" }) do
             telescope.load_extension(ext)
         end
 
@@ -83,11 +82,6 @@ return {
         setKey("n", "<leader>gs", "<cmd>Telescope git_status<cr>", { desc = "Git Status" })
         setKey("n", "<leader>gc", "<cmd>Telescope git_commits<cr>", { desc = "Git Commits" })
         setKey("n", "<leader>gb", "<cmd>Telescope git_branches<cr>", { desc = "Git Branches" })
-
-        -- code action
-        setKey({ "n", "x" }, "<leader>cf", function()
-            require('telescope').extensions.refactoring.refactors()
-        end, { desc = "Refactoring Actions" })
 
         -- ui
         setKey("n", "<leader>ut", "<cmd>Telescope themes<cr>", { desc = "UI Themes" })
