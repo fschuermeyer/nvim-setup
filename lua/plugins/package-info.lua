@@ -18,14 +18,10 @@ return {
             vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
                 pattern = "package.json",
                 callback = function(event)
-                    local buf_name = vim.api.nvim_buf_get_name(event.buf)
-
-                    if buf_name:match("package%.json$") then
-                        setKey("n", "<leader>cpu", packageInfo.update, "Update dependency", event.buf)
-                        setKey("n", "<leader>cpd", packageInfo.delete, "Delete dependency", event.buf)
-                        setKey("n", "<leader>cpn", packageInfo.install, "New dependency", event.buf)
-                        setKey("n", "<leader>cpc", packageInfo.change_version, "Change version", event.buf)
-                    end
+                    setKey("n", "<leader>cpu", packageInfo.update, "Update dependency", event.buf)
+                    setKey("n", "<leader>cpd", packageInfo.delete, "Delete dependency", event.buf)
+                    setKey("n", "<leader>cpn", packageInfo.install, "New dependency", event.buf)
+                    setKey("n", "<leader>cpc", packageInfo.change_version, "Change version", event.buf)
                 end,
             })
         end,
