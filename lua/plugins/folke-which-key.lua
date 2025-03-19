@@ -13,6 +13,7 @@ return {
             { "<leader>r", group = "run", icon = { icon = " ", color = "red" } },
             { "<leader>ra", group = "with args", icon = { icon = " ", color = "yellow" } },
             { "<leader>c", group = "code" },
+            { "<leader>cp", group = "code/package manager" },
             { "<leader>d", group = "debug" },
             { "<leader>f", group = "file/find" },
             { "<leader>g", group = "git" },

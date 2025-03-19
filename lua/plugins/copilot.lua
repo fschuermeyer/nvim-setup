@@ -61,6 +61,7 @@ return {
             question_header = "  " .. (vim.env.GITHUB_USER or vim.env.USER or "User") .. " ",
             answer_header = "  Copilot ",
             error_header = "## Error ",
+            model = "gpt-4o-2024-11-20",
             prompts = prompts,
             mappings = {
                 -- Use tab for completion
