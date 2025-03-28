@@ -128,6 +128,16 @@ return {
                     },
                 })
             end,
+            ["golangci_lint_ls"] = function()
+                lspconfig["golangci_lint_ls"].setup({
+                    capabilities = capabilities,
+                    on_attach = on_attach,
+                    init_options = {
+                        -- temporary solution before switch to golangci-lint v2 with the new CLI commands
+                        command = { 'golangci-lint', 'run', '--out-format', 'json' },
+                    },
+                })
+            end,
             ["vtsls"] = function()
                 lspconfig["vtsls"].setup({
                     capabilities = capabilities,
