@@ -73,6 +73,11 @@ return {
             Snacks.bufdelete.other()
         end, { desc = "Delete Other Buffers" })
 
+
+        setKey("n", "<leader>gl", function()
+            Snacks.gitbrowse()
+        end, { desc = "Open File in Git" })
+
         local setToggle = Snacks.toggle.option -- for conciseness
 
         setToggle("wrap", { name = "Line Wrap" }):map("<leader>uw")
