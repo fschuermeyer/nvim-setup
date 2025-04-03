@@ -17,7 +17,7 @@ return {
         telescope.setup({
             defaults = {
                 path_display = { "truncate" },
-                file_ignore_patterns = { "node_modules", "swaggerui", "vendor", ".git", ".run" },
+                file_ignore_patterns = { "node_modules/.*", "swaggerui%-src/.*", "vendor/.*", ".git/.*", ".run/.*" },
                 mappings = {
                     i = {
                         ["<C-k>"] = actions.move_selection_previous, -- move to prev result
