@@ -31,6 +31,8 @@ return {
         { prefix .. "n", "<cmd>ObsidianNew<CR>",           desc = "Obsidian: New Note" },
         { prefix .. "b", "<cmd>ObsidianBacklinks<CR>",     desc = "Obsidian: Backlinks" },
         { prefix .. "x", "<cmd>RenderMarkdown toggle<CR>", desc = "Obsidian: Render Markdown" },
+        { prefix .. "l", "<cmd>ObsidianLinks<CR>",         desc = "Obsidian: Links" },
+        { prefix .. "c", "<cmd>ObsidianOpen<CR>",          desc = "Obsidian: Open" },
     },
     opts = {
         use_advanced_uri = true,
