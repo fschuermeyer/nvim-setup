@@ -65,7 +65,6 @@ return {
                 "haskell-debug-adapter",    -- Haskell debugger
                 "isort",                    -- Python import sorter
                 "markdownlint-cli2",        -- Markdown linter
-                "marksman",                 -- Markdown language server
                 "php-cs-fixer",             -- PHP formatter
                 "php-debug-adapter",        -- PHP debugger
                 "phpactor",                 -- PHP language server

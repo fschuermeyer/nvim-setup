@@ -28,6 +28,11 @@ return {
         event = "InsertEnter",
         config = function()
             require("copilot").setup({
+                filetypes = {
+                    yaml = true,
+                    markdown = true,
+                    gitcommit = true,
+                },
                 suggestion = {
                     enabled = false,
                     auto_trigger = true,
