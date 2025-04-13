@@ -41,6 +41,9 @@ return {
         note_id_func = function(title)
             return title
         end,
+        follow_url_func = function(url)
+            vim.ui.open(url)
+        end,
 
         disable_frontmatter = true,
 
