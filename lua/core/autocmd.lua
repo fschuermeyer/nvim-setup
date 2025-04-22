@@ -19,3 +19,11 @@ vim.cmd([[
   autocmd BufNewFile,BufRead *.twig set filetype=html
   autocmd BufNewFile,BufRead *.zsh set filetype=bash
 ]])
+
+-- Highlight for Terraform Files
+vim.cmd([[
+  autocmd BufRead,BufNewFile *.hcl set filetype=hcl
+  autocmd BufRead,BufNewFile .terraformrc,terraform.rc set filetype=hcl
+  autocmd BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform
+  autocmd BufRead,BufNewFile *.tfstate,*.tfstate.backup set filetype=json
+]])

@@ -58,6 +58,8 @@ return {
                 "vue",
                 "xml",
                 "regex",
+                "terraform",
+                "hcl",
             },
             incremental_selection = {
                 enable = true,

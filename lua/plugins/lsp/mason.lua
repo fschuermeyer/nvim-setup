@@ -48,7 +48,8 @@ return {
                 "vtsls",                           -- TypeScript support
                 "volar",                           -- Vue.js language support
                 "stimulus_ls",                     -- Stimulus language support
-                "stylelint_lsp"                    -- Stylint LSP
+                "stylelint_lsp",                   -- Stylint LSP
+                "terraformls",                     -- Terraform language support
             },
         })
 
@@ -80,6 +81,7 @@ return {
                 "shfmt",                    -- Shell script formatter
                 "ruff-lsp",                 -- Python linter support
                 "js-debug-adapter",         -- JavaScript debug adapter
+                "tflint",                   -- Terraform linter
             },
         })
     end,
