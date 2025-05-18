@@ -7,8 +7,6 @@ return {
         { "folke/neodev.nvim",                   opts = {} },
     },
     config = function()
-        local lspconfig = require("lspconfig")
-        local mason_lspconfig = require("mason-lspconfig")
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
         local setKey = vim.keymap.set -- for conciseness
@@ -105,148 +103,145 @@ return {
             client.server_capabilities.documentRangeFormattingProvider = false
         end
 
-        mason_lspconfig.setup_handlers({
-            -- default handler for installed servers
-            -- fallback to this handler if no specific handler is defined
-            function(server_name)
-                lspconfig[server_name].setup({
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                })
-            end,
-            ["gopls"] = function()
-                lspconfig["gopls"].setup({
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    settings = {
-                        gopls = {
-                            hints = {
-                                assignVariableTypes = false,
-                                compositeLiteralFields = true,
-                                compositeLiteralTypes = true,
-                                constantValues = true,
-                                functionTypeParameters = true,
-                                parameterNames = true,
-                                rangeVariableTypes = true,
-                            },
-                        },
+        vim.lsp.config("*", {
+            capabilities = capabilities,
+            on_attach = on_attach,
+        })
+
+        vim.lsp.config("gopls", {
+            capabilities = capabilities,
+            on_attach = on_attach,
+            settings = {
+                gopls = {
+                    hints = {
+                        assignVariableTypes = false,
+                        compositeLiteralFields = true,
+                        compositeLiteralTypes = true,
+                        constantValues = true,
+                        functionTypeParameters = true,
+                        parameterNames = true,
+                        rangeVariableTypes = true,
                     },
-                })
-            end,
-            ["golangci_lint_ls"] = function()
-                lspconfig["golangci_lint_ls"].setup({
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    init_options = {
-                        -- temporary solution before switch to golangci-lint v2 with the new CLI commands
-                        command = { 'golangci-lint', 'run', '--out-format', 'json' },
+                },
+            },
+        })
+
+        vim.lsp.config("golangci_lint_ls", {
+            capabilities = capabilities,
+            on_attach = on_attach,
+            init_options = {
+                -- temporary solution before switch to golangci-lint v2 with the new CLI commands
+                command = { 'golangci-lint', 'run', '--out-format', 'json' },
+            },
+        })
+
+        vim.lsp.config("vtsls", {
+            capabilities = capabilities,
+            on_attach = on_attach,
+            settings = {
+                vtsls = {
+                    experimental = {
+                        maxInlayHintLength = 30,
                     },
-                })
-            end,
-            ["vtsls"] = function()
-                lspconfig["vtsls"].setup({
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    settings = {
-                        vtsls = {
-                            experimental = {
-                                maxInlayHintLength = 30,
-                            },
-                        },
-                        typescript = {
-                            inlayHints = {
-                                enumMemberValues = { enabled = true },
-                                functionLikeReturnTypes = { enabled = true },
-                                parameterNames = { enabled = "all" },
-                                parameterTypes = { enabled = true },
-                                propertyDeclarationTypes = { enabled = true },
-                                variableTypes = { enabled = true },
-                            },
-                            implementationCodeLens = { enabled = true },
-                            referencesCodeLens = { enabled = true },
-                        },
-                        javascript = {
-                            inlayHints = {
-                                parameterNames = { enabled = "all" },
-                                parameterTypes = { enabled = true },
-                                variableTypes = { enabled = true },
-                                propertyDeclarationTypes = { enabled = true },
-                                functionLikeReturnTypes = { enabled = true },
-                            },
-                            referencesCodeLens = { enabled = true },
-                        }
-                    }
-                })
-            end,
-            ["emmet_ls"] = function()
-                lspconfig["emmet_ls"].setup({
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    filetypes = {
-                        "html",
-                        "typescriptreact",
-                        "javascriptreact",
-                        "css",
-                        "sass",
-                        "scss",
-                        "less",
-                        "svelte",
+                },
+                typescript = {
+                    inlayHints = {
+                        enumMemberValues = { enabled = true },
+                        functionLikeReturnTypes = { enabled = true },
+                        parameterNames = { enabled = "all" },
+                        parameterTypes = { enabled = true },
+                        propertyDeclarationTypes = { enabled = true },
+                        variableTypes = { enabled = true },
                     },
-                })
-            end,
-            ["lua_ls"] = function()
-                lspconfig["lua_ls"].setup({
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    settings = {
-                        Lua = {
-                            diagnostics = {
-                                globals = { "vim" },
-                            },
-                            completion = {
-                                callSnippet = "Replace",
-                            },
-                            hint = {
-                                enable = true
-                            },
-                        },
+                    implementationCodeLens = { enabled = true },
+                    referencesCodeLens = { enabled = true },
+                },
+                javascript = {
+                    inlayHints = {
+                        parameterNames = { enabled = "all" },
+                        parameterTypes = { enabled = true },
+                        variableTypes = { enabled = true },
+                        propertyDeclarationTypes = { enabled = true },
+                        functionLikeReturnTypes = { enabled = true },
                     },
-                })
-            end,
-            ["cssls"] = function()
-                lspconfig["cssls"].setup({
-                    capabilities = capabilities,
-                    on_attach = on_attach_disable_formatting,
-                    settings = {
-                        init_options = {
-                            provideFormatter = false,
-                        },
+                    referencesCodeLens = { enabled = true },
+                }
+            }
+        })
+
+        vim.lsp.config("emmet_ls", {
+            capabilities = capabilities,
+            on_attach = on_attach,
+            filetypes = {
+                "html",
+                "typescriptreact",
+                "javascriptreact",
+                "css",
+                "sass",
+                "scss",
+                "less",
+                "svelte",
+            },
+        })
+
+        vim.lsp.config("lua_ls", {
+            capabilities = capabilities,
+            on_attach = on_attach,
+            settings = {
+                Lua = {
+                    diagnostics = {
+                        globals = { "vim" },
                     },
-                })
-            end,
-            ["stylelint_lsp"] = function()
-                lspconfig["stylelint_lsp"].setup({
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    settings = {
-                        stylelintplus = {
-                            autoFixOnSave = true,
-                            autoFixOnFormat = true
-                        }
+                    completion = {
+                        callSnippet = "Replace",
                     },
-                    filetypes = { "css", "less", "scss", "sugarss", "vue", "wxss", "sass" }
-                })
-            end,
-            ["bashls"] = function()
-                lspconfig["bashls"].setup({
-                    capabilities = capabilities,
-                    on_attach = on_attach,
-                    filetypes = { "bash", "sh", "zsh" },
-                })
-            end,
-            ["hls"] = function()
-                -- disable hls initalization over lspconfig
-            end
+                    hint = {
+                        enable = true
+                    },
+                },
+            },
+        })
+
+        vim.lsp.config("cssls", {
+            capabilities = capabilities,
+            on_attach = on_attach_disable_formatting,
+            settings = {
+                init_options = {
+                    provideFormatter = false,
+                },
+            },
+        })
+
+        vim.lsp.config("stylelint_lsp", {
+            capabilities = capabilities,
+            on_attach = on_attach_disable_formatting,
+            settings = {
+                stylelintplus = {
+                    autoFixOnSave = true,
+                    autoFixOnFormat = true
+                }
+            },
+            filetypes = { "css", "less", "scss", "sugarss", "vue", "wxss", "sass" }
+        })
+
+        vim.lsp.config("bashls", {
+            capabilities = capabilities,
+            on_attach = on_attach,
+            filetypes = { "bash", "sh", "zsh" },
+        })
+
+
+        vim.lsp.config("hls", {
+            capabilities = capabilities,
+            on_attach = on_attach_disable_formatting,
+            settings = {
+                format = {
+                    enable = false,
+                },
+                init_options = {
+                    provideFormatter = false,
+                },
+            },
         })
     end,
 }
