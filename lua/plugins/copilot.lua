@@ -44,6 +44,9 @@ return {
                 },
                 panel = { enabled = false },
             })
+
+            -- inital disable of copilot completions
+            vim.cmd("Copilot disable")
         end,
     },
     {
