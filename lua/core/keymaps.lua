@@ -47,3 +47,9 @@ setKey("n", "<leader>aY", "<cmd>Copilot enable<CR>", { desc = "Copilot Enable" }
 -- Next/Prev Diagnostic
 setKey("n", "gj", "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "Next Diagnostic" })
 setKey("n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { desc = "Prev Diagnostic" })
+
+-- Disable (slows down reference keymap)
+vim.keymap.del('n', 'gri')
+vim.keymap.del('n', 'gra')
+vim.keymap.del('n', 'grr')
+vim.keymap.del('n', 'grn')

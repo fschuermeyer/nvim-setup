@@ -46,7 +46,7 @@ return {
                 "tailwindcss",                     -- Tailwind CSS language support
                 "yamlls",                          -- YAML language support
                 "vtsls",                           -- TypeScript support
-                "volar",                           -- Vue.js language support
+                "vue_ls",                          -- Vue.js language support
                 "stimulus_ls",                     -- Stimulus language support
                 "stylelint_lsp",                   -- Stylint LSP
                 "terraformls",                     -- Terraform language support
@@ -79,7 +79,6 @@ return {
                 "markdown-toc",             -- Markdown TOC generator
                 "shellcheck",               -- Shell script analysis
                 "shfmt",                    -- Shell script formatter
-                "ruff-lsp",                 -- Python linter support
                 "js-debug-adapter",         -- JavaScript debug adapter
                 "tflint",                   -- Terraform linter
             },
