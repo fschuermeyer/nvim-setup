@@ -40,16 +40,15 @@ return {
                 "intelephense",                    -- PHP language support
                 "jedi_language_server",            -- Python language server
                 "jsonls",                          -- JSON language support
-                "kotlin_language_server",          -- Kotlin language support
                 "lua_ls",                          -- Lua language server
                 "pyright",                         -- Python language server
                 "tailwindcss",                     -- Tailwind CSS language support
                 "yamlls",                          -- YAML language support
                 "vtsls",                           -- TypeScript support
-                "vue_ls",                          -- Vue.js language support
                 "stimulus_ls",                     -- Stimulus language support
                 "stylelint_lsp",                   -- Stylint LSP
                 "terraformls",                     -- Terraform language support
+                "jdtls"                            -- Java language support
             },
         })
 
@@ -81,6 +80,7 @@ return {
                 "shfmt",                    -- Shell script formatter
                 "js-debug-adapter",         -- JavaScript debug adapter
                 "tflint",                   -- Terraform linter
+                "google-java-format"        -- Java Formatter
             },
         })
     end,

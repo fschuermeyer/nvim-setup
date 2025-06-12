@@ -27,3 +27,10 @@ vim.cmd([[
   autocmd BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform
   autocmd BufRead,BufNewFile *.tfstate,*.tfstate.backup set filetype=json
 ]])
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "*.java",
+    callback = function()
+        vim.lsp.buf.format({ async = false })
+    end,
+})
