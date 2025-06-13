@@ -69,8 +69,8 @@ return {
             sources = cmp.config.sources({
                 { name = "copilot" },
                 { name = "vim-dadbod-completion" }, -- completion for vim-dadbod-ui
-                { name = "nvim_lsp" },
                 { name = "luasnip" },               -- snippets
+                { name = "nvim_lsp" },
                 { name = "path" },                  -- file system paths
                 { name = "buffer" },                -- text within current buffer
             }),
