@@ -32,6 +32,7 @@ return {
             "nvim-neotest/neotest-go",
             "nvim-neotest/neotest-python",
             "nvim-neotest/neotest-jest",
+            "rcasia/neotest-java",
             "marilari88/neotest-vitest",
         },
         keys = {
@@ -54,11 +55,22 @@ return {
                 runner = "pytest",
             })
 
+            local javaAdapter = require("neotest-java")({
+                junit_jar = nil,
+                incremental_build = true
+            })
+
             local jsAdapter = get_javascript_adapter_test()
+
+            local adapters = { goAdapter, pyAdapter, javaAdapter }
+
+            if jsAdapter then
+                table.insert(adapters, jsAdapter)
+            end
 
             ---@diagnostic disable-next-line: missing-fields
             require("neotest").setup({
-                adapters = { goAdapter, pyAdapter, jsAdapter },
+                adapters = adapters,
                 ---@diagnostic disable-next-line: missing-fields
                 diagnostic = {
                     enable = true,
