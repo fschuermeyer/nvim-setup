@@ -80,7 +80,7 @@ return {
                 "shfmt",                    -- Shell script formatter
                 "js-debug-adapter",         -- JavaScript debug adapter
                 "tflint",                   -- Terraform linter
-                "google-java-format"        -- Java Formatter
+                "google-java-format",       -- Java Formatter
             },
         })
     end,

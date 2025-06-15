@@ -34,3 +34,10 @@ vim.api.nvim_create_autocmd("BufWritePre", {
         vim.lsp.buf.format({ async = false })
     end,
 })
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+    pattern = "*.xml",
+    callback = function()
+        vim.lsp.buf.format({ async = false })
+    end,
+})
