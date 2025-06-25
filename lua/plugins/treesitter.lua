@@ -23,6 +23,7 @@ return {
             -- ensure these language parsers are installed
             ensure_installed = {
                 "json",
+                "angular",
                 "javascript",
                 "typescript",
                 "tsx",
@@ -74,6 +75,16 @@ return {
             sync_install = true,
             ignore_install = {},
             auto_install = false,
+        })
+
+        -- Highlight html as Angular if angular.json exists
+        vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+            pattern = "*.html",
+            callback = function()
+                if is_angular_project() then
+                    vim.bo.filetype = "angular"
+                end
+            end,
         })
     end,
 }

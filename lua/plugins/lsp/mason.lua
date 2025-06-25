@@ -48,7 +48,7 @@ return {
                 "stimulus_ls",                     -- Stimulus language support
                 "stylelint_lsp",                   -- Stylint LSP
                 "terraformls",                     -- Terraform language support
-                "jdtls"                            -- Java language support
+                "jdtls",                           -- Java language support
             },
         })
 
