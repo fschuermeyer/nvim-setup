@@ -5,7 +5,8 @@ return {
         require("alternate-toggler").setup({
             alternates = {
                 ["const"] = "var",
-                ["none"] = "block"
+                ["none"] = "block",
+                ["private"] = "public",
             }
         })
     end
