@@ -1,0 +1,15 @@
+{
+    "name": "nvim-snippet-collection",
+    "displayName": "NVIM Snippet Collection",
+    "description": "NVIM Snippet Collection loaded by LuaSnip",
+    "version": "0.0.1",
+    "publisher": "",
+    "contributes": {
+        "snippets": [
+            {
+                "language": "htmlangular",
+                "path": "./htmlangular.json"
+            }
+        ]
+    }
+}

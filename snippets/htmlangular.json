@@ -1,0 +1,73 @@
+{
+    "@if": {
+        "prefix": [
+            "ng-if",
+            "if"
+        ],
+        "description": "@if statement",
+        "body": [
+            "@if ($1) {",
+            "  $0",
+            "}"
+        ]
+    },
+    "@if @else": {
+        "prefix": [
+            "ng-if-else",
+            "if-else"
+        ],
+        "description": "@if @else statement",
+        "body": [
+            "@if ($1) {",
+            "  $0",
+            "} @else {",
+            "  $0",
+            "}"
+        ]
+    },
+    "@for": {
+        "prefix": [
+            "ng-for",
+            "for"
+        ],
+        "description": "@for statement for looping",
+        "body": [
+            "@for ($1 of $2; track $1) {",
+            "  $0",
+            "}"
+        ]
+    },
+    "@switch": {
+        "prefix": [
+            "ng-switch",
+            "switch"
+        ],
+        "description": "@switch statement",
+        "body": [
+            "@switch ($1) {",
+            "  @case ($2) {",
+            "    $0",
+            "  }",
+            "  @default {",
+            "    $0",
+            "  }",
+            "}"
+        ]
+    },
+    "@defer with placeholder, loading": {
+        "prefix": [
+            "ng-defer",
+            "defer"
+        ],
+        "description": "@defer + placeholder, loading for deferrable views",
+        "body": [
+            "@defer {",
+            "  <${1:large-component} />",
+            "} @placeholder {",
+            "  ${2:placeholder...}",
+            "} @loading {",
+            "  ${3:loading...}",
+            "}"
+        ]
+    }
+}

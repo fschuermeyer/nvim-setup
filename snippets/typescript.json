@@ -1,0 +1,179 @@
+{
+    "Angular Standalone Component": {
+        "prefix": "component",
+        "description": "Angular standalone component",
+        "body": [
+            "import { ChangeDetectionStrategy, Component } from '@angular/core';",
+            "",
+            "@Component({",
+            "\tchangeDetection: ChangeDetectionStrategy.OnPush,",
+            "\tselector: '${1:selector-name}',",
+            "\ttemplateUrl: './${2:name}.component.html',",
+            "\timports: [],",
+            "})",
+            "export class ${3:Name}Component {",
+            "\t$0",
+            "}"
+        ]
+    },
+    "Angular Standalone Directive": {
+        "prefix": "directive",
+        "description": "Angular standalone directive",
+        "body": [
+            "import { Directive } from '@angular/core';",
+            "",
+            "@Directive({",
+            "\tselector: '[${1:name}]',",
+            "})",
+            "export class ${2:Name}Directive {",
+            "\t$0",
+            "}"
+        ]
+    },
+    "Angular Standalone Pipe": {
+        "prefix": "pipe",
+        "description": "Angular standalone pipe",
+        "body": [
+            "import { Pipe, PipeTransform } from '@angular/core';",
+            "",
+            "@Pipe({",
+            "\tname: '${1:name}',",
+            "})",
+            "export class ${2:Name}Pipe implements PipeTransform {",
+            "\ttransform(value: ${3:type}): ${3:type} {",
+            "\t\t$0",
+            "\t}",
+            "}"
+        ]
+    },
+    "Angular Effect": {
+        "prefix": "effect",
+        "description": "Angular effect function",
+        "body": [
+            "effect(() => {",
+            "\t$1",
+            "});"
+        ]
+    },
+    "Angular Computed Signal": {
+        "prefix": "computed",
+        "description": "Angular computed signal",
+        "body": [
+            "${1:newSignal} = computed(() => {",
+            "\treturn ${2:otherSignal}();",
+            "});"
+        ]
+    },
+    "Angular linkedSignal": {
+        "prefix": "linkedSignal",
+        "description": "Angular linkedSignal",
+        "body": [
+            "${1:newSignal} = linkedSignal(() => ${2:sourceSignal}());"
+        ]
+    },
+    "Angular linkedSignal with source and computation": {
+        "prefix": "linkedSignal source and computation",
+        "description": "Angular linkedSignal signal with source and computation",
+        "body": [
+            "${1:newSignal} = linkedSignal({",
+            "\tsource: ${2:sourceSignal},",
+            "\tcomputation: () => ${2:sourceSignal}(),",
+            "});"
+        ]
+    },
+    "Angular Resource Signal": {
+        "prefix": "resource",
+        "description": "Angular resource signal",
+        "body": [
+            "${1:newSignal} = resource({",
+            "\tloader: () => ${2:returnPromise}",
+            "});"
+        ]
+    },
+    "Angular Resource Signal with request": {
+        "prefix": "resource request",
+        "description": "Angular resource signal with request",
+        "body": [
+            "${1:newSignal} = resource({",
+            "\trequest: () => ${2:sourceSignal}(),",
+            "\tloader: ({request: ${3:requestAlias}}) => ${4:returnPromise}",
+            "});"
+        ]
+    },
+    "Angular resource Signal with complex request": {
+        "prefix": "resource request",
+        "description": "Angular Resource signal with complex request",
+        "body": [
+            "${1:newSignal} = resource({",
+            "\trequest: () => ({",
+            "\t\t${2:property1}: ${3:sourceSignal}()",
+            "\t\t${4:property2}: ${5:sourceSignal2}()",
+            "\t}),",
+            "\tloader: ({request}) => ${6:returnPromise}",
+            "});"
+        ]
+    },
+    "Angular rxResource Signal": {
+        "prefix": "rxResource",
+        "description": "Angular rxResource signal",
+        "body": [
+            "${1:newSignal} = rxResource({",
+            "\tloader: () => ${2:returnObservable}",
+            "});"
+        ]
+    },
+    "Angular rxResource Signal with request": {
+        "prefix": "rxResource request",
+        "description": "Angular rxResource signal with request",
+        "body": [
+            "${1:newSignal} = rxResource({",
+            "\trequest: () => ${2:sourceSignal}(),",
+            "\tloader: ({request: ${3:requestAlias}}) => ${4:returnObservable}",
+            "});"
+        ]
+    },
+    "Angular rxResource Signal with complex request": {
+        "prefix": "rxResource request",
+        "description": "Angular rxResource signal with complex request",
+        "body": [
+            "${1:newSignal} = rxResource({",
+            "\trequest: () => ({",
+            "\t\t${2:property1}: ${3:sourceSignal}()",
+            "\t\t${4:property2}: ${5:sourceSignal2}()",
+            "\t}),",
+            "\tloader: ({request}) => ${6:returnObservable}",
+            "});"
+        ]
+    },
+    "Angular Required Input Signal": {
+        "prefix": "inputRequired",
+        "description": "Angular required input signal",
+        "body": [
+            "${1:newSignal} = input.required<${2:signalType}>();"
+        ]
+    },
+    "Angular Optional Input Signal": {
+        "prefix": "inputOptional",
+        "description": "Angular optional input signal",
+        "body": [
+            "${1:newSignal} = input<${2:signalType}>(${3:defaultValue});"
+        ]
+    },
+    "Angular Output Signal": {
+        "prefix": "output",
+        "description": "Angular output signal",
+        "body": [
+            "${1:newSignal} = output<${2:signalType}>();"
+        ]
+    },
+    "httpResource": {
+        "prefix": "httpResource",
+        "description": "Angular httpResource",
+        "body": [
+            "${1:newSignal} = httpResource({",
+            "\turl: '${2:url}',",
+            "\tmethod: '${3:method}',",
+            "});"
+        ]
+    }
+}
