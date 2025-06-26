@@ -37,6 +37,10 @@ return {
         local cmp = require("cmp")
 
         local luasnip = require("luasnip")
+
+        -- extend htmlangular with html snippets
+        luasnip.filetype_extend("htmlangular", { "html" })
+
         -- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
         require("luasnip.loaders.from_vscode").lazy_load()
 

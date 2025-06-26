@@ -7,6 +7,7 @@ return {
     },
     config = function()
         local cmp_nvim_lsp = require("cmp_nvim_lsp")
+        local utils = require("core.utils")
 
         local setKey = vim.keymap.set -- for conciseness
 
@@ -165,7 +166,7 @@ return {
                     },
                     referencesCodeLens = { enabled = true },
                 }
-            }
+            },
         })
 
         vim.lsp.config("emmet_ls", {
@@ -220,7 +221,21 @@ return {
                     autoFixOnFormat = true
                 }
             },
-            filetypes = { "css", "less", "scss", "sugarss", "vue", "wxss", "sass" }
+            filetypes = { "css", "less", "scss", "sugarss", "vue", "wxss", "sass" },
+            root_dir = function(bufnr)
+                return utils.find_root(bufnr, {
+                    ".stylelintrc",
+                    ".stylelintrc.mjs",
+                    ".stylelintrc.cjs",
+                    ".stylelintrc.js",
+                    ".stylelintrc.json",
+                    ".stylelintrc.yaml",
+                    ".stylelintrc.yml",
+                    "stylelint.config.mjs",
+                    "stylelint.config.cjs",
+                    "stylelint.config.js"
+                })
+            end,
         })
 
         vim.lsp.config("bashls", {
@@ -229,6 +244,19 @@ return {
             filetypes = { "bash", "sh", "zsh" },
         })
 
+        vim.lsp.config("stimulus_ls", {
+            capabilities = capabilities,
+            on_attach = on_attach,
+            root_dir = function(bufnr)
+                if not utils.is_stimulus_project() then
+                    return nil
+                end
+
+                return utils.find_root(bufnr, {
+                    "package.json",
+                })
+            end,
+        })
 
         vim.lsp.config("hls", {
             capabilities = capabilities,

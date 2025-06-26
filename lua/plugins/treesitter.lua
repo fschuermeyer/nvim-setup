@@ -9,6 +9,8 @@ return {
         -- import nvim-treesitter plugin
         local treesitter = require("nvim-treesitter.configs")
 
+        local utils = require("core.utils")
+
         -- configure treesitter
         treesitter.setup({ -- enable syntax highlighting
             highlight = {
@@ -81,8 +83,8 @@ return {
         vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
             pattern = "*.html",
             callback = function()
-                if is_angular_project() then
-                    vim.bo.filetype = "angular"
+                if utils.is_angular_project() then
+                    vim.bo.filetype = "htmlangular"
                 end
             end,
         })
