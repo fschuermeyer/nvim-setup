@@ -40,6 +40,7 @@ return {
 
         -- extend htmlangular with html snippets
         luasnip.filetype_extend("htmlangular", { "html" })
+        luasnip.filetype_extend("gohtmltmpl", { "html" })
 
         -- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
         require("luasnip.loaders.from_vscode").lazy_load()
