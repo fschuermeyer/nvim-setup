@@ -222,8 +222,8 @@ return {
                 }
             },
             filetypes = { "css", "less", "scss", "sugarss", "vue", "wxss", "sass" },
-            root_dir = function(bufnr)
-                return utils.find_root(bufnr, {
+            root_dir = function(bufnr, on_dir)
+                local outDir = utils.find_root(bufnr, {
                     ".stylelintrc",
                     ".stylelintrc.mjs",
                     ".stylelintrc.cjs",
@@ -235,6 +235,8 @@ return {
                     "stylelint.config.cjs",
                     "stylelint.config.js"
                 })
+
+                on_dir(outDir)
             end,
         })
 
@@ -247,14 +249,12 @@ return {
         vim.lsp.config("stimulus_ls", {
             capabilities = capabilities,
             on_attach = on_attach,
-            root_dir = function(bufnr)
-                if not utils.is_stimulus_project() then
-                    return nil
+            root_dir = function(bufnr, on_dir)
+                if utils.is_stimulus_project() then
+                    on_dir(utils.find_root(bufnr, {
+                        "package.json",
+                    }))
                 end
-
-                return utils.find_root(bufnr, {
-                    "package.json",
-                })
             end,
         })
 
