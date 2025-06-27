@@ -9,6 +9,10 @@
             {
                 "language": "htmlangular",
                 "path": "./htmlangular.json"
+            },
+            {
+                "language": "gohtmltmpl",
+                "path": "./gohtmltmpl.json"
             }
         ]
     }

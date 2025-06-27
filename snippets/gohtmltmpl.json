@@ -1,0 +1,166 @@
+{
+  "block_start": {
+    "prefix": "g-block",
+    "body": [
+      "{{ block \"${1:name}\" .${2:pipeline} }}",
+      "$0"
+    ],
+    "description": "block"
+  },
+  "block_with_end": {
+    "prefix": "g-blocke",
+    "body": [
+      "{{ block \"${1:name}\" .${2:pipeline} }}",
+      "\t$0",
+      "{{ end }}"
+    ],
+    "description": "block ... end"
+  },
+  "range_start": {
+    "prefix": "g-range",
+    "body": [
+      "{{ range .${1:pipeline} }}",
+      "\t$0"
+    ],
+    "description": "range"
+  },
+  "range_with_end": {
+    "prefix": "g-rangee",
+    "body": [
+      "{{ range .${1:pipeline} }}",
+      "\t${0:...}",
+      "{{ end }}"
+    ],
+    "description": "range ... end"
+  },
+  "break_stmt": {
+    "prefix": "g-break",
+    "body": [
+      "{{ break }}",
+      "$0"
+    ],
+    "description": "break"
+  },
+  "continue_stmt": {
+    "prefix": "g-continue",
+    "body": [
+      "{{ continue }}",
+      "$0"
+    ],
+    "description": "continue"
+  },
+  "define_start": {
+    "prefix": "g-define",
+    "body": [
+      "{{ define \"${1:name}\" }}",
+      "\t$0"
+    ],
+    "description": "define"
+  },
+  "define_with_end": {
+    "prefix": "g-definee",
+    "body": [
+      "{{ define \"${1:name}\" }}",
+      "\t${0:...}",
+      "{{ end }}"
+    ],
+    "description": "define ... end"
+  },
+  "if_start": {
+    "prefix": "g-if",
+    "body": [
+      "{{ if (${1:condition}) }}"
+    ],
+    "description": "if"
+  },
+  "if_with_end": {
+    "prefix": "g-ife",
+    "body": [
+      "{{ if (${1:condition}) }}",
+      "\t${0:...}",
+      "{{ end }}"
+    ],
+    "description": "if ... end"
+  },
+  "if_else_end": {
+    "prefix": "g-ifee",
+    "body": [
+      "{{ if (${1:condition}) }}",
+      "\t${2:...}",
+      "{{ else }}",
+      "\t${0:...}",
+      "{{ end }}"
+    ],
+    "description": "if ... else ... end"
+  },
+  "elseif_stmt": {
+    "prefix": "g-elseif",
+    "body": [
+      "{{ else if (${1:condition}) }}",
+      "\t$0"
+    ],
+    "description": "else if"
+  },
+  "else_stmt": {
+    "prefix": "g-else",
+    "body": [
+      "{{ else }}",
+      "\t$0"
+    ],
+    "description": "else"
+  },
+  "with_start": {
+    "prefix": "g-with",
+    "body": [
+      "{{ with ${1:pipeline} }}"
+    ],
+    "description": "with"
+  },
+  "with_with_end": {
+    "prefix": "g-withe",
+    "body": [
+      "{{ with ${1:pipeline} }}",
+      "\t${2:...}",
+      "{{ end }}"
+    ],
+    "description": "with ... end"
+  },
+  "with_else_end": {
+    "prefix": "g-withee",
+    "body": [
+      "{{ with ${1:pipeline} }}",
+      "\t${2:...}",
+      "{{ else }}",
+      "\t${3:...}",
+      "{{ end }}"
+    ],
+    "description": "with ... else ... end"
+  },
+  "with_else_with_end": {
+    "prefix": "g-witheee",
+    "body": [
+      "{{ with ${1:pipeline} }}",
+      "\t${2:...}",
+      "{{ else with ${3:pipeline} }}",
+      "\t${4:...}",
+      "{{ end }}"
+    ],
+    "description": "with ... else with ... end"
+  },
+  "partial_stmt": {
+    "prefix": "g-partial",
+    "body": [
+      "{{ partial \"${1:name}\" }}",
+      "$0"
+    ],
+    "description": "partial"
+  },
+  "template_stmt": {
+    "prefix": "g-template",
+    "body": [
+      "{{ template \"${1:name}\" .${2:pipeline} }}",
+      "$0"
+    ],
+    "description": "template"
+  },
+}
