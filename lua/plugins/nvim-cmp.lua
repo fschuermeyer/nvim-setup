@@ -36,11 +36,15 @@ return {
     config = function()
         local cmp = require("cmp")
 
-        local luasnip = require("luasnip")
+        local ls = require("luasnip")
 
         -- extend htmlangular with html snippets
-        luasnip.filetype_extend("htmlangular", { "html" })
-        luasnip.filetype_extend("gohtmltmpl", { "html" })
+        ls.filetype_extend("htmlangular", { "html" })
+        ls.filetype_extend("gohtmltmpl", { "html" })
+
+        vim.keymap.set({ "i" }, "<C-K>", function() ls.expand() end, { silent = true })
+        vim.keymap.set({ "i", "s" }, "<C-L>", function() ls.jump(1) end, { silent = true })
+        vim.keymap.set({ "i", "s" }, "<C-J>", function() ls.jump(-1) end, { silent = true })
 
         -- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
         require("luasnip.loaders.from_vscode").lazy_load()
@@ -62,7 +66,7 @@ return {
             preselect = cmp.PreselectMode.Item,
             snippet = { -- configure how nvim-cmp interacts with snippet engine
                 expand = function(args)
-                    luasnip.lsp_expand(args.body)
+                    ls.lsp_expand(args.body)
                 end,
             },
             mapping = cmp.mapping.preset.insert({
