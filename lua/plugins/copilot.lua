@@ -211,17 +211,17 @@ return {
                 desc = "CopilotChat - Quick chat",
             },
             -- Debug
-            { "<leader>ad", "<cmd>CopilotChatDebugInfo<cr>",     desc = "CopilotChat - Debug Info" },
+            { "<leader>ad", "<cmd>CopilotChatDebugInfo<cr>", desc = "CopilotChat - Debug Info" },
             -- Fix the issue with diagnostic
-            { "<leader>af", "<cmd>CopilotChatFixDiagnostic<cr>", desc = "CopilotChat - Fix Diagnostic" },
+            { "<leader>af", "<cmd>CopilotChatFix<cr>",       desc = "CopilotChat - Fix Diagnostic" },
             -- Clear buffer and chat history
-            { "<leader>al", "<cmd>CopilotChatReset<cr>",         desc = "CopilotChat - Clear buffer and chat history" },
+            { "<leader>al", "<cmd>CopilotChatReset<cr>",     desc = "CopilotChat - Clear buffer and chat history" },
             -- Toggle Copilot Chat Vsplit
-            { "<leader>aa", "<cmd>CopilotChatToggle<cr>",        desc = "CopilotChat - Toggle" },
+            { "<leader>aa", "<cmd>CopilotChatToggle<cr>",    desc = "CopilotChat - Toggle" },
             -- Copilot Chat Models
-            { "<leader>a?", "<cmd>CopilotChatModels<cr>",        desc = "CopilotChat - Select Models" },
+            { "<leader>a?", "<cmd>CopilotChatModels<cr>",    desc = "CopilotChat - Select Models" },
             -- Copilot Chat Agents
-            { "<leader>as", "<cmd>CopilotChatAgents<cr>",        desc = "CopilotChat - Select Agents" },
+            { "<leader>as", "<cmd>CopilotChatAgents<cr>",    desc = "CopilotChat - Select Agents" },
         },
     },
 }
