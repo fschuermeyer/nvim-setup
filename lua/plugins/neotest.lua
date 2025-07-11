@@ -1,14 +1,16 @@
 local function get_javascript_adapter_test()
-    local jestCommand = vim.fn.executable("yarn") == 1 and "yarn jest" or "npx jest"
+    local utils = require("core.utils")
 
-    if vim.fn.findfile("jest.config.js", ".;") ~= "" or vim.fn.findfile("jest.config.ts", ".;") ~= "" then
+    if utils.is_jest_project() then
+        local jestCommand = vim.fn.executable("yarn") == 1 and "yarn jest" or "npx jest"
+
         return require("neotest-jest")({
             jestConfigFile = "jest.config.js",
             jestCommand = jestCommand,
         })
     end
 
-    if vim.fn.findfile("vite.config.js", ".;") ~= "" or vim.fn.findfile("vite.config.ts", ".;") ~= "" then
+    if utils.is_vitest_project() then
         return require("neotest-vitest")({
             is_test_file = function(file_path)
                 if string.match(file_path, "test.ts") then
@@ -74,6 +76,11 @@ return {
                 ---@diagnostic disable-next-line: missing-fields
                 diagnostic = {
                     enable = true,
+                },
+                discovery = {
+                    filter_dir = function(dir)
+                        return not (dir:match("node_modules") or dir:match("vendor") or dir:match("coverage"))
+                    end,
                 },
             })
         end,
