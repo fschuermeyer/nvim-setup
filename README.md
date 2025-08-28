@@ -7,6 +7,6 @@ This is my personal Neovim setup, updated in Dezember 2024 from LazyVim to a own
 Clone the repository to your local machine:
 
 ```bash
-git clone git@github.com/fschuermeyer/nvim-setup.git ~/.config/nvim
+git clone git@github.com:fschuermeyer/nvim-setup.git ~/.config/nvim
 ```
 
