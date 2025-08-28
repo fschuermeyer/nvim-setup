@@ -79,6 +79,8 @@ return {
         setKey("n", "<leader>fj", "<cmd>Telescope jumplist<cr>", { desc = "Find Jumplist" })
         setKey("n", "<leader>fp", "<cmd>Telescope man_pages<cr>", { desc = "Find Man Pages" })
 
+        setKey("n", "<leader>fs", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", { desc = "Find Symbols" })
+
         -- git
         setKey("n", "<leader>gs", "<cmd>Telescope git_status<cr>", { desc = "Git Status" })
         setKey("n", "<leader>gc", "<cmd>Telescope git_commits<cr>", { desc = "Git Commits" })
