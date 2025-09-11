@@ -15,6 +15,8 @@ return {
                     -- fix: german layout
                     ["<"] = "next_source",
                     [">"] = "prev_source",
+                    ["l"] = "open",
+                    ["h"] = "close_node",
                 },
             },
             filesystem = {
