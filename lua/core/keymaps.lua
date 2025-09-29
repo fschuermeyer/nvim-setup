@@ -51,5 +51,6 @@ setKey("n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { desc = "Prev Diag
 -- Disable (slows down reference keymap)
 vim.keymap.del('n', 'gri')
 vim.keymap.del('n', 'gra')
+vim.keymap.del('n', 'grt')
 vim.keymap.del('n', 'grr')
 vim.keymap.del('n', 'grn')
