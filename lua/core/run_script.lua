@@ -77,14 +77,9 @@ local function run_script(formatter, with_args)
         output_buf = vim.api.nvim_create_buf(false, true)
         vim.api.nvim_win_set_buf(new_win, output_buf)
     else
-        local buf_visible = false
-        for _, win in ipairs(vim.api.nvim_list_wins()) do
-            if vim.api.nvim_win_get_buf(win) == output_buf then
-                buf_visible = true
-                break
-            end
-        end
-        if not buf_visible then
+        -- More efficient buffer visibility check using win_findbuf
+        local buf_wins = vim.fn.win_findbuf(output_buf)
+        if #buf_wins == 0 then
             vim.cmd("vsplit")
             local new_win = vim.api.nvim_get_current_win()
             vim.api.nvim_win_set_buf(new_win, output_buf)
@@ -92,12 +87,12 @@ local function run_script(formatter, with_args)
     end
 
     if formatter.filetype ~= "" then
-        vim.api.nvim_buf_set_option(output_buf, "filetype", formatter.filetype)
+        vim.bo[output_buf].filetype = formatter.filetype
     end
 
-    vim.api.nvim_buf_set_option(output_buf, "modifiable", true)
+    vim.bo[output_buf].modifiable = true
     vim.api.nvim_buf_set_lines(output_buf, 0, -1, false, output)
-    vim.api.nvim_buf_set_option(output_buf, "modifiable", false)
+    vim.bo[output_buf].modifiable = false
     vim.api.nvim_set_current_win(original_win)
 end
 

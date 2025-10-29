@@ -65,15 +65,15 @@ local function show_lsp_info_in_buffer(buf)
         end
     end
 
-    vim.api.nvim_buf_set_option(buf, "readonly", false)
-    vim.api.nvim_buf_set_option(buf, "modifiable", true)
+    vim.bo[buf].readonly = false
+    vim.bo[buf].modifiable = true
 
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
     vim.api.nvim_buf_add_highlight(buf, -1, "BoldTitle", 0, 0, -1)
     highlight_dashed_lines(buf, lines)
 
-    vim.api.nvim_buf_set_option(buf, "readonly", true)
-    vim.api.nvim_buf_set_option(buf, "modifiable", false)
+    vim.bo[buf].readonly = true
+    vim.bo[buf].modifiable = false
 
     vim.api.nvim_buf_set_keymap(buf, "n", "q", ":q<CR>", { noremap = true, silent = true })
 end
