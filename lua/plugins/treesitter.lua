@@ -74,7 +74,7 @@ return {
                 },
             },
             -- some default options
-            sync_install = true,
+            sync_install = false,  -- Install parsers asynchronously for better startup performance
             ignore_install = {},
             auto_install = false,
         })
