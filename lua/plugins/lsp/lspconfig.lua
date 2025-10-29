@@ -76,7 +76,7 @@ return {
             -- Format on Save
             if client.server_capabilities.documentFormattingProvider then
                 vim.api.nvim_create_autocmd("BufWritePre", {
-                    group = vim.api.nvim_create_augroup("LspFormatting", { clear = true }),
+                    group = vim.api.nvim_create_augroup("LspFormatting_" .. bufnr, { clear = true }),
                     buffer = bufnr,
                     callback = function()
                         vim.lsp.buf.format({
@@ -91,7 +91,9 @@ return {
             if vim.api.nvim_buf_is_valid(bufnr) and vim.bo[bufnr].buftype == "" then
                 vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 
+                -- Use a single augroup per buffer to avoid duplicate autocmds
                 vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+                    group = vim.api.nvim_create_augroup("LspCodelens_" .. bufnr, { clear = true }),
                     buffer = bufnr,
                     callback = vim.lsp.codelens.refresh,
                 })

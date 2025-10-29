@@ -10,33 +10,60 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     end,
 })
 
--- Highlight for Template Files
-vim.cmd([[
-  autocmd BufNewFile,BufRead *.tmpl set filetype=gohtmltmpl
-  autocmd BufNewFile,BufRead *.gohtml set filetype=gohtmltmpl
-  autocmd BufNewFile,BufRead *.gohtmltmpl set filetype=gohtmltmpl
-  autocmd BufNewFile,BufRead *.gotexttmpl  set filetype=gotexttmpl
-  autocmd BufNewFile,BufRead *.twig set filetype=html
-  autocmd BufNewFile,BufRead *.zsh set filetype=bash
-]])
-
--- Highlight for Terraform Files
-vim.cmd([[
-  autocmd BufRead,BufNewFile *.hcl set filetype=hcl
-  autocmd BufRead,BufNewFile .terraformrc,terraform.rc set filetype=hcl
-  autocmd BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform
-  autocmd BufRead,BufNewFile *.tfstate,*.tfstate.backup set filetype=json
-]])
-
-vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = "*.java",
+-- Consolidate template file type detection
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+    pattern = { "*.tmpl", "*.gohtml", "*.gohtmltmpl" },
     callback = function()
-        vim.lsp.buf.format({ async = false })
+        vim.bo.filetype = "gohtmltmpl"
     end,
 })
 
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+    pattern = "*.gotexttmpl",
+    callback = function()
+        vim.bo.filetype = "gotexttmpl"
+    end,
+})
+
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+    pattern = "*.twig",
+    callback = function()
+        vim.bo.filetype = "html"
+    end,
+})
+
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+    pattern = "*.zsh",
+    callback = function()
+        vim.bo.filetype = "bash"
+    end,
+})
+
+-- Consolidate Terraform file type detection
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    pattern = { "*.hcl", ".terraformrc", "terraform.rc" },
+    callback = function()
+        vim.bo.filetype = "hcl"
+    end,
+})
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    pattern = { "*.tf", "*.tfvars" },
+    callback = function()
+        vim.bo.filetype = "terraform"
+    end,
+})
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+    pattern = { "*.tfstate", "*.tfstate.backup" },
+    callback = function()
+        vim.bo.filetype = "json"
+    end,
+})
+
+-- Format Java and XML files on save
 vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = "*.xml",
+    pattern = { "*.java", "*.xml" },
     callback = function()
         vim.lsp.buf.format({ async = false })
     end,
