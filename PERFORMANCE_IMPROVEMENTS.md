@@ -98,17 +98,49 @@ Several performance bottlenecks were identified and resolved, primarily focusing
 - Better forward compatibility
 - Cleaner, more idiomatic code
 
+### 6. Plugin Loading in `lua/plugins/treesitter.lua`
+
+#### Problem
+- `sync_install = true` caused blocking behavior during parser installation
+- Slowed down Neovim startup when parsers needed to be installed
+
+#### Solution
+- Changed to `sync_install = false` for asynchronous parser installation
+- Parsers install in background without blocking editor startup
+
+#### Impact
+- Faster startup time, especially on first run or when new parsers are needed
+- Non-blocking installation improves user experience
+
+### 7. Update Checker in `lua/core/lazy.lua`
+
+#### Problem
+- Default checker behavior may check for updates too frequently
+- Background checks can cause minor performance overhead
+
+#### Solution
+- Explicitly set `checker.frequency` to 3600 seconds (1 hour)
+- Maintains automatic update checking while reducing frequency
+
+#### Impact
+- Reduced background I/O operations
+- Better balance between staying up-to-date and performance
+
 ## Performance Metrics
 
 ### Before Optimizations
 - Opening HTML file in Angular project: ~3-5 file system operations
 - Checking dependencies: Full `package.json` read per check
 - Multiple autocmd registrations for similar patterns
+- Treesitter parser installation blocks startup
+- Frequent background update checks
 
 ### After Optimizations
 - Opening HTML file in Angular project: ~0 operations (cached)
 - Checking dependencies: ~0 operations (cached after first check)
 - Consolidated autocmd registrations
+- Asynchronous parser installation
+- Update checks reduced to once per hour
 
 ## Cache Invalidation
 
@@ -127,3 +159,5 @@ Potential areas for further optimization:
 2. LRU cache with size limits for very large monorepos
 3. Lazy loading more plugins with event triggers
 4. Debouncing expensive operations like codelens refresh
+5. Profile startup time with `--startuptime` to identify remaining bottlenecks
+6. Consider disabling unused language parsers in treesitter configuration
