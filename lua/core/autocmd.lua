@@ -37,3 +37,10 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 		vim.lsp.buf.format({ async = false })
 	end,
 })
+
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
+	pattern = "*_test.go",
+	callback = function()
+		vim.keymap.set("n", "<leader>tg", "<cmd>GoTestFunc<CR>", { desc = "Test Golang", buffer = true })
+	end,
+})

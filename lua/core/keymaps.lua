@@ -1,6 +1,7 @@
 vim.g.mapleader = " "
 
 local setKey = vim.keymap.set
+local delKey = vim.keymap.del
 
 -- Move Lines
 local moveUp = { noremap = true, silent = true, desc = "Move the Line Up" }
@@ -31,9 +32,6 @@ setKey("n", "<leader>-", "<cmd>split<cr>", { desc = "Split Window Horizontally" 
 -- AlternateToggler
 setKey("n", "<leader>i", "<cmd>ToggleAlternate<CR>", { desc = "Toggle State" })
 
--- VimGo
-setKey("n", "<leader>tg", "<cmd>GoTestFunc<CR>", { desc = "Test Golang" })
-
 -- Center after Scroll
 setKey("n", "<C-d>", "<C-d>zz<CR>", { desc = "Center after Scroll" })
 setKey("n", "<C-u>", "<C-u>zz<CR>", { desc = "Center after Scroll" })
@@ -49,8 +47,8 @@ setKey("n", "gj", "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "Next Diag
 setKey("n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { desc = "Prev Diagnostic" })
 
 -- Disable (slows down reference keymap)
-vim.keymap.del('n', 'gri')
-vim.keymap.del('n', 'gra')
-vim.keymap.del('n', 'grt')
-vim.keymap.del('n', 'grr')
-vim.keymap.del('n', 'grn')
+delKey("n", "gri")
+delKey("n", "gra")
+delKey("n", "grt")
+delKey("n", "grr")
+delKey("n", "grn")
