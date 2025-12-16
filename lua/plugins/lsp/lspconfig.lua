@@ -130,8 +130,15 @@ return {
 			capabilities = capabilities,
 			on_attach = on_attach,
 			init_options = {
-				-- temporary solution before switch to golangci-lint v2 with the new CLI commands
-				command = { "golangci-lint", "run", "--out-format", "json" },
+				command = {
+					"golangci-lint",
+					"run",
+					"--output.json.path",
+					"stdout",
+					"--output.text.path",
+					"/dev/null",
+					"--show-stats=false",
+				},
 			},
 		})
 
