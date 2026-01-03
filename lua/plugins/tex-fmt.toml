@@ -1,0 +1,4 @@
+wraplen = 120 # Maximale Breite (Umbrechen)
+wrapmin = 100 # Minimale Breite (Zusammenziehen kurzer Zeilen)
+tabsize = 2   # Einrückung
+wrap = true   # Wrapping aktivieren
