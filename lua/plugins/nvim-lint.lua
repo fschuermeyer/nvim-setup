@@ -11,7 +11,9 @@ return {
                     "lint",
                     "--config=" .. os.getenv("HOME") .. "/.config/nvim/lua/plugins/sqlfluff.cfg",
                     "--dialect=postgres",
+                    "--processes=1",
                     "--format=json",
+                    "-",
                 },
             },
         },
@@ -29,6 +31,18 @@ return {
                     lint.try_lint()
                 end
             end
+        })
+
+        vim.api.nvim_create_autocmd("VimLeavePre", {
+            callback = function()
+                for _, procs in pairs(lint.get_running()) do
+                    for _, proc in ipairs(procs) do
+                        if proc and not proc:is_closing() then
+                            proc:kill(9)
+                        end
+                    end
+                end
+            end,
         })
     end,
 }

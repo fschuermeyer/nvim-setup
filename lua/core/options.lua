@@ -1,4 +1,13 @@
 local opt = vim.opt
+local g = vim.g
+
+-- Performance
+opt.lazyredraw = false
+opt.ttyfast = true
+opt.updatetime = 200
+opt.timeoutlen = 300
+opt.redrawtime = 1500
+opt.synmaxcol = 300
 
 -- Nvim Options
 -- Tab settings
@@ -40,4 +49,8 @@ if vim.fn.executable("rg") then
     "rg --vimgrep --no-heading --smart-case --glob '!**/*.min.*' --glob '!**/node_modules/**' --glob '!**/.git/**' --glob '!**/*.lock'"
 end
 
-vim.diagnostic.config({ virtual_text = true })
+vim.diagnostic.config({
+    virtual_text = true,
+    update_in_insert = false,
+    severity_sort = true,
+})
