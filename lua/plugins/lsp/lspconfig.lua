@@ -103,6 +103,31 @@ return {
 			client.server_capabilities.documentRangeFormattingProvider = false
 		end
 
+		local on_attach_format_stylelint = function(client, bufnr)
+			client.server_capabilities.documentFormattingProvider = false
+			client.server_capabilities.documentRangeFormattingProvider = false
+
+			vim.api.nvim_buf_create_user_command(bufnr, "LspStylelintFixAll", function()
+				client:request_sync("workspace/executeCommand", {
+					command = "stylelint.applyAutoFix",
+					arguments = {
+						{
+							uri = vim.uri_from_bufnr(bufnr),
+							version = vim.lsp.util.buf_versions[bufnr],
+						},
+					},
+				}, nil, bufnr)
+			end, {})
+
+			vim.api.nvim_create_autocmd("BufWritePre", {
+				group = vim.api.nvim_create_augroup("StylelintFixOnSave_" .. bufnr, { clear = true }),
+				buffer = bufnr,
+				callback = function()
+					vim.cmd("LspStylelintFixAll")
+				end,
+			})
+		end
+
 		vim.lsp.config("*", {
 			capabilities = capabilities,
 			on_attach = on_attach,
@@ -221,11 +246,10 @@ return {
 
 		vim.lsp.config("stylelint_lsp", {
 			capabilities = capabilities,
-			on_attach = on_attach_disable_formatting,
+			on_attach = on_attach_format_stylelint,
 			settings = {
-				stylelintplus = {
-					autoFixOnSave = true,
-					autoFixOnFormat = true,
+				stylelint = {
+					validate = { "css", "less", "scss", "sugarss", "vue", "wxss", "sass" },
 				},
 			},
 			filetypes = { "css", "less", "scss", "sugarss", "vue", "wxss", "sass" },

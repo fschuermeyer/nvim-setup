@@ -47,7 +47,6 @@ return {
 				"yamlls", -- YAML language support
 				"vtsls", -- TypeScript support
 				"stimulus_ls", -- Stimulus language support
-				"stylelint_lsp", -- Stylint LSP
 				"terraformls", -- Terraform language support
 				"jdtls", -- Java language support
 			},
@@ -83,6 +82,7 @@ return {
 				"tflint", -- Terraform linter
 				"google-java-format", -- Java Formatter
 				"tex-fmt",
+				"stylelint-language-server", -- Stylelint LSP
 			},
 		})
 	end,
