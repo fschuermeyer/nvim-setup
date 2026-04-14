@@ -1,92 +1,68 @@
 return {
-    "nvim-treesitter/nvim-treesitter",
-    event = { "BufReadPre", "BufNewFile" },
-    build = ":TSUpdate",
-    dependencies = {
-        "windwp/nvim-ts-autotag",
-    },
-    config = function()
-        -- import nvim-treesitter plugin
-        local treesitter = require("nvim-treesitter.configs")
+	"nvim-treesitter/nvim-treesitter",
+	event = { "BufReadPre", "BufNewFile" },
+	build = ":TSUpdate",
+	branch = "main",
+	dependencies = {
+		"windwp/nvim-ts-autotag",
+	},
+	init = function()
+		vim.api.nvim_create_autocmd("FileType", {
+			callback = function()
+				-- Enable treesitter highlighting and disable regex syntax
+				pcall(vim.treesitter.start)
+				-- Enable treesitter-based indentation
+				vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+			end,
+		})
 
-        local utils = require("core.utils")
-
-        -- configure treesitter
-        treesitter.setup({ -- enable syntax highlighting
-            highlight = {
-                enable = true,
-            },
-            -- enable indentation
-            indent = { enable = true },
-            -- enable autotagging (w/ nvim-ts-autotag plugin)
-            autotag = {
-                enable = true,
-            },
-            -- ensure these language parsers are installed
-            ensure_installed = {
-                "json",
-                "angular",
-                "javascript",
-                "typescript",
-                "tsx",
-                "yaml",
-                "html",
-                "css",
-                "markdown",
-                "markdown_inline",
-                "graphql",
-                "bash",
-                "lua",
-                "vim",
-                "dockerfile",
-                "gitignore",
-                "query",
-                "vimdoc",
-                "go",
-                "php",
-                "csv",
-                "dart",
-                "diff",
-                "editorconfig",
-                "gomod",
-                "gosum",
-                "gotmpl",
-                "haskell",
-                "java",
-                "jq",
-                "kotlin",
-                "python",
-                "sql",
-                "tmux",
-                "vue",
-                "xml",
-                "regex",
-                "terraform",
-                "hcl",
-            },
-            incremental_selection = {
-                enable = true,
-                keymaps = {
-                    init_selection = "<C-space>",
-                    node_incremental = "<C-space>",
-                    scope_incremental = false,
-                    node_decremental = "<bs>",
-                },
-            },
-            -- some default options
-            sync_install = true,
-            ignore_install = {},
-            auto_install = false,
-        })
-
-        -- Highlight html as Angular if angular.json exists
-        vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-            pattern = "*.html",
-            callback = function()
-                if utils.is_angular_project() then
-                    vim.bo.filetype = "htmlangular"
-                end
-            end,
-        })
-    end,
+		local ensureInstalled = {
+			"json",
+			"angular",
+			"javascript",
+			"typescript",
+			"tsx",
+			"yaml",
+			"html",
+			"css",
+			"markdown",
+			"markdown_inline",
+			"graphql",
+			"bash",
+			"lua",
+			"vim",
+			"dockerfile",
+			"gitignore",
+			"query",
+			"vimdoc",
+			"go",
+			"php",
+			"csv",
+			"dart",
+			"diff",
+			"editorconfig",
+			"gomod",
+			"gosum",
+			"gotmpl",
+			"haskell",
+			"java",
+			"jq",
+			"kotlin",
+			"python",
+			"sql",
+			"tmux",
+			"vue",
+			"xml",
+			"regex",
+			"terraform",
+			"hcl",
+		}
+		local alreadyInstalled = require("nvim-treesitter.config").get_installed()
+		local parsersToInstall = vim.iter(ensureInstalled)
+			:filter(function(parser)
+				return not vim.tbl_contains(alreadyInstalled, parser)
+			end)
+			:totable()
+		require("nvim-treesitter").install(parsersToInstall)
+	end,
 }

@@ -41,9 +41,6 @@ return {
 				opts.desc = "Run Codelens action"
 				setKey("n", "<leader>ci", vim.lsp.codelens.run, opts) -- run codelens action
 
-				opts.desc = "Refresh Codelens"
-				setKey("n", "<leader>cu", vim.lsp.codelens.refresh, opts) -- refresh codelens
-
 				opts.desc = "Go to previous diagnostic"
 				setKey("n", "[d", vim.diagnostic.goto_prev, opts) -- jump to previous diagnostic in buffer
 
@@ -72,6 +69,9 @@ return {
 			},
 		})
 
+		-- enable codelens v0.12 setup
+		vim.lsp.codelens.enable(true)
+
 		local on_attach = function(client, bufnr)
 			-- Format on Save
 			if client.server_capabilities.documentFormattingProvider then
@@ -87,14 +87,9 @@ return {
 				})
 			end
 
-			-- Enable inlay hints and refresh codelens on buffer enter, write, and insert leave
+			-- Enable inlay hints
 			if vim.api.nvim_buf_is_valid(bufnr) and vim.bo[bufnr].buftype == "" then
 				vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-
-				vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
-					buffer = bufnr,
-					callback = vim.lsp.codelens.refresh,
-				})
 			end
 		end
 
@@ -226,6 +221,9 @@ return {
 					},
 					completion = {
 						callSnippet = "Replace",
+					},
+					codeLens = {
+						enable = false,
 					},
 					hint = {
 						enable = true,
