@@ -45,12 +45,14 @@ opt.foldexpr = "v:lua.require'core.foldexpr'.foldexpr()"
 opt.foldtext = ""
 
 if vim.fn.executable("rg") then
-    opt.grepprg =
-    "rg --vimgrep --no-heading --smart-case --glob '!**/*.min.*' --glob '!**/node_modules/**' --glob '!**/.git/**' --glob '!**/*.lock'"
+	opt.grepprg =
+		"rg --vimgrep --no-heading --smart-case --glob '!**/*.min.*' --glob '!**/node_modules/**' --glob '!**/.git/**' --glob '!**/*.lock'"
 end
 
 vim.diagnostic.config({
-    virtual_text = true,
-    update_in_insert = false,
-    severity_sort = true,
+	virtual_text = true,
+	update_in_insert = false,
+	severity_sort = true,
 })
+
+vim.deprecate = function() end
