@@ -1,4 +1,9 @@
--- disclamer: this file is ki generated. --
+--------------------------------------------------------------------------------
+--- Unified code menu: LSP code actions, codelens and overseer tasks
+--- in a single picker interface.
+---
+--- Generated with Claude Opus (Anthropic) via Crush CLI.
+--------------------------------------------------------------------------------
 
 ---@class CodeMenuEntry
 ---@field tag string

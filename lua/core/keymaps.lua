@@ -52,3 +52,6 @@ delKey("n", "gra")
 delKey("n", "grt")
 delKey("n", "grr")
 delKey("n", "grn")
+
+-- Code Menu
+setKey({ "n", "v" }, "<leader>ca", function() require("core.code-menu").open() end, { desc = "Code Menu" })

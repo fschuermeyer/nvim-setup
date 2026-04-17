@@ -32,10 +32,6 @@ return {
 				opts.desc = "Show type definitions"
 				setKey("n", "gy", "<cmd>Telescope lsp_type_definitions<CR>", opts) -- show lsp type definitions
 
-				opts.desc = "Code menu (actions + codelens + tasks)"
-				setKey("n", "<leader>ca", function() require("core.code-menu").open() end, opts)
-				setKey("v", "<leader>ca", vim.lsp.buf.code_action, opts)
-
 				opts.desc = "Rename"
 				setKey("n", "<leader>cr", vim.lsp.buf.rename, opts) -- smart rename
 
