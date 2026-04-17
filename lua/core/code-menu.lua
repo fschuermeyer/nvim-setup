@@ -104,7 +104,7 @@ local function collect_tasks(entries, cb)
 	require("overseer.template").list({ dir = vim.fn.getcwd() }, function(templates)
 		for _, tmpl in ipairs(templates) do
 			add(entries, "Task", "CodeMenuTask", tmpl.name, tmpl.desc, function()
-				overseer.run_task({ name = tmpl.name })
+				overseer.run_task({ name = tmpl.name, cwd = vim.fn.getcwd() })
 			end)
 		end
 		cb()
