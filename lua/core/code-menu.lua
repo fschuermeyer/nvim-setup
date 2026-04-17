@@ -24,6 +24,9 @@ local set_hl = vim.api.nvim_set_hl
 set_hl(0, "CodeMenuAction", { fg = "#7aa2f7", bold = true })
 set_hl(0, "CodeMenuLens", { fg = "#e0af68", bold = true })
 set_hl(0, "CodeMenuTask", { fg = "#9ece6a", bold = true })
+set_hl(0, "CodeMenuTaskLocal", { fg = "#ff007c", bold = true })
+set_hl(0, "CodeMenuTaskWork", { fg = "#ff9e64", bold = true })
+set_hl(0, "CodeMenuTaskGlobal", { fg = "#7dcfff", bold = true })
 set_hl(0, "CodeMenuDesc", { fg = "#565f89", italic = true })
 set_hl(0, "CodeMenuSource", { fg = "#bb9af7" })
 
@@ -101,11 +104,31 @@ local function collect_tasks(entries, cb)
 		return
 	end
 
-	require("overseer.template").list({ dir = vim.fn.getcwd() }, function(templates)
+	local tf = require("core.taskfile")
+	local cwd = vim.fn.getcwd()
+	local has_local = tf.has_local_taskfile(cwd)
+
+	require("overseer.template").list({ dir = cwd }, function(templates)
 		for _, tmpl in ipairs(templates) do
-			add(entries, "Task", "CodeMenuTask", tmpl.name, tmpl.desc, function()
+			local task_name = tmpl.name:gsub("^%[%w+%]%s*", ""):gsub("^task%s+", "")
+			if not tf.check_preconditions(task_name, cwd) then
+				goto continue
+			end
+			local tag, hl
+			if tmpl.name:match("^%[Global%]") then
+				tag, hl = "Global", "CodeMenuTaskGlobal"
+			elseif tmpl.name:match("^%[Work%]") then
+				tag, hl = "Work", "CodeMenuTaskWork"
+			elseif not has_local and tmpl.name:match("^task ") then
+				tag, hl = "Work", "CodeMenuTaskWork"
+			else
+				tag, hl = "Local", "CodeMenuTaskLocal"
+			end
+			local display = tmpl.name:gsub("^%[%w+%]%s*", ""):gsub("^task%s+", "")
+			add(entries, tag, hl, display, tmpl.desc, function()
 				overseer.run_task({ name = tmpl.name, cwd = vim.fn.getcwd() })
 			end)
+			::continue::
 		end
 		cb()
 	end)
