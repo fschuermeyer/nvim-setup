@@ -83,6 +83,7 @@ return {
 				"google-java-format", -- Java Formatter
 				"tex-fmt",
 				"stylelint-language-server", -- Stylelint LSP
+				"checkstyle", -- Java Checkstyle
 			},
 		})
 	end,

@@ -34,7 +34,15 @@ end
 vim.api.nvim_create_autocmd("BufWritePre", {
 	pattern = { "*.java", "*.xml" },
 	callback = function()
-		vim.lsp.buf.format({ async = false })
+		vim.lsp.buf.format({
+			async = false,
+			filter = function(client)
+				if vim.bo.filetype == "java" then
+					return client.name == "null-ls"
+				end
+				return true
+			end,
+		})
 	end,
 })
 

@@ -9,7 +9,7 @@ return {
             sqlfluff = {
                 args = {
                     "lint",
-                    "--config=" .. os.getenv("HOME") .. "/.config/nvim/lua/plugins/sqlfluff.cfg",
+                    "--config=" .. os.getenv("HOME") .. "/.config/nvim/lua/plugins/rules/sqlfluff.cfg",
                     "--dialect=postgres",
                     "--processes=1",
                     "--format=json",
