@@ -46,18 +46,30 @@ end
 -- Collectors ----------------------------------------------------------------
 
 ---@param bufnr integer
----@param row integer
+---@param pos {[1]: integer, [2]: integer} -- {row, col}
 ---@param entries CodeMenuEntry[]
 ---@param cb fun()
-local function collect_code_actions(bufnr, row, entries, cb)
+local function collect_code_actions(bufnr, pos, entries, cb)
 	local clients = get_clients({ bufnr = bufnr, method = "textDocument/codeAction" })
 	if #clients == 0 then
 		cb()
 		return
 	end
 
-	local params = vim.lsp.util.make_range_params(0, "utf-16")
-	params.context = { diagnostics = vim.diagnostic.get(bufnr, { lnum = row }) }
+	local row, col = pos[1], pos[2]
+	
+	-- Build params exactly like vim.lsp.buf.code_action does
+	local params = {
+		textDocument = vim.lsp.util.make_text_document_params(bufnr),
+		range = {
+			start = { line = row, character = col },
+			["end"] = { line = row, character = col },
+		},
+		context = {
+			diagnostics = vim.diagnostic.get(bufnr, { lnum = row }),
+			triggerKind = vim.lsp.protocol.CodeActionTriggerKind.Invoked,
+		},
+	}
 
 	vim.lsp.buf_request_all(bufnr, "textDocument/codeAction", params, function(results)
 		for client_id, result in pairs(results) do
@@ -66,7 +78,7 @@ local function collect_code_actions(bufnr, row, entries, cb)
 				local name = client and client.name or "lsp"
 				for _, action in ipairs(result.result) do
 					add(entries, "Action", "CodeMenuAction", action.title or "untitled", action.kind, function()
-						M._apply_action(action, client_id, bufnr)
+						M._apply_action(action, client_id, bufnr, params)
 					end, name)
 				end
 			end
@@ -139,7 +151,8 @@ end
 ---@param action table
 ---@param client_id integer
 ---@param bufnr integer
-function M._apply_action(action, client_id, bufnr)
+---@param code_action_params table
+function M._apply_action(action, client_id, bufnr, code_action_params)
 	local client = vim.lsp.get_client_by_id(client_id)
 	if not client then
 		return
@@ -151,7 +164,8 @@ function M._apply_action(action, client_id, bufnr)
 		end
 		if a.command then
 			local cmd = type(a.command) == "table" and a.command or a
-			client:exec_cmd(cmd, { bufnr = bufnr })
+			-- Pass code action params in context - required for refactoring commands
+			client:exec_cmd(cmd, { bufnr = bufnr, params = code_action_params })
 		end
 	end
 
@@ -238,11 +252,12 @@ end
 function M.open()
 	local entries = {}
 	local bufnr = get_buf()
-	local row = get_cursor(0)[1] - 1
+	local cursor = get_cursor(0)
+	local pos = { cursor[1] - 1, cursor[2] }
 
-	collect_codelens(bufnr, row, entries)
+	collect_codelens(bufnr, pos[1], entries)
 
-	collect_code_actions(bufnr, row, entries, function()
+	collect_code_actions(bufnr, pos, entries, function()
 		collect_tasks(entries, function()
 			show_picker(entries)
 		end)

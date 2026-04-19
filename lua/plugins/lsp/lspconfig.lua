@@ -305,5 +305,23 @@ return {
 				},
 			},
 		})
+
+		vim.lsp.config("jdtls", {
+			capabilities = capabilities,
+			on_attach = on_attach,
+			cmd = {
+				"jdtls",
+				"--jvm-arg=-Xmx1g",
+			},
+			root_dir = function(bufnr, on_dir)
+				on_dir(utils.find_root(bufnr, { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }))
+			end,
+			settings = {
+				java = {
+					implementationsCodeLens = { enabled = true },
+					referencesCodeLens = { enabled = true },
+				},
+			},
+		})
 	end,
 }
