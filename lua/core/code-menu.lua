@@ -2,7 +2,7 @@
 --- Unified code menu: LSP code actions, codelens and overseer tasks
 --- in a single picker interface.
 ---
---- Generated with Claude Opus (Anthropic) via Crush CLI.
+--- AI-assisted code generation.
 --------------------------------------------------------------------------------
 
 ---@class CodeMenuEntry

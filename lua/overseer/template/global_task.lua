@@ -1,10 +1,15 @@
 --------------------------------------------------------------------------------
 --- Overseer template: exposes global Taskfile tasks as overseer tasks.
 ---
---- Generated with Claude Opus (Anthropic) via Crush CLI.
+--- AI-assisted code generation.
 --------------------------------------------------------------------------------
 
 local tf = require("core.taskfile")
+
+-- Session cache for global tasks
+local _global_tasks_cache = nil
+local _global_tasks_loading = false
+local _global_tasks_callbacks = {}
 
 local function get_local_task_names(cwd, cb)
   vim.system(
@@ -26,7 +31,6 @@ local function get_local_task_names(cwd, cb)
 end
 
 local function get_tasks(cwd, cb)
-  local global_out = {}
   local parent_out = {}
   local parent_taskfiles = tf.find_parent_taskfiles(cwd)
   local done = 0
@@ -49,9 +53,12 @@ local function get_tasks(cwd, cb)
         end
       end
 
-      for _, entry in ipairs(global_out) do
-        if not local_names[entry.name] and not seen[entry.name] then
-          table.insert(templates, entry)
+      -- Use cached global tasks
+      if _global_tasks_cache then
+        for _, entry in ipairs(_global_tasks_cache) do
+          if not local_names[entry.name] and not seen[entry.name] then
+            table.insert(templates, entry)
+          end
         end
       end
 
@@ -78,10 +85,29 @@ local function get_tasks(cwd, cb)
     end
   end
 
-  vim.system({ "task", "-g", "--list-all", "--json" }, { text = true }, function(out)
-    parse_tasks(out, "Global", "-g", cwd, global_out)
+  -- Load global tasks from cache or fetch once
+  if _global_tasks_cache then
     maybe_finish()
-  end)
+  elseif _global_tasks_loading then
+    -- Wait for ongoing load
+    table.insert(_global_tasks_callbacks, maybe_finish)
+  else
+    _global_tasks_loading = true
+    vim.system({ "task", "-g", "--list-all", "--json" }, { text = true }, function(out)
+      local global_out = {}
+      parse_tasks(out, "Global", "-g", cwd, global_out)
+      _global_tasks_cache = global_out
+      _global_tasks_loading = false
+      
+      maybe_finish()
+      
+      -- Call any waiting callbacks
+      for _, callback in ipairs(_global_tasks_callbacks) do
+        callback()
+      end
+      _global_tasks_callbacks = {}
+    end)
+  end
 
   for _, pf in ipairs(parent_taskfiles) do
     vim.system(

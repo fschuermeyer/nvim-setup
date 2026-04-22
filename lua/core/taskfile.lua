@@ -2,7 +2,7 @@
 --- Taskfile utilities: locate Taskfile paths and detect language-specific
 --- markers for automatic task discovery.
 ---
---- Generated with Claude Opus (Anthropic) via Crush CLI.
+--- AI-assisted code generation.
 --------------------------------------------------------------------------------
 
 local M = {}
