@@ -10,6 +10,9 @@ return {
                 sidebars = "transparent",
                 floats = "transparent",
             },
+            on_highlights = function(hl, _)
+                hl.Comment = { fg = "#9aa5ce", italic = true }
+            end,
         })
         vim.cmd("colorscheme tokyonight")
     end,

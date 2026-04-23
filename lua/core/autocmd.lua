@@ -71,3 +71,33 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 		vim.keymap.set("n", "<leader>tg", "<cmd>GoTestFunc<CR>", { desc = "Test Golang", buffer = true })
 	end,
 })
+
+-- Deprecated Code Highlighting
+local deprecated = {
+	hl_group = "DeprecatedHighlight",
+	pattern = "\\c\\w*deprecated\\w*",
+	sign = "💀",
+	ns = vim.api.nvim_create_namespace("deprecated_signs"),
+}
+
+vim.api.nvim_set_hl(0, deprecated.hl_group, { fg = "#FFD700" })
+
+local function mark_deprecated_lines(bufnr)
+	vim.api.nvim_buf_clear_namespace(bufnr, deprecated.ns, 0, -1)
+	for i, line in ipairs(vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)) do
+		if line:lower():match("%w*deprecated%w*") then
+			vim.api.nvim_buf_set_extmark(bufnr, deprecated.ns, i - 1, 0, {
+				sign_text = deprecated.sign,
+				sign_hl_group = deprecated.hl_group,
+			})
+		end
+	end
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "go",
+	callback = function()
+		vim.fn.matchadd(deprecated.hl_group, deprecated.pattern)
+		mark_deprecated_lines(vim.api.nvim_get_current_buf())
+	end,
+})
