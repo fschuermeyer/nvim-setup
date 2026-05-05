@@ -1,20 +1,20 @@
--- Export buffer context as env vars for external tools (Task, Crush, etc.)
-local function update_nvim_env()
-	local file = vim.fn.expand("%:p")
-	local ft = vim.bo.filetype
-	local rel = vim.fn.expand("%:.")
-	local dir = vim.fn.expand("%:p:h")
-	local ext = vim.fn.expand("%:e")
+local setKey = vim.keymap.set
 
-	vim.env.NVIM_FILE = file ~= "" and file or nil
-	vim.env.NVIM_REL_FILE = rel ~= "" and rel or nil
-	vim.env.NVIM_FILE_DIR = dir ~= "" and dir or nil
-	vim.env.NVIM_FILETYPE = ft ~= "" and ft or nil
-	vim.env.NVIM_EXT = ext ~= "" and ext or nil
-end
-
+-- Export ENV Variables for other Toolings
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
-	callback = update_nvim_env,
+	callback = function ()
+        local file = vim.fn.expand("%:p")
+        local ft = vim.bo.filetype
+        local rel = vim.fn.expand("%:.")
+        local dir = vim.fn.expand("%:p:h")
+        local ext = vim.fn.expand("%:e")
+
+        vim.env.NVIM_FILE = file ~= "" and file or nil
+        vim.env.NVIM_REL_FILE = rel ~= "" and rel or nil
+        vim.env.NVIM_FILE_DIR = dir ~= "" and dir or nil
+        vim.env.NVIM_FILETYPE = ft ~= "" and ft or nil
+        vim.env.NVIM_EXT = ext ~= "" and ext or nil
+	end,
 })
 
 vim.api.nvim_set_hl(0, "YankHighlight", { bg = "#C11B3B", fg = "#F3A3B3" })
@@ -69,6 +69,26 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 	pattern = "*_test.go",
 	callback = function()
 		vim.keymap.set("n", "<leader>tg", "<cmd>GoTestFunc<CR>", { desc = "Test Golang", buffer = true })
+	end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "go",
+	callback = function()
+		setKey("n", "ga", function()
+			local current_file = vim.fn.expand("%:p")
+			local alternative_file
+			if current_file:match("_test%.go$") then
+				alternative_file = current_file:gsub("_test%.go$", ".go")
+			else
+				alternative_file = current_file:gsub("%.go$", "_test.go")
+			end
+			if vim.fn.filereadable(alternative_file) == 1 then
+				vim.cmd("edit " .. vim.fn.fnameescape(alternative_file))
+			else
+				vim.notify("Alternate file not found: " .. alternative_file, vim.log.levels.WARN)
+			end
+		end, { desc = "toggle test file", buffer = true })
 	end,
 })
 
