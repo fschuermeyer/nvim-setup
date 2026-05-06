@@ -50,6 +50,22 @@
     ) 
 ) 
 
+(keyed_element
+    key: (literal_element) @identifier (#match? @identifier "OutJson|outJson|expectedJson|ExpectedJson|InJson|inJson|json|JSON")
+    value: (literal_element
+        [
+            (raw_string_literal
+                (raw_string_literal_content) @injection.content
+                (#set! injection.language "json")
+            )
+            (interpreted_string_literal
+                (interpreted_string_literal_content) @injection.content
+                (#set! injection.language "json")
+            )
+        ]
+    )
+)
+
 (short_var_declaration
     left: (expression_list
         (identifier) @identifier (#match? @identifier "OutJson|outJson|expectedJson|ExpectedJson|InJson|inJson|json|JSON")
