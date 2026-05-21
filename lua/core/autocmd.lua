@@ -19,6 +19,15 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
 
 vim.api.nvim_set_hl(0, "YankHighlight", { bg = "#C11B3B", fg = "#F3A3B3" })
 
+-- LineNr color
+vim.api.nvim_create_autocmd("ColorScheme", {
+	callback = function()
+		for _, hl in ipairs({ "LineNr", "LineNrAbove", "LineNrBelow" }) do
+			vim.api.nvim_set_hl(0, hl, { fg = "#00FF00" })
+		end
+	end,
+})
+
 -- Highlight for Yank
 vim.api.nvim_create_autocmd("TextYankPost", {
 	callback = function()
