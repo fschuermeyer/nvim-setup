@@ -57,3 +57,6 @@ delKey("n", "grx")
 -- Code Menu
 setKey({ "n", "v" }, "<leader>ca", function() require("core.code-menu").open() end, { desc = "Code Menu" })
 
+-- Remove merge conflict markers
+setKey("n", "<leader>gx", "<cmd>g/^\\(<<<<<<<\\|=======\\|>>>>>>>\\)/d<cr>", { desc = "Remove merge conflict markers" })
+
