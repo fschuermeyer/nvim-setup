@@ -6,8 +6,8 @@ return {
 		opts.sources = vim.tbl_extend("force", opts.sources or {}, {
 			-- Google Java Format
 			nls.builtins.formatting.google_java_format.with({
-			extra_args = { "--aosp" },
-		}),
+				extra_args = { "--aosp" },
+			}),
 
 			nls.builtins.diagnostics.checkstyle.with({
 				command = vim.fn.stdpath("data") .. "/mason/bin/checkstyle",

@@ -57,7 +57,7 @@ local function collect_code_actions(bufnr, pos, entries, cb)
 	end
 
 	local row, col = pos[1], pos[2]
-	
+
 	-- Build params exactly like vim.lsp.buf.code_action does
 	local params = {
 		textDocument = vim.lsp.util.make_text_document_params(bufnr),

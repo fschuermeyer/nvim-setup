@@ -5,6 +5,7 @@ return {
 	opts = {
 		formatters_by_ft = {
 			tex = { "tex-fmt" },
+			lua = { "stylua" },
 		},
 		formatters = {
 			["tex-fmt"] = {
@@ -12,7 +13,8 @@ return {
 			},
 		},
 		format_on_save = function(bufnr)
-			if vim.bo[bufnr].filetype ~= "tex" then
+			local allowed = { tex = true, lua = true }
+			if not allowed[vim.bo[bufnr].filetype] then
 				return
 			end
 			return { timeout_ms = 500, lsp_format = "fallback" }
