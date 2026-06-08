@@ -11,6 +11,7 @@ return {
 		"BurntSushi/ripgrep",
 		"andrew-george/telescope-themes",
 		"debugloop/telescope-undo.nvim",
+		"nvim-telescope/telescope-ui-select.nvim",
 	},
 	config = function()
 		local telescope = require("telescope")
@@ -33,6 +34,9 @@ return {
 				undo = {
 					use_delta = true,
 				},
+				["ui-select"] = {
+					require("telescope.themes").get_dropdown(),
+				},
 			},
 		})
 
@@ -49,7 +53,7 @@ return {
 			end,
 		})
 
-		for _, ext in ipairs({ "fzf", "themes", "undo" }) do
+		for _, ext in ipairs({ "fzf", "themes", "undo", "ui-select" }) do
 			telescope.load_extension(ext)
 		end
 

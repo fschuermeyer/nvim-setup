@@ -16,7 +16,7 @@ local prompts = {
 	Spelling = "Please correct any grammar and spelling errors in the following text.",
 	Wording = "Please improve the grammar and wording of the following text.",
 	Concise = "Please rewrite the following text to make it more concise.",
-	Commit = "> #git:staged \n\n Write commit message for the change with commitizen convention. Make sure the title has maximum 50 characters and message is wrapped at 72 characters. Wrap the whole message in code block with language gitcommit. if the branch name inclues POC-[anynumber]_ put POC-[anynumber]: before the Commit Message.",
+	Commit = "#gitdiff:staged\n\nWrite commit message for the change with commitizen convention. Make sure the title has maximum 50 characters and message is wrapped at 72 characters. Wrap the whole message in code block with language gitcommit. if the branch name inclues POC-[anynumber]_ put POC-[anynumber]: before the Commit Message.",
 }
 
 return {
@@ -58,22 +58,21 @@ return {
 	{
 		"CopilotC-Nvim/CopilotChat.nvim",
 		build = "make tiktoken",
-		version = "v3.3.3", -- Use a specific version to prevent breaking changes
+		version = "^4.0.0", -- Track latest 4.x, avoid future major breaking changes
 		dependencies = {
-			{ "zbirenbaum/copilot.lua" }, -- or zbirenbaum/copilot.lua
-			{ "nvim-telescope/telescope.nvim" }, -- Use telescope for help actions
-			{ "nvim-lua/plenary.nvim" },
+			{ "zbirenbaum/copilot.lua" }, -- Copilot auth/provider
+			{ "nvim-lua/plenary.nvim", branch = "master" },
 		},
 		opts = {
-			question_header = "  " .. (vim.env.GITHUB_USER or vim.env.USER or "User") .. " ",
-			answer_header = "  Copilot ",
-			error_header = "## Error ",
-			model = "gpt-4o-2024-11-20",
+			headers = {
+				user = "  " .. (vim.env.GITHUB_USER or vim.env.USER or "User") .. " ",
+				assistant = "  Copilot ",
+			},
+			model = "claude-sonnet-4.5",
 			prompts = prompts,
 			mappings = {
 				-- Use tab for completion
 				complete = {
-					detail = "Use @<Tab> or /<Tab> for options.",
 					insert = "<Tab>",
 				},
 				-- Close the chat
@@ -100,15 +99,14 @@ return {
 			local chat = require("CopilotChat")
 			chat.setup(opts)
 
-			local select = require("CopilotChat.select")
 			vim.api.nvim_create_user_command("CopilotChatVisual", function(args)
-				chat.ask(args.args, { selection = select.visual })
+				chat.ask(args.args, { resources = { "selection" } })
 			end, { nargs = "*", range = true })
 
 			-- Inline chat with Copilot
 			vim.api.nvim_create_user_command("CopilotChatInline", function(args)
 				chat.ask(args.args, {
-					selection = select.visual,
+					resources = { "selection" },
 					window = {
 						layout = "float",
 						relative = "cursor",
@@ -121,7 +119,7 @@ return {
 
 			-- Restore CopilotChatBuffer
 			vim.api.nvim_create_user_command("CopilotChatBuffer", function(args)
-				chat.ask(args.args, { selection = select.buffer })
+				chat.ask(args.args, { resources = { "buffer" } })
 			end, { nargs = "*", range = true })
 
 			-- Custom buffer for CopilotChat
@@ -130,12 +128,6 @@ return {
 				callback = function()
 					vim.opt_local.relativenumber = true
 					vim.opt_local.number = true
-
-					-- Get current filetype and set it to markdown if the current filetype is copilot-chat
-					local ft = vim.bo.filetype
-					if ft == "copilot-chat" then
-						vim.bo.filetype = "markdown"
-					end
 				end,
 			})
 		end,
@@ -147,19 +139,11 @@ return {
 				desc = "+ai",
 				mode = { "n", "v" },
 			},
-			-- Show prompts actions with telescope
+			-- Show prompts actions with built-in picker
 			{
 				"<leader>ap",
-				function()
-					local actions = require("CopilotChat.actions")
-					require("CopilotChat.integrations.telescope").pick(actions.prompt_actions())
-				end,
-				desc = "CopilotChat - Prompt actions",
-			},
-			{
-				"<leader>ap",
-				":lua require('CopilotChat.integrations.telescope').pick(require('CopilotChat.actions').prompt_actions({selection = require('CopilotChat.select').visual}))<CR>",
-				mode = "x",
+				"<cmd>CopilotChatPrompts<cr>",
+				mode = { "n", "x" },
 				desc = "CopilotChat - Prompt actions",
 			},
 			-- Code related commands
@@ -209,8 +193,8 @@ return {
 				end,
 				desc = "CopilotChat - Quick chat",
 			},
-			-- Debug
-			{ "<leader>ad", "<cmd>CopilotChatDebugInfo<cr>", desc = "CopilotChat - Debug Info" },
+			-- Health check
+			{ "<leader>ad", "<cmd>checkhealth CopilotChat<cr>", desc = "CopilotChat - Health check" },
 			-- Fix the issue with diagnostic
 			{ "<leader>af", "<cmd>CopilotChatFix<cr>", desc = "CopilotChat - Fix Diagnostic" },
 			-- Clear buffer and chat history
@@ -219,8 +203,6 @@ return {
 			{ "<leader>aa", "<cmd>CopilotChatToggle<cr>", desc = "CopilotChat - Toggle" },
 			-- Copilot Chat Models
 			{ "<leader>a?", "<cmd>CopilotChatModels<cr>", desc = "CopilotChat - Select Models" },
-			-- Copilot Chat Agents
-			{ "<leader>as", "<cmd>CopilotChatAgents<cr>", desc = "CopilotChat - Select Agents" },
 		},
 	},
 }

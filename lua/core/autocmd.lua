@@ -17,7 +17,11 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost" }, {
 	end,
 })
 
-vim.api.nvim_set_hl(0, "YankHighlight", { bg = "#C11B3B", fg = "#F3A3B3" })
+local function apply_yank_highlight()
+	vim.api.nvim_set_hl(0, "YankHighlight", { bg = "#C11B3B", fg = "#F3A3B3" })
+end
+
+apply_yank_highlight()
 
 -- High contrast mode for bright sunlight (toggle with <leader>ux):
 -- lime line numbers, brackets and inlay hints, gold comments
@@ -40,6 +44,7 @@ end
 
 vim.api.nvim_create_autocmd("ColorScheme", {
 	callback = function()
+		apply_yank_highlight()
 		if high_contrast_enabled then
 			apply_high_contrast()
 		end
