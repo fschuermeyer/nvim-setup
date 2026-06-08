@@ -68,7 +68,7 @@ return {
 				user = "  " .. (vim.env.GITHUB_USER or vim.env.USER or "User") .. " ",
 				assistant = "  Copilot ",
 			},
-			model = "claude-sonnet-4.5",
+			model = vim.env.GITHUB_COPILOT_AI_MODEL,
 			prompts = prompts,
 			mappings = {
 				-- Use tab for completion

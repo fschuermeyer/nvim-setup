@@ -66,6 +66,15 @@ return {
 		-- enable codelens v0.12 setup
 		vim.lsp.codelens.enable(true)
 
+		vim.api.nvim_create_autocmd("LspAttach", {
+			callback = function(args)
+				local client = vim.lsp.get_client_by_id(args.data.client_id)
+				if client and client.server_capabilities then
+					client.server_capabilities.semanticTokensProvider = nil
+				end
+			end,
+		})
+
 		local on_attach = function(client, bufnr)
 			-- Format on Save
 			if client.server_capabilities.documentFormattingProvider then
