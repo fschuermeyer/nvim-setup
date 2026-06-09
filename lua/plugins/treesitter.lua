@@ -44,7 +44,6 @@ return {
 			"gomod",
 			"gosum",
 			"gotmpl",
-			"haskell",
 			"java",
 			"jq",
 			"kotlin",

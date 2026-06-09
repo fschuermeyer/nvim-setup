@@ -302,19 +302,6 @@ return {
 			end,
 		})
 
-		vim.lsp.config("hls", {
-			capabilities = capabilities,
-			on_attach = on_attach_disable_formatting,
-			settings = {
-				format = {
-					enable = false,
-				},
-				init_options = {
-					provideFormatter = false,
-				},
-			},
-		})
-
 		vim.lsp.config("jdtls", {
 			capabilities = capabilities,
 			on_attach = on_attach,

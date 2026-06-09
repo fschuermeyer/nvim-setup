@@ -62,7 +62,6 @@ return {
 				"goimports", -- Go imports formatter
 				"golangci-lint-langserver", -- Go linter
 				"hadolint", -- Dockerfile linter
-				"haskell-debug-adapter", -- Haskell debugger
 				"isort", -- Python import sorter
 				"markdownlint-cli2", -- Markdown linter
 				"php-cs-fixer", -- PHP formatter
