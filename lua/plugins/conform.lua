@@ -6,6 +6,8 @@ return {
 		formatters_by_ft = {
 			tex = { "tex-fmt" },
 			lua = { "stylua" },
+			c = { "clang-format" },
+			cpp = { "clang-format" },
 		},
 		formatters = {
 			["tex-fmt"] = {
@@ -13,7 +15,7 @@ return {
 			},
 		},
 		format_on_save = function(bufnr)
-			local allowed = { tex = true, lua = true }
+			local allowed = { tex = true, lua = true, c = true, cpp = true }
 			if not allowed[vim.bo[bufnr].filetype] then
 				return
 			end
