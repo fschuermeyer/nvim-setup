@@ -1,0 +1,7 @@
+# clang-format Konfiguration für C/C++
+BasedOnStyle: Google
+UseTab: Always
+IndentWidth: 4
+TabWidth: 4
+BreakBeforeBraces: Attach
+ColumnLimit: 0

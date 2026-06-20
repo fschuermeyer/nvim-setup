@@ -13,6 +13,11 @@ return {
 			["tex-fmt"] = {
 				prepend_args = { "--config", vim.fn.expand("~/.config/nvim/lua/plugins/rules/tex-fmt.toml") },
 			},
+			["clang-format"] = {
+				prepend_args = {
+					"--style=file:" .. vim.fn.expand("~/.config/nvim/lua/plugins/rules/.clang-format"),
+				},
+			},
 		},
 		format_on_save = function(bufnr)
 			local allowed = { tex = true, lua = true, c = true, cpp = true }
