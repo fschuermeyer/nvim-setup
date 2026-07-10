@@ -82,9 +82,15 @@ return {
 					group = vim.api.nvim_create_augroup("LspFormatting", { clear = true }),
 					buffer = bufnr,
 					callback = function()
+						local errors = vim.diagnostic.get(bufnr, {
+							severity = vim.diagnostic.severity.ERROR,
+						})
+						if #errors > 0 then
+							return
+						end
 						vim.lsp.buf.format({
 							async = false,
-							timeout_ms = 3000,
+							timeout_ms = 1000,
 						})
 					end,
 				})
