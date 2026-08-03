@@ -69,7 +69,14 @@ return {
 
 		cmp.setup({
 			enabled = function()
-				return cmp_enable
+				if not cmp_enable then
+					return false
+				end
+				local ft = vim.bo.filetype
+				if ft == "snacks_picker_input" or ft:match("^snacks_") then
+					return false
+				end
+				return true
 			end,
 			window = {
 				completion = {

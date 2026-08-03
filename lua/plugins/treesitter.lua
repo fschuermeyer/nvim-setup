@@ -3,6 +3,8 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	build = ":TSUpdate",
 	branch = "main",
+	commit = "4916d6592ede8c07973490d9322f187e07dfefac",
+	pin = true,
 	dependencies = {
 		"windwp/nvim-ts-autotag",
 	},
