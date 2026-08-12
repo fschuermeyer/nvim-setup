@@ -27,12 +27,19 @@ set_hl(0, "CodeMenuTask", { fg = "#9ece6a", bold = true })
 set_hl(0, "CodeMenuTaskLocal", { fg = "#ff007c", bold = true })
 set_hl(0, "CodeMenuTaskWork", { fg = "#ff9e64", bold = true })
 set_hl(0, "CodeMenuTaskGlobal", { fg = "#7dcfff", bold = true })
+set_hl(0, "CodeMenuTaskMake", { fg = "#bb9af7", bold = true })
 set_hl(0, "CodeMenuDesc", { fg = "#565f89", italic = true })
 set_hl(0, "CodeMenuSource", { fg = "#bb9af7" })
 
+-- Language label highlight groups (keyed by lowercase prefix)
+set_hl(0, "CodeMenuLangGo", { fg = "#7dcfff", bold = true })
+set_hl(0, "CodeMenuLangFrontend", { fg = "#9ece6a", bold = true })
+set_hl(0, "CodeMenuLangDev", { fg = "#e0af68", bold = true })
+set_hl(0, "CodeMenuLangDefault", { fg = "#bb9af7", bold = true })
+
 ---@param entries CodeMenuEntry[]
 ---@param entry CodeMenuEntry
-local function add(entries, tag, hl, title, desc, action, source)
+local function add(entries, tag, hl, title, desc, action, source, lang, lang_hl)
 	entries[#entries + 1] = {
 		tag = tag,
 		hl = hl,
@@ -40,6 +47,8 @@ local function add(entries, tag, hl, title, desc, action, source)
 		desc = desc or "",
 		source = source,
 		action = action,
+		lang = lang,
+		lang_hl = lang_hl,
 	}
 end
 
@@ -131,15 +140,30 @@ local function collect_tasks(entries, cb)
 				tag, hl = "Global", "CodeMenuTaskGlobal"
 			elseif tmpl.name:match("^%[Work%]") then
 				tag, hl = "Work", "CodeMenuTaskWork"
+			elseif tmpl.name:match("^make ") then
+				tag, hl = "Make", "CodeMenuTaskMake"
 			elseif not has_local and tmpl.name:match("^task ") then
 				tag, hl = "Work", "CodeMenuTaskWork"
 			else
 				tag, hl = "Local", "CodeMenuTaskLocal"
 			end
-			local display = tmpl.name:gsub("^%[%w+%]%s*", ""):gsub("^task%s+", "")
+			local display = tmpl.name:gsub("^%[%w+%]%s*", ""):gsub("^task%s+", ""):gsub("^make%s+", "")
+			local label, rest, prefix = tf.lang_label(display)
+			local lang, lang_hl
+			if label then
+				display = rest
+				local icon = tf.lang_icons[prefix] or tf.default_icon
+				lang = icon .. " " .. label
+				lang_hl = "CodeMenuLang" .. prefix:sub(1, 1):upper() .. prefix:sub(2)
+				if vim.fn.hlID(lang_hl) == 0 then
+					lang_hl = "CodeMenuLangDefault"
+				end
+				-- Language label replaces the Work/Local scope tag
+				tag, hl = nil, nil
+			end
 			add(entries, tag, hl, display, tmpl.desc, function()
 				overseer.run_task({ name = tmpl.name, cwd = vim.fn.getcwd() })
-			end)
+			end, nil, lang, lang_hl)
 			::continue::
 		end
 		cb()
@@ -186,11 +210,15 @@ end
 
 ---@param entries CodeMenuEntry[]
 local function format_entry(entry)
-	local parts = {
-		{ "[" .. entry.tag .. "] ", entry.hl },
-	}
+	local parts = {}
+	if entry.tag then
+		parts[#parts + 1] = { "[" .. entry.tag .. "] ", entry.hl }
+	end
 	if entry.source then
 		parts[#parts + 1] = { "[" .. entry.source .. "] ", "CodeMenuSource" }
+	end
+	if entry.lang then
+		parts[#parts + 1] = { "[" .. entry.lang .. "] ", entry.lang_hl or "CodeMenuLangDefault" }
 	end
 	parts[#parts + 1] = { entry.title .. " " }
 	if entry.desc ~= "" then
@@ -210,7 +238,8 @@ local function show_picker(entries)
 	if ok and snacks.picker then
 		local items = {}
 		for i, entry in ipairs(entries) do
-			local text = entry.desc ~= "" and (entry.title .. "  (" .. entry.desc .. ")") or entry.title
+			local title = entry.lang and ("[" .. entry.lang .. "] " .. entry.title) or entry.title
+			local text = entry.desc ~= "" and (title .. "  (" .. entry.desc .. ")") or title
 			items[i] = { idx = i, text = text, entry = entry }
 		end
 
@@ -232,7 +261,11 @@ local function show_picker(entries)
 	else
 		local labels, map = {}, {}
 		for _, entry in ipairs(entries) do
-			local label = "[" .. entry.tag .. "] " .. entry.title
+			local label = entry.tag and ("[" .. entry.tag .. "] ") or ""
+			if entry.lang then
+				label = label .. "[" .. entry.lang .. "] "
+			end
+			label = label .. entry.title
 			if entry.desc ~= "" then
 				label = label .. "  (" .. entry.desc .. ")"
 			end
