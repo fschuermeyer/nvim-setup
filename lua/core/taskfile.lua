@@ -24,6 +24,7 @@ M.lang_markers = {
 M.lang_labels = {
 	go = "Go",
 	frontend = "Frontend",
+	db = "DB",
 	dev = "Dev",
 }
 
@@ -33,6 +34,7 @@ M.lang_icons = {
 	go = "",
 	frontend = "",
 	dev = "",
+	db = "",
 }
 
 M.default_icon = ""
