@@ -68,7 +68,12 @@ return {
 		)
 
 		-- find hidden files
-		setKey("n", "<leader>fh", "<cmd>Telescope find_files hidden=true<cr>", { desc = "Find Hidden Files" })
+		setKey(
+			"n",
+			"<leader>fh",
+			"<cmd>Telescope find_files hidden=true no_ignore=true<cr>",
+			{ desc = "Find Hidden Files" }
+		)
 
 		setKey("n", "<leader>:", "<cmd>Telescope command_history<cr>", { desc = "Command History" })
 		setKey(
