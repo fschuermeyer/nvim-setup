@@ -25,20 +25,27 @@ apply_yank_highlight()
 
 -- High contrast mode for bright sunlight (toggle with <leader>ux):
 -- lime line numbers, brackets and inlay hints, gold comments
-local high_contrast_enabled = false
+local high_contrast_enabled = true
 
 local function apply_high_contrast()
 	for _, hl in ipairs({ "LineNr", "LineNrAbove", "LineNrBelow" }) do
-		vim.api.nvim_set_hl(0, hl, { fg = "#39FF14" })
+		vim.api.nvim_set_hl(0, hl, { fg = "#FF5A00" })
 	end
+
 	for _, hl in ipairs({ "@punctuation.bracket", "MatchParen" }) do
-		vim.api.nvim_set_hl(0, hl, { fg = "#39FF14", bold = true })
+		vim.api.nvim_set_hl(0, hl, { fg = "#FF5A00", bold = true })
 	end
+
 	for _, hl in ipairs({ "Comment", "@comment" }) do
 		vim.api.nvim_set_hl(0, hl, { fg = "#FFD700", italic = true })
 	end
+
 	for _, hl in ipairs({ "LspInlayHint", "@lsp.type.inlayHint" }) do
-		vim.api.nvim_set_hl(0, hl, { fg = "#39FF14", bg = "#1F3D14", bold = true })
+		vim.api.nvim_set_hl(0, hl, {
+			fg = "#FF5A00",
+			bg = "#331000",
+			bold = true,
+		})
 	end
 end
 
