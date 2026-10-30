@@ -41,7 +41,7 @@
 
 ;; (testing) Injection: JSON / very unstable!!
 (keyed_element
-    key: (literal_element) @identifier (#match? @identifier "OutJson|outJson|expectedJson|ExpectedJson|InJson|inJson|json|JSON")
+    key: (literal_element) @identifier (#match? @identifier "OutJson|outJson|expectedJson|ExpectedJson|InJson|inJson|json|JSON|rawValue")
         value: (literal_element
         (call_expression
             arguments: (argument_list
@@ -61,7 +61,7 @@
 ) 
 
 (keyed_element
-    key: (literal_element) @identifier (#match? @identifier "OutJson|outJson|expectedJson|ExpectedJson|InJson|inJson|json|JSON")
+    key: (literal_element) @identifier (#match? @identifier "OutJson|outJson|expectedJson|ExpectedJson|InJson|inJson|json|JSON|rawValue")
     value: (literal_element
         [
             (raw_string_literal
@@ -78,7 +78,7 @@
 
 (short_var_declaration
     left: (expression_list
-        (identifier) @identifier (#match? @identifier "OutJson|outJson|expectedJson|ExpectedJson|InJson|inJson|json|JSON")
+        (identifier) @identifier (#match? @identifier "OutJson|outJson|expectedJson|ExpectedJson|InJson|inJson|json|JSON|rawValue")
     )
     right: (expression_list
         [
