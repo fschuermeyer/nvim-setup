@@ -325,5 +325,17 @@ return {
 				},
 			},
 		})
+
+		vim.lsp.config("clangd", {
+			capabilities = capabilities,
+			on_attach = on_attach,
+			cmd = {
+				"clangd",
+				"--background-index",
+				"--clang-tidy",
+				"--header-insertion=iwyu",
+				"--completion-style=detailed",
+			},
+		})
 	end,
 }

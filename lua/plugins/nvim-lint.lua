@@ -4,6 +4,7 @@ return {
 		events = { "BufWritePost", "BufReadPost", "InsertLeave", "FileReadPost" },
 		linters_by_ft = {
 			sql = { "sqlfluff" },
+			c = { "clangtidy" },
 		},
 		linters = {
 			sqlfluff = {
@@ -16,12 +17,19 @@ return {
 					"-",
 				},
 			},
+			clangtidy = {
+				args = {
+					"--quiet",
+					"--checks=-*,clang-analyzer-*",
+				},
+			},
 		},
 	},
 	config = function(_, opts)
 		local lint = require("lint")
 		lint.linters_by_ft = opts.linters_by_ft
 		lint.linters.sqlfluff.args = opts.linters.sqlfluff.args
+		lint.linters.clangtidy.args = opts.linters.clangtidy.args
 
 		vim.api.nvim_create_autocmd(opts.events, {
 			callback = function()
