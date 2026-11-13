@@ -75,6 +75,13 @@ return {
 			end,
 		})
 
+		local enable_inlay_hints = function(bufnr)
+			-- Enable inlay hints
+			if vim.api.nvim_buf_is_valid(bufnr) and vim.bo[bufnr].buftype == "" then
+				vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
+			end
+		end
+
 		local on_attach = function(client, bufnr)
 			-- Format on Save
 			if client.server_capabilities.documentFormattingProvider then
@@ -96,15 +103,14 @@ return {
 				})
 			end
 
-			-- Enable inlay hints
-			if vim.api.nvim_buf_is_valid(bufnr) and vim.bo[bufnr].buftype == "" then
-				vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-			end
+			enable_inlay_hints(bufnr)
 		end
 
-		local on_attach_disable_formatting = function(client, _)
+		local on_attach_disable_formatting = function(client, bufnr)
 			client.server_capabilities.documentFormattingProvider = false
 			client.server_capabilities.documentRangeFormattingProvider = false
+
+			enable_inlay_hints(bufnr)
 		end
 
 		local on_attach_format_stylelint = function(client, bufnr)
@@ -328,7 +334,7 @@ return {
 
 		vim.lsp.config("clangd", {
 			capabilities = capabilities,
-			on_attach = on_attach,
+			on_attach = on_attach_disable_formatting,
 			cmd = {
 				"clangd",
 				"--background-index",

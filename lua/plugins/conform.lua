@@ -14,9 +14,16 @@ return {
 				prepend_args = { "--config", vim.fn.expand("~/.config/nvim/lua/plugins/rules/tex-fmt.toml") },
 			},
 			["clang-format"] = {
-				prepend_args = {
-					"--style=file:" .. vim.fn.expand("~/.config/nvim/lua/plugins/rules/.clang-format"),
-				},
+				prepend_args = function(_, ctx)
+					local found =
+						vim.fs.find({ ".clang-format", "_clang-format" }, { path = ctx.dirname, upward = true })[1]
+
+					if found then
+						return { "--style=file" }
+					end
+
+					return { "--style=file:" .. vim.fn.expand("~/.config/nvim/lua/plugins/rules/.clang-format") }
+				end,
 			},
 		},
 		format_on_save = function(bufnr)
