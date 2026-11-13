@@ -32,10 +32,10 @@ return {
 		lint.linters.clangtidy.args = opts.linters.clangtidy.args
 
 		vim.api.nvim_create_autocmd(opts.events, {
-			callback = function()
+			callback = function(args)
 				if vim.bo.filetype == "sql" then
 					lint.try_lint("sqlfluff")
-				else
+				elseif args.event ~= "InsertLeave" then
 					lint.try_lint()
 				end
 			end,
