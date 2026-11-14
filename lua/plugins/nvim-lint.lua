@@ -31,6 +31,17 @@ return {
 		lint.linters.sqlfluff.args = opts.linters.sqlfluff.args
 		lint.linters.clangtidy.args = opts.linters.clangtidy.args
 
+		local function drop_compiler_errors(linter)
+			return require("lint.util").wrap(linter, function(d)
+				if (d.code or ""):find("^clang%-diagnostic%-") then
+					return nil
+				end
+				return d
+			end)
+		end
+
+		lint.linters.clangtidy = drop_compiler_errors(lint.linters.clangtidy)
+
 		vim.api.nvim_create_autocmd(opts.events, {
 			callback = function(args)
 				if vim.bo.filetype == "sql" then

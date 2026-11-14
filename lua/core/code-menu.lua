@@ -6,11 +6,13 @@
 --------------------------------------------------------------------------------
 
 ---@class CodeMenuEntry
----@field tag string
----@field hl string
+---@field tag string?
+---@field hl string?
 ---@field title string
 ---@field desc string
 ---@field source string?
+---@field lang string?
+---@field lang_hl string?
 ---@field action fun()
 
 local M = {}
@@ -23,7 +25,6 @@ local set_hl = vim.api.nvim_set_hl
 -- Highlight groups
 set_hl(0, "CodeMenuAction", { fg = "#7aa2f7", bold = true })
 set_hl(0, "CodeMenuLens", { fg = "#e0af68", bold = true })
-set_hl(0, "CodeMenuTask", { fg = "#9ece6a", bold = true })
 set_hl(0, "CodeMenuTaskLocal", { fg = "#ff007c", bold = true })
 set_hl(0, "CodeMenuTaskWork", { fg = "#ff9e64", bold = true })
 set_hl(0, "CodeMenuTaskGlobal", { fg = "#7dcfff", bold = true })
@@ -38,7 +39,14 @@ set_hl(0, "CodeMenuLangDev", { fg = "#e0af68", bold = true })
 set_hl(0, "CodeMenuLangDefault", { fg = "#bb9af7", bold = true })
 
 ---@param entries CodeMenuEntry[]
----@param entry CodeMenuEntry
+---@param tag string?
+---@param hl string?
+---@param title string
+---@param desc string?
+---@param action fun()
+---@param source string?
+---@param lang string?
+---@param lang_hl string?
 local function add(entries, tag, hl, title, desc, action, source, lang, lang_hl)
 	entries[#entries + 1] = {
 		tag = tag,
@@ -52,42 +60,116 @@ local function add(entries, tag, hl, title, desc, action, source, lang, lang_hl)
 	}
 end
 
+-- Action execution ----------------------------------------------------------
+
+---@param action lsp.CodeAction|lsp.Command
+---@param client_id integer
+---@param bufnr integer
+---@param code_action_params table
+local function apply_action(action, client_id, bufnr, code_action_params)
+	local client = vim.lsp.get_client_by_id(client_id)
+	if not client then
+		return
+	end
+
+	local function execute(a)
+		if a.edit then
+			vim.lsp.util.apply_workspace_edit(a.edit, client.offset_encoding)
+		end
+		if a.command then
+			local cmd = type(a.command) == "table" and a.command or a
+			-- Pass code action params in context - required for refactoring commands
+			client:exec_cmd(cmd, { bufnr = bufnr, params = code_action_params })
+		end
+	end
+
+	-- Plain Command (not a CodeAction): nothing to resolve
+	if type(action.title) == "string" and type(action.command) == "string" then
+		execute(action)
+		return
+	end
+
+	if action.disabled then
+		vim.notify(action.disabled.reason, vim.log.levels.ERROR)
+		return
+	end
+
+	-- Resolve unless the action is already complete, like vim.lsp.buf.code_action does
+	if not (action.edit and action.command) and client:supports_method("codeAction/resolve") then
+		client:request("codeAction/resolve", action, function(err, resolved)
+			if err then
+				-- Fall back to the unresolved action if it can do something on its own
+				if action.edit or action.command then
+					execute(action)
+				else
+					vim.notify("Code action resolve failed: " .. tostring(err.message), vim.log.levels.ERROR)
+				end
+				return
+			end
+			execute(resolved)
+		end, bufnr)
+	else
+		execute(action)
+	end
+end
+
 -- Collectors ----------------------------------------------------------------
 
+--- Returns the original LSP diagnostics on a line (skips non-LSP sources like nvim-lint).
 ---@param bufnr integer
----@param pos {[1]: integer, [2]: integer} -- {row, col}
+---@param row integer
+---@return lsp.Diagnostic[]
+local function lsp_diagnostics_at(bufnr, row)
+	local result = {}
+	for _, d in ipairs(vim.diagnostic.get(bufnr, { lnum = row })) do
+		-- nvim-lint also sets user_data.lsp, but without a range
+		local lsp_diag = d.user_data and d.user_data.lsp
+		if lsp_diag and lsp_diag.range then
+			result[#result + 1] = lsp_diag
+		end
+	end
+	return result
+end
+
+---@param bufnr integer
+---@param row integer
 ---@param entries CodeMenuEntry[]
 ---@param cb fun()
-local function collect_code_actions(bufnr, pos, entries, cb)
+local function collect_code_actions(bufnr, row, entries, cb)
 	local clients = get_clients({ bufnr = bufnr, method = "textDocument/codeAction" })
 	if #clients == 0 then
 		cb()
 		return
 	end
 
-	local row, col = pos[1], pos[2]
+	local diagnostics = lsp_diagnostics_at(bufnr, row)
 
-	-- Build params exactly like vim.lsp.buf.code_action does
-	local params = {
-		textDocument = vim.lsp.util.make_text_document_params(bufnr),
-		range = {
-			start = { line = row, character = col },
-			["end"] = { line = row, character = col },
-		},
-		context = {
-			diagnostics = vim.diagnostic.get(bufnr, { lnum = row }),
+	-- Build params per client like vim.lsp.buf.code_action does
+	-- (cursor column is a byte offset, LSP expects the client's offset encoding)
+	local params_by_client = {}
+	local function make_params(client)
+		local params = vim.lsp.util.make_range_params(0, client.offset_encoding)
+		params.context = {
+			diagnostics = diagnostics,
 			triggerKind = vim.lsp.protocol.CodeActionTriggerKind.Invoked,
-		},
-	}
+		}
+		params_by_client[client.id] = params
+		return params
+	end
 
-	vim.lsp.buf_request_all(bufnr, "textDocument/codeAction", params, function(results)
+	vim.lsp.buf_request_all(bufnr, "textDocument/codeAction", make_params, function(results)
 		for client_id, result in pairs(results) do
 			if result.result then
 				local client = vim.lsp.get_client_by_id(client_id)
 				local name = client and client.name or "lsp"
+				local params = params_by_client[client_id]
 				for _, action in ipairs(result.result) do
-					add(entries, "Action", "CodeMenuAction", action.title or "untitled", action.kind, function()
-						M._apply_action(action, client_id, bufnr, params)
+					local title = action.title or "untitled"
+					if action.disabled then
+						title = title .. " (disabled)"
+					end
+					add(entries, "Action", "CodeMenuAction", title, action.kind, function()
+						apply_action(action, client_id, bufnr, params)
 					end, name)
 				end
 			end
@@ -100,13 +182,14 @@ end
 ---@param row integer
 ---@param entries CodeMenuEntry[]
 local function collect_codelens(bufnr, row, entries)
-	local lenses = vim.lsp.codelens.get(bufnr) or {}
-	for _, lens in ipairs(lenses) do
+	for _, item in ipairs(vim.lsp.codelens.get({ bufnr = bufnr })) do
+		local lens = item.lens
 		if lens.range and lens.range.start.line == row and lens.command then
 			local title = lens.command.title or ""
 			if not title:match("^0 references$") then
 				add(entries, "Lens", "CodeMenuLens", title, lens.command.command, function()
-					local client = get_clients({ bufnr = bufnr, method = "textDocument/codeLens" })[1]
+					-- Execute via the client that produced the lens
+					local client = vim.lsp.get_client_by_id(item.client_id)
 					if client then
 						client:exec_cmd(lens.command, { bufnr = bufnr })
 					end
@@ -131,8 +214,9 @@ local function collect_tasks(entries, cb)
 
 	require("overseer.template").list({ dir = cwd }, function(templates)
 		for _, tmpl in ipairs(templates) do
-			local task_name = tmpl.name:gsub("^%[%w+%]%s*", ""):gsub("^task%s+", "")
-			if not tf.check_preconditions(task_name, cwd) then
+			-- Strip scope and runner prefixes: "[Global] task go:build" -> "go:build"
+			local display = tmpl.name:gsub("^%[%w+%]%s*", ""):gsub("^task%s+", ""):gsub("^make%s+", "")
+			if not tf.check_preconditions(display, cwd) then
 				goto continue
 			end
 			local tag, hl
@@ -147,7 +231,6 @@ local function collect_tasks(entries, cb)
 			else
 				tag, hl = "Local", "CodeMenuTaskLocal"
 			end
-			local display = tmpl.name:gsub("^%[%w+%]%s*", ""):gsub("^task%s+", ""):gsub("^make%s+", "")
 			local label, rest, prefix = tf.lang_label(display)
 			local lang, lang_hl
 			if label then
@@ -170,45 +253,29 @@ local function collect_tasks(entries, cb)
 	end)
 end
 
--- Action execution ----------------------------------------------------------
-
----@param action table
----@param client_id integer
----@param bufnr integer
----@param code_action_params table
-function M._apply_action(action, client_id, bufnr, code_action_params)
-	local client = vim.lsp.get_client_by_id(client_id)
-	if not client then
-		return
-	end
-
-	local function execute(a)
-		if a.edit then
-			vim.lsp.util.apply_workspace_edit(a.edit, client.offset_encoding or "utf-16")
-		end
-		if a.command then
-			local cmd = type(a.command) == "table" and a.command or a
-			-- Pass code action params in context - required for refactoring commands
-			client:exec_cmd(cmd, { bufnr = bufnr, params = code_action_params })
-		end
-	end
-
-	if action.edit == nil and action.command == nil and client:supports_method("codeAction/resolve") then
-		client:request("codeAction/resolve", action, function(err, resolved)
-			if err then
-				vim.notify("Code action resolve failed: " .. tostring(err.message), vim.log.levels.ERROR)
-				return
-			end
-			execute(resolved)
-		end, bufnr)
-	else
-		execute(action)
-	end
-end
-
 -- Picker UI -----------------------------------------------------------------
 
----@param entries CodeMenuEntry[]
+--- Plain-text label, used for fuzzy matching and the vim.ui.select fallback.
+---@param entry CodeMenuEntry
+---@return string
+local function entry_label(entry)
+	local label = entry.tag and ("[" .. entry.tag .. "] ") or ""
+	if entry.source then
+		label = label .. "[" .. entry.source .. "] "
+	end
+	if entry.lang then
+		label = label .. "[" .. entry.lang .. "] "
+	end
+	label = label .. entry.title
+	if entry.desc ~= "" then
+		label = label .. "  (" .. entry.desc .. ")"
+	end
+	return label
+end
+
+--- Highlighted label chunks for snacks.picker.
+---@param entry CodeMenuEntry
+---@return {[1]: string, [2]: string?}[]
 local function format_entry(entry)
 	local parts = {}
 	if entry.tag then
@@ -238,9 +305,7 @@ local function show_picker(entries)
 	if ok and snacks.picker then
 		local items = {}
 		for i, entry in ipairs(entries) do
-			local title = entry.lang and ("[" .. entry.lang .. "] " .. entry.title) or entry.title
-			local text = entry.desc ~= "" and (title .. "  (" .. entry.desc .. ")") or title
-			items[i] = { idx = i, text = text, entry = entry }
+			items[i] = { idx = i, text = entry_label(entry), entry = entry }
 		end
 
 		snacks.picker({
@@ -259,22 +324,10 @@ local function show_picker(entries)
 			end,
 		})
 	else
-		local labels, map = {}, {}
-		for _, entry in ipairs(entries) do
-			local label = entry.tag and ("[" .. entry.tag .. "] ") or ""
-			if entry.lang then
-				label = label .. "[" .. entry.lang .. "] "
-			end
-			label = label .. entry.title
-			if entry.desc ~= "" then
-				label = label .. "  (" .. entry.desc .. ")"
-			end
-			labels[#labels + 1] = label
-			map[label] = entry.action
-		end
-		vim.ui.select(labels, { prompt = "Code Menu" }, function(choice)
-			if choice and map[choice] then
-				map[choice]()
+		-- Select entries directly (not labels) so identical titles can't collide
+		vim.ui.select(entries, { prompt = "Code Menu", format_item = entry_label }, function(entry)
+			if entry then
+				entry.action()
 			end
 		end)
 	end
@@ -285,12 +338,11 @@ end
 function M.open()
 	local entries = {}
 	local bufnr = get_buf()
-	local cursor = get_cursor(0)
-	local pos = { cursor[1] - 1, cursor[2] }
+	local row = get_cursor(0)[1] - 1
 
-	collect_codelens(bufnr, pos[1], entries)
+	collect_codelens(bufnr, row, entries)
 
-	collect_code_actions(bufnr, pos, entries, function()
+	collect_code_actions(bufnr, row, entries, function()
 		collect_tasks(entries, function()
 			show_picker(entries)
 		end)
