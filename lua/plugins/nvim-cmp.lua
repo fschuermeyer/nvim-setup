@@ -62,9 +62,7 @@ return {
 			ls.jump(-1)
 		end, { silent = true })
 
-		-- loads vscode style snippets from installed plugins (e.g. friendly-snippets)
 		require("luasnip.loaders.from_vscode").lazy_load()
-
 		require("luasnip.loaders.from_vscode").lazy_load({ paths = { "./snippets/" } })
 
 		cmp.setup({
@@ -72,10 +70,16 @@ return {
 				if not cmp_enable then
 					return false
 				end
-				local ft = vim.bo.filetype
-				if ft == "snacks_picker_input" or ft:match("^snacks_") then
+
+				if vim.bo.buftype == "prompt" then
 					return false
 				end
+
+				local ft = vim.bo.filetype
+				if ft == "neo-tree-popup" or ft:match("^snacks_") then
+					return false
+				end
+
 				return true
 			end,
 			window = {
