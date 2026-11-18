@@ -29,7 +29,6 @@ return {
 			ensure_installed = {
 				"angularls",
 				"bashls", -- Bash language support
-				"clangd", -- C/Cpp language support
 				"cssls", -- CSS language support
 				"css_variables", -- CSS Variables support
 				"docker_compose_language_service", -- Docker Compose language support

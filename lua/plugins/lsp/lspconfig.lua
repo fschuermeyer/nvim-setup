@@ -343,5 +343,6 @@ return {
 				"--completion-style=detailed",
 			},
 		})
+		vim.lsp.enable("clangd")
 	end,
 }
