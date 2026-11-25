@@ -38,10 +38,6 @@ setKey("n", "<C-u>", "<C-u>zz<CR>", { desc = "Center after Scroll" })
 
 setKey("n", "<leader>us", "<cmd>nohlsearch<CR>", { desc = "Clear Search Highlights" })
 
--- Disable Copilot
-setKey("n", "<leader>ay", "<cmd>Copilot disable<CR>", { desc = "Copilot Disable" })
-setKey("n", "<leader>aY", "<cmd>Copilot enable<CR>", { desc = "Copilot Enable" })
-
 -- Next/Prev Diagnostic
 setKey("n", "gj", "<cmd>lua vim.diagnostic.goto_next()<CR>", { desc = "Next Diagnostic" })
 setKey("n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<CR>", { desc = "Prev Diagnostic" })

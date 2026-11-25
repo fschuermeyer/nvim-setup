@@ -15,23 +15,6 @@ return {
 		"rafamadriz/friendly-snippets", -- useful snippets
 		"onsails/lspkind.nvim", -- vs-code like pictograms
 		"kristijanhusak/vim-dadbod-completion", -- completion for vim-dadbod-ui
-		{
-			"zbirenbaum/copilot-cmp",
-			opts = {},
-			config = function(_, opts)
-				local copilot_cmp = require("copilot_cmp")
-				copilot_cmp.setup(opts)
-
-				local lspkind = require("lspkind")
-				lspkind.init({
-					symbol_map = {
-						Copilot = "",
-					},
-				})
-
-				vim.api.nvim_set_hl(0, "CmpItemKindCopilot", { fg = "#CA2222" })
-			end,
-		},
 	},
 	config = function()
 		local cmp = require("cmp")
@@ -108,7 +91,6 @@ return {
 			}),
 			-- sources for autocompletion
 			sources = cmp.config.sources({
-				{ name = "copilot" },
 				{ name = "vim-dadbod-completion" }, -- completion for vim-dadbod-ui
 				{ name = "luasnip" }, -- snippets
 				{ name = "nvim_lsp" },
