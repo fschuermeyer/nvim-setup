@@ -76,7 +76,6 @@ return {
 				"taplo", -- TOML language server
 				"markdown-toc", -- Markdown TOC generator
 				"shellcheck", -- Shell script analysis
-				"shfmt", -- Shell script formatter
 				"js-debug-adapter", -- JavaScript debug adapter
 				"tflint", -- Terraform linter
 				"google-java-format", -- Java Formatter
